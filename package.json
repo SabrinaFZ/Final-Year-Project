@@ -3,10 +3,14 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"start": "NODE_ENV=production node ./app/app.js start start",
 		"test": "jest"
 	},
 	"dependencies": {
+		"body-parser": "^1.18.2",
+		"express": "^4.15.4",
+		"pg": "^7.3.0",
+		"pg-promise": "^6.9.0",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4"
 	},
