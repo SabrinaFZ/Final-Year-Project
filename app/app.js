@@ -20,4 +20,4 @@ const app = Server.app()
 // }
 
 app.listen(port)
-console.log(`Listening at http://10.0.2.2:${port}`)
+console.log(`Listening at http://localhost:${port}`)

@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "NODE_ENV=production node ./app/app.js start",
-		"test": "jest"
+		"test": "jest",
+    "dev": "NODE_ENV=development node ./app/app.js dev"
 	},
 	"dependencies": {
 		"body-parser": "^1.18.2",
