@@ -3,9 +3,9 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "NODE_ENV=production node ./app/app.js start",
+		"start": "NODE_ENV=production node ./src/js/app/app.js start",
 		"test": "jest",
-    "dev": "NODE_ENV=development node ./app/app.js dev"
+		"dev": "NODE_ENV=development node ./src/js/app/app.js dev"
 	},
 	"dependencies": {
 		"body-parser": "^1.18.2",
@@ -13,7 +13,9 @@
 		"pg": "^7.3.0",
 		"pg-promise": "^6.9.0",
 		"react": "16.0.0-alpha.12",
-		"react-native": "0.48.4"
+		"react-native": "0.48.4",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2"
 	},
 	"devDependencies": {
 		"babel-jest": "21.0.2",
