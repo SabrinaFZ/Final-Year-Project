@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import welcomeStyles from '../../../../styles/Welcome'
+import Container from '../Container';
 
 import {
   StyleSheet,
@@ -15,9 +16,9 @@ class Welcome extends Component {
 
   render(){
     return(
-      <View style={welcomeStyles.container}>
+      <Container>
         <Text style={welcomeStyles.welcome}> Welcome ! </Text>
-      </View>
+      </Container>
     )
   }
 }
