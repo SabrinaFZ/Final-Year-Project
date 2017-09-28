@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import welcomeStyles from '../../../../styles/Welcome'
 
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 
@@ -16,6 +16,9 @@ class Welcome extends Component {
   render(){
     return(
       <View style={welcomeStyles.container}>
+        {/* <Image
+          source={require('../../../../images/train_icon.svg')}
+        /> */}
         <Text style={welcomeStyles.welcome}> Welcome ! </Text>
       </View>
     )
@@ -24,17 +27,17 @@ class Welcome extends Component {
 
 const welcomeStyles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF',
-    padding: 10,
   },
   welcome: {
     fontSize: 40,
-    fontWeight: '300',
+    fontWeight: '500',
     textAlign: 'center',
     margin: 10,
-    color: '#000'
+    color: '#2E2E2E',
+    fontFamily: 'Cochin',
   },
 });
 
