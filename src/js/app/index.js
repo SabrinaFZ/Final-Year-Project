@@ -1,46 +1,21 @@
-//Aquí sera la App principal
+'use strict'
+// React
+import React from 'react'
+import { AppRegistry } from 'react-native'
+// Redux
+import { Provider } from 'react-redux'
+import store from './store'
+// Navigation
+import HeaderNavigation from './components/Header/'
 
-import React, {Component} from 'react'
-import Welcome from './components/Welcome'
-import Header from './components/Header'
-import { StackNavigator } from 'react-navigation';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-// class App extends Component{
-//   render(){
-//     return(
-//       <View style={appStyles.container}>
-//         <Header/>
-//         <View>
-//           <Welcome/>
-//         </View>
-//
-//       </View>
-//     )
-//   }
-// }
-
-const App = StackNavigator({
-    Main: {
-      screen: Welcome,
-      navigationOptions:({navigation}) => ({
-            title: "Main",
-      })
-    },
-});
-
-
-const appStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  },
-});
+class App extends React.Component {
+  render(){
+    return(
+      <Provider store={store}>
+        <HeaderNavigation />
+      </Provider>
+    )
+  }
+}
 
 export default App

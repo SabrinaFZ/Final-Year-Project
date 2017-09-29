@@ -1,46 +1,27 @@
-import React, { Component } from 'react';
-
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native';
-
-
-class Welcome extends Component {
-  constructor(){
-    super()
-  }
-
+'use strict'
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+export default class Welcome extends React.Component {
   render(){
     return(
-      <View style={welcomeStyles.container}>
-        {/* <Image
-          source={require('../../../../images/train_icon.svg')}
-        /> */}
-        <Text style={welcomeStyles.welcome}> Welcome ! </Text>
+      <View style={{
+        flex:1,
+        backgroundColor:'red',
+        alignItems:'center',
+        justifyContent:'center'
+      }}>
+        <Text>{ 'Tab One Screen One' }</Text>
+        <TouchableOpacity
+          onPress={ () => this.props.navigation.navigate('TabOneScreenTwo') }
+          style={{
+            padding:20,
+            borderRadius:20,
+            backgroundColor:'yellow',
+            marginTop:20
+          }}>
+          <Text>{'Go to next screen this tab'}</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
-
-const welcomeStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  welcome: {
-    fontSize: 40,
-    fontWeight: '500',
-    textAlign: 'center',
-    margin: 10,
-    color: '#2E2E2E',
-    fontFamily: 'Cochin',
-  },
-});
-
-
-
-export default Welcome
