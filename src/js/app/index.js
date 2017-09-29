@@ -3,25 +3,35 @@
 import React, {Component} from 'react'
 import Welcome from './components/Welcome'
 import Header from './components/Header'
+import { StackNavigator } from 'react-navigation';
 import {
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-class App extends Component{
+// class App extends Component{
+//   render(){
+//     return(
+//       <View style={appStyles.container}>
+//         <Header/>
+//         <View>
+//           <Welcome/>
+//         </View>
+//
+//       </View>
+//     )
+//   }
+// }
 
-  render(){
-    return(
-      <View style={appStyles.container}>
-        <Header/>
-        <View>
-          <Welcome/>
-        </View>
-      </View>
-    )
-  }
-}
+const App = StackNavigator({
+    Main: {
+      screen: Welcome,
+      navigationOptions:({navigation}) => ({
+            title: "Main",
+      })
+    },
+});
 
 
 const appStyles = StyleSheet.create({
