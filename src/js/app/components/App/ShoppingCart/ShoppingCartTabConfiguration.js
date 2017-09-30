@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 
 class ShoppingCartNavigation extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Tab Two',
+    tabBarLabel: 'Shopping Cart',
     //tabBarIcon: ({ tintColor }) => <Icon size={ 20 } name={ 'cogs' } color={ tintColor }/>
   }
 

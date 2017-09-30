@@ -1,11 +1,11 @@
 import { TabNavigator } from 'react-navigation'
 // Tab-Navigators
-import WelcomeTabConfiguration from '../Welcome/WelcomeTabConfiguration'
-import ShoppingCartTabConfiguration from '../App/ShoppingCart/ShoppingCartTabConfiguration'
+import WelcomeNavigation from '../../Welcome/WelcomeTabConfiguration'
+import ShoppingCartNavigation from '../../App/ShoppingCart/ShoppingCartTabConfiguration'
 
 const routeConfiguration = {
-  TabWelcomeNavigation: { screen: WelcomeTabConfiguration },
-  TabShoppingCartNavigation: { screen : ShoppingCartTabConfiguration}
+  TabWelcomeNavigation: { screen: WelcomeNavigation },
+  TabShoppingCartNavigation: { screen : ShoppingCartNavigation},
 }
 const tabBarConfiguration = {
   //...other configs
@@ -16,6 +16,11 @@ tabBarOptions:{
 // background color is for the tab component
     activeBackgroundColor: 'blue',
     inactiveBackgroundColor: 'white',
+    indicatorStyle: {
+      backgroundColor: 'white',
+    },
+    swipeEnabled: false,
+    animationEnabled: false,
   }
 }
 

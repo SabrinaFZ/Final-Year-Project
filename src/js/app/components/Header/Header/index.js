@@ -5,23 +5,23 @@ import React from 'react'
 
 // Navigation
 import { addNavigationHelpers } from 'react-navigation'
-import { NavigatorRouter } from './navigationConfiguration'
+import { Header } from './headerConfiguration'
 
 //Redux
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
  return {
-  navigationState: state.tabMain,
+  navigationState: state.tabBar,
   }
 }
 
-class AppNavigation extends React.Component {
+class HeaderNavigation extends React.Component {
 
   render(){
     const { dispatch, navigationState } = this.props
     return (
-      <NavigatorRouter
+      <Header
         navigation={
           addNavigationHelpers({
             dispatch: dispatch,
@@ -33,4 +33,4 @@ class AppNavigation extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(AppNavigation)
+export default connect(mapStateToProps)(HeaderNavigation)

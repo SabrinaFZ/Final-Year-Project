@@ -6,13 +6,17 @@ import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import store from './store'
 // Navigation
-import HeaderNavigation from './components/Header/'
+// import HeaderNavigation from './components/Header/'
+// import UserHeaderNavigation from './components/Header/UserHeader'
+
+import AppNavigation from './components/Header'
+import WelcomeNavigation from './components/Welcome'
 
 class App extends React.Component {
   render(){
     return(
       <Provider store={store}>
-        <HeaderNavigation />
+        <WelcomeNavigation />
       </Provider>
     )
   }

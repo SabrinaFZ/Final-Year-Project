@@ -6,17 +6,17 @@ export default class Welcome extends React.Component {
     return(
       <View style={{
         flex:1,
-        backgroundColor:'red',
+        backgroundColor:'white',
         alignItems:'center',
         justifyContent:'center'
       }}>
-        <Text>{ 'Tab One Screen One' }</Text>
+        <Text>{ 'Welcome' }</Text>
         <TouchableOpacity
-          onPress={ () => this.props.navigation.navigate('TabOneScreenTwo') }
+          onPress={ () => this.props.navigation.navigate('Menu') }
           style={{
             padding:20,
             borderRadius:20,
-            backgroundColor:'yellow',
+            backgroundColor:'blue',
             marginTop:20
           }}>
           <Text>{'Go to next screen this tab'}</Text>

@@ -5,7 +5,7 @@ import React from 'react'
 
 // Navigation
 import { addNavigationHelpers } from 'react-navigation'
-import { NavigatorWelcome } from './welcomeNavigatorConfiguration'
+import { NavigatorSettings } from './settingsNavigatorConfiguration'
 
 // Redux
 import { connect } from 'react-redux'
@@ -16,20 +16,20 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
  return {
-  navigationState: state.tabOne
+  navigationState: state.tabSettings
   }
 }
 
-class WelcomeNavigation extends React.Component {
+class SettingsNavigation extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Home',
+    tabBarLabel: 'Settings',
     //tabBarIcon: ({ tintColor }) => <Icon size={ 20 } name={ 'cogs' } color={ tintColor }/>
   }
 
   render(){
     const { navigationState, dispatch } = this.props
     return (
-      <NavigatorWelcome
+      <NavigatorSettings
         navigation={
           addNavigationHelpers({
             dispatch: dispatch,
@@ -40,4 +40,4 @@ class WelcomeNavigation extends React.Component {
     )
   }
 }
-export default connect(mapStateToProps)(WelcomeNavigation)
+export default connect(mapStateToProps)(SettingsNavigation)
