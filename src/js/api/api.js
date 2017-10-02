@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const pgp = require("pg-promise")()
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+
 var db = null
 pgp.pg.defaults.ssl = true;
 
@@ -50,20 +53,118 @@ router.post('/users', (req, res, next) =>{
   let email = req.body.email
   console.log(email)
   let password = req.body.password
-  console.log(password)
-  db.none('INSERT INTO users (name, email, password) VALUES (${name}, ${email}, ${password});', req.body)
-  .then(function (obj) {
-     res.status(201)
-       .json({
-         status: 'success',
-         message: 'Success, user created!',
-       });
-     console.log("Success,user created!")
+
+  db.oneOrNone('SELECT * FROM users WHERE email = $1;', [email]).then(function(err, user){
+    if(err){
+      console.log("ERROR:", err);
+      return next(err)
+    }
+    if(!user){
+      var hash = bcrypt.hashSync(password.trim(), 10);
+      var newUser = {
+        email: email.trim(),
+        password: hash,
+        name: name.trim()
+      }
+
+      db.query('INSERT INTO users (email, password, name) VALUES (${email}, ${password}, ${name});', newUser)
+      .then(function (user) {
+        var payload = {
+          id: user.id,
+          user: user.email
+        }
+        var token = jwt.sign(payload, 'shhhhh', {
+          expiresIn: '7d'
+        })
+        res.status(201)
+          .json({
+             status: 'success',
+             token: token,
+          })
+      })
+      .catch(function (error) {
+        next(error)
+        console.log("ERROR:", error);
+      })
+      // return bcrypt.genSalt(10).then(function(salt) {
+      //   console.log('bcrypt')
+      //   return bcrypt.hash(password.trim(), salt);
+      // })//bcrypt
+      // .then(function(hashedPassword) {
+      //   console.log('hashedPassword')
+      //   var newUser = {
+      //     email: email.trim(),
+      //     password: hashedPassword,
+      //     name: name.trim()
+      //   }
+      //   db.none('INSERT INTO users (email, password, name) VALUES (${email}, ${password}, ${name});', newUser)
+      //   .then(function (obj) {
+      //     var payload = {
+      //       sub: user.id,
+      //       user: user.username
+      //     }
+      //     var token = jwt.sign(payload, 'shhhhh', {
+      //       expiresIn: '7d'
+      //     })
+      //     res.status(201)
+      //     .json({
+      //        status: 'success',
+      //        token: token,
+      //     })
+      //     console.log("Success,user created!")
+      //   })
+      //   .catch(function (error) {
+      //     next(error)
+      //     console.log("ERROR:", error);
+      //   })
+      // })//hashedPassword
+    }//if
+    else{
+      var error = new Error('This email is already registered');
+      error.name = 'IncorrectRegisterUser';
+      return next(error)
+    }
+  }) //Db
+}) //end
+
+router.post('/login', (req, res, next) => {
+  let email = req.body.email
+  let password = req.body.password
+    db.oneOrNone('SELECT * FROM users WHERE email = $1;', [email]).then(function (user){
+      if(!user){
+        var error = new Error('Incorrect username or password');
+        error.name = 'IncorrectCredentialsError';
+        return next(error)
+      }
+      bcrypt.compare(password, user.password).then(function(data){
+        if(!data){
+          var error = new Error('Incorrect username or password');
+          error.name = 'IncorrectCredentialsError';
+          return next(error)
+        }
+        let payload = {
+          sub: user.id,
+          user: user.username
+        }
+
+        let token = jwt.sign(payload, 'shhhhh', {
+          expiresIn: '7d'
+        })
+
+        res.status(200)
+          .json({
+            status: 'success',
+            token: token,
+          });
+        console.log("Success, release connection!")
+        //return done(null, token);
+      })
+    })
+    .catch(function (error){
+      next(error)
   })
-  .catch(function (error) {
-    next(error)
-    console.log("ERROR:", error);
-  })
+
+
 
 })
 
