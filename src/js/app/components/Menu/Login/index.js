@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import { BackHandler, AsyncStorage, View, TextInput, TouchableOpacity, Text} from 'react-native'
+import { KeyboardAvoidingView, BackHandler, AsyncStorage, View, TextInput, TouchableOpacity, Text} from 'react-native'
 import { Button, Icon } from 'react-native-elements'
 
 import common from '../../../../../styles'
@@ -95,7 +95,7 @@ export default class Login extends React.Component {
 
   render(){
     return(
-      <View style={common.containerForm}>
+      <KeyboardAvoidingView keyboardVerticalOffset={-200} style={common.containerForm}>
         <Text style={common.textBold}>Email</Text>
         <TextInput style={common.input} placeholder='Enter your email' value={this.state.email} onChangeText={(email) => this.setState({email})}/>
 
@@ -111,7 +111,7 @@ export default class Login extends React.Component {
             >
           <Text style={common.textSubmit}>{'Submit'}</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

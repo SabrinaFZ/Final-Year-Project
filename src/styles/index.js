@@ -92,7 +92,8 @@ const common = StyleSheet.create({
     flex:1,
     backgroundColor:'#F2F2F2',
     justifyContent:'center',
-    padding: 40
+    padding: 40,
+    paddingTop: 100
   },
 
   textBold:{
@@ -103,7 +104,7 @@ const common = StyleSheet.create({
 
   submit:{
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 10,
     backgroundColor:'#0174DF',
     width: '100%',
     borderRadius: 5,
@@ -120,7 +121,7 @@ const common = StyleSheet.create({
     width: '100%',
     textAlign: 'left',
     marginBottom: 20,
-    fontSize: 14
+    fontSize: 14,
   },
 
   errorCredentials:{
