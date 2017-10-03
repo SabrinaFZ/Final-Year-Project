@@ -1,7 +1,20 @@
 'use strict'
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { BackHandler, View, Text, TouchableOpacity } from 'react-native'
 export default class YourTickets extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  _BackAndroid=()=>{
+   this.props.navigation.goBack();
+   return false
+  }
+
   render(){
     return(
       <View style={{

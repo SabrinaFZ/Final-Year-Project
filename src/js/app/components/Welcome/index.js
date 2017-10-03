@@ -24,7 +24,7 @@ export default class Welcome extends React.Component {
 
     setTimeout(() => {
       this.props.navigation.navigate('Menu')
-    }, 2000)
+    }, 1000)
   }
 
 

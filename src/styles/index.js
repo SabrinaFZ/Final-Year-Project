@@ -92,8 +92,7 @@ const common = StyleSheet.create({
     flex:1,
     backgroundColor:'#F2F2F2',
     justifyContent:'center',
-    alignItems: 'flex-start',
-    padding: 30
+    padding: 40
   },
 
   textBold:{
@@ -104,16 +103,15 @@ const common = StyleSheet.create({
 
   submit:{
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 30,
     backgroundColor:'#0174DF',
-    width: 200,
+    width: '100%',
     borderRadius: 5,
-
   },
   textSubmit:{
     fontWeight: '300',
     fontSize: 20,
-    padding: 20,
+    padding: 10,
     color: '#F2F2F2',
     textAlign: 'center'
   },
@@ -121,8 +119,16 @@ const common = StyleSheet.create({
   input: {
     width: '100%',
     textAlign: 'left',
-  }
+    marginBottom: 20,
+    fontSize: 14
+  },
 
+  errorCredentials:{
+    alignItems: 'center',
+    fontWeight: '500',
+    fontSize: 20,
+    textAlign: 'center'
+  }
 })
 
 export default common

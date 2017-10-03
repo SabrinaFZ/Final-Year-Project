@@ -1,49 +1,28 @@
 'use strict'
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
 import common from '../../../../styles'
 import { Icon, Button } from 'react-native-elements'
 import BackPageComponent from '../BackComponent'
 
 export default class Menu extends  React.Component {
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  _BackAndroid=()=>{
+   this.props.navigation.goBack();
+   return true
+  }
+  
   render(){
     return(
       <View style={common.menuContainer}>
-        {/* <Button
-          raised
-          onPress={ () => this.props.navigation.navigate('StackApp') }
-          icon={{name: 'shopping-basket', size: 36}}
-          title='Buy Tickets'
-          buttonStyle={common.button}
-          textStyle={common.textButton}
-        />
-
-          <Button
-            raised
-            onPress={ () => this.props.navigation.navigate('YourTickets') }
-            icon={{name: 'ticket', size: 36, type: 'entypo'}}
-            title='Your Tickets'
-            buttonStyle={common.button}
-            textStyle={common.textButton}
-          />
-
-          <Button
-            raised
-            onPress={ () => this.props.navigation.navigate('Login') }
-            icon={{name: 'login', size: 36, type: 'entypo'}}
-            title='Login'
-            buttonStyle={common.button}
-            textStyle={common.textButton}
-          />
-
-          <Button
-            raised
-            onPress={ () => this.props.navigation.navigate('SignUp') }
-            icon={{name: 'create', size: 36}}
-            title='Sign Up'
-            buttonStyle={common.button}
-            textStyle={common.textButton}
-          /> */}
         <TouchableOpacity
           onPress={ () => this.props.navigation.navigate('StackApp')  }
             style = {common.containerMenu1}

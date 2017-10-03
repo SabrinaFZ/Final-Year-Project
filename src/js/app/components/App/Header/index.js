@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, BackHandler } from 'react-native'
 import { Icon } from 'react-native-elements'
 // import { TouchableOpacity } from 'react-native'
 // import { StackNavigator} from 'react-navigation'
@@ -36,6 +36,19 @@ import common from '../../../../../styles'
 import { Header } from 'react-native-elements'
 
 export default class CustomHeader extends Component {
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress',this._BackAndroid.bind(this));
+  }
+
+  _BackAndroid=()=>{
+   this.props.navigation.goBack();
+   return false
+  }
 
   static propTypes = {
     isApp: PropTypes.bool.isRequired,

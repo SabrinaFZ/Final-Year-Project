@@ -28,8 +28,11 @@ router.get('/', (req, res, next) => {
       console.log("Success, release connection!")
    })
    .catch(function (error) {
-      next(error)
-      console.log("ERROR:", error.message);
+     res.status(500)
+       .json({
+          status: 'error',
+          error: error.message,
+       })
    });
 })
 
@@ -42,22 +45,31 @@ router.get('/users', (req, res, next) => {
        res.send(data)
     })
     .catch(function (error) {
-      next(error)
-      console.log("ERROR:", error);
+      res.status(500)
+        .json({
+           status: 'error',
+           error: error.message,
+        })
     })
 })
 
-router.post('/users', (req, res, next) =>{
+router.post('/signup', (req, res, next) =>{
   let name = req.body.name
-  console.log(name)
   let email = req.body.email
-  console.log(email)
   let password = req.body.password
+  let repeatPassword = req.body.repeatPassword
+
+  if(repeatPassword != password) {
+    return res.status(400).send('The password do not match !')
+  }
 
   db.oneOrNone('SELECT * FROM users WHERE email = $1;', [email]).then(function(err, user){
     if(err){
-      console.log("ERROR:", err);
-      return next(err)
+      return res.status(500)
+        .json({
+           status: 'error',
+           error: err,
+        })
     }
     if(!user){
       var hash = bcrypt.hashSync(password.trim(), 10);
@@ -77,52 +89,19 @@ router.post('/users', (req, res, next) =>{
           expiresIn: '7d'
         })
         res.status(201)
-          .json({
-             status: 'success',
+          .send({
              token: token,
           })
       })
       .catch(function (error) {
-        next(error)
-        console.log("ERROR:", error);
+        res.status(500)
+          .send('Internal error !')
       })
-      // return bcrypt.genSalt(10).then(function(salt) {
-      //   console.log('bcrypt')
-      //   return bcrypt.hash(password.trim(), salt);
-      // })//bcrypt
-      // .then(function(hashedPassword) {
-      //   console.log('hashedPassword')
-      //   var newUser = {
-      //     email: email.trim(),
-      //     password: hashedPassword,
-      //     name: name.trim()
-      //   }
-      //   db.none('INSERT INTO users (email, password, name) VALUES (${email}, ${password}, ${name});', newUser)
-      //   .then(function (obj) {
-      //     var payload = {
-      //       sub: user.id,
-      //       user: user.username
-      //     }
-      //     var token = jwt.sign(payload, 'shhhhh', {
-      //       expiresIn: '7d'
-      //     })
-      //     res.status(201)
-      //     .json({
-      //        status: 'success',
-      //        token: token,
-      //     })
-      //     console.log("Success,user created!")
-      //   })
-      //   .catch(function (error) {
-      //     next(error)
-      //     console.log("ERROR:", error);
-      //   })
-      // })//hashedPassword
+
     }//if
     else{
-      var error = new Error('This email is already registered');
-      error.name = 'IncorrectRegisterUser';
-      return next(error)
+      return res.status(400)
+        .send('This email is already registered, try again !')
     }
   }) //Db
 }) //end
@@ -132,15 +111,13 @@ router.post('/login', (req, res, next) => {
   let password = req.body.password
     db.oneOrNone('SELECT * FROM users WHERE email = $1;', [email]).then(function (user){
       if(!user){
-        var error = new Error('Incorrect username or password');
-        error.name = 'IncorrectCredentialsError';
-        return next(error)
+        return res.status(400)
+          .send('Wrong credentials, try again !')
       }
       bcrypt.compare(password, user.password).then(function(data){
         if(!data){
-          var error = new Error('Incorrect username or password');
-          error.name = 'IncorrectCredentialsError';
-          return next(error)
+          return res.status(400)
+            .send('Wrong credentials, try again !')
         }
         let payload = {
           sub: user.id,
@@ -152,8 +129,7 @@ router.post('/login', (req, res, next) => {
         })
 
         res.status(200)
-          .json({
-            status: 'success',
+          .send({
             token: token,
           });
         console.log("Success, release connection!")
@@ -161,7 +137,8 @@ router.post('/login', (req, res, next) => {
       })
     })
     .catch(function (error){
-      next(error)
+      res.status(500)
+        .send('Internal error ')
   })
 
 
