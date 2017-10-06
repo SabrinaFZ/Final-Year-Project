@@ -9,11 +9,11 @@ const common = StyleSheet.create({
   },
   text:{
     fontSize: 48,
-    color: '#2E2E2E'
+    color: '#444e55'
   },
 
   spinner:{
-    color: '#01A9DB',
+    color: '#e9418b',
     marginTop: 50,
   },
 

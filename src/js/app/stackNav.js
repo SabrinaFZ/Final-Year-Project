@@ -2,15 +2,27 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { StackNavigator} from 'react-navigation'
 import Welcome from './components/Welcome';
-import StackMenu from './components/Menu/stackMenu';
-
+//import StackMenu from './components/Menu/stackMenu';
+import StackApp from './components/App/stackApp'
+import CustomHeader from './components/App/Header/'
 
 const routeConfiguration = {
   Welcome: {
-      screen: Welcome,
+    screen: Welcome,
+    navigationOptions: {
+      header: null
+    }
   },
-  Menu: {
-      screen: StackMenu,
+  // App: {
+  //   screen: StackApp,
+  //   navigationOptions: ({ navigation }) => ({
+  //     headerTitle: 'App',
+  //     header: <CustomHeader />,
+  //     headerStyle: {backgroundColor: '#e9418b'}
+  //   })
+  // },
+  CustomHeader:{
+    screen: CustomHeader
   }
 }
 

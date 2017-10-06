@@ -40,7 +40,7 @@ router.get('/users', (req, res, next) => {
     var result;
     db.any('SELECT * FROM users', [true])
     .then(function (data) {
-      result = JSON.stringify(data);
+      //result = JSON.stringify(data);
       console.log("VALUES: "+ result)
        res.send(data)
     })
@@ -140,10 +140,11 @@ router.post('/login', (req, res, next) => {
       res.status(500)
         .send('Internal error ')
   })
-
-
-
 })
+
+// router.get('/jp/journey-plan', (req, res, next) => {
+//
+// })
 
 module.exports = router
 

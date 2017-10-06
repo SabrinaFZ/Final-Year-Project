@@ -60,7 +60,7 @@ export default class Login extends React.Component {
       console.log("ERROR: Can't remove access token")
     }
   }
-
+  
   async handleLogin(){
     console.log("aqui")
     try{

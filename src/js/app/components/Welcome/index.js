@@ -23,7 +23,9 @@ export default class Welcome extends React.Component {
     }, 500)
 
     setTimeout(() => {
-      this.props.navigation.navigate('Menu')
+      //this.props.navigation.navigate('Menu')
+      this.props.navigation.navigate('CustomHeader')
+      //this.props.navigation.navigate('App')
     }, 1000)
   }
 
@@ -32,7 +34,7 @@ export default class Welcome extends React.Component {
   render(){
     return(
       <View style={common.container}>
-        <Text style={common.text}>{ 'Welcome' }</Text>
+        <Text style={common.text}>{ 'Loading...' }</Text>
         <Spinner style={common.spinner} type='Circle' isVisible={this.state.isVisible} size={this.state.size} />
       </View>
     )
