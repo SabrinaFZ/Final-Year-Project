@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react'
 import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
+import welcome from '../../../../styles/Welcome'
 import common from '../../../../styles'
 import BackPageComponent from '../BackComponent'
 
@@ -33,9 +34,9 @@ export default class Welcome extends React.Component {
 
   render(){
     return(
-      <View style={common.container}>
-        <Text style={common.text}>{ 'Loading...' }</Text>
-        <Spinner style={common.spinner} type='Circle' isVisible={this.state.isVisible} size={this.state.size} />
+      <View style={[common.container, common.center]}>
+        <Text style={welcome.textWelcome}>{ 'Loading...' }</Text>
+        <Spinner style={welcome.spinner} type='Circle' isVisible={this.state.isVisible} size={this.state.size} />
       </View>
     )
   }

@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { StackNavigator} from 'react-navigation'
 import SelectOriginDestination from './SelectOriginDestination'
-//import TabHeader from './Header'
+
 
 const routeConfiguration = {
-  // TabHeader: {
-  //   screen: TabHeader
-  // },
   SelectOriginDestination : {
     screen : SelectOriginDestination
   }

@@ -1,9 +1,10 @@
 import React, { Component }from 'react'
-import {Button, Text, View, } from 'react-native'
+import { BackHandler, Button, Text, View, } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 
 export default class ShoppingCartButton extends Component {
+
   render() {
     return (
       <View>

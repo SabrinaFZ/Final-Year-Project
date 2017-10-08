@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import { DrawerNavigator } from 'react-navigation'
 
-import MySettings from './MySettings'
-import StackApp from '../../stackApp'
-import SelectOriginDestination from './../../SelectOriginDestination'
+import MySettings from './../Items/Settings/'
+import StackApp from './../Items/App/stackApp'
+//import SelectOriginDestination from './../../App/SelectOriginDestination'
 
 const routeConfiguration = {
   App: {

@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 import StackNav from './stackNav'
-//import CustomHeader from './components/App/Header/'
 
 class App extends React.Component {
   render(){

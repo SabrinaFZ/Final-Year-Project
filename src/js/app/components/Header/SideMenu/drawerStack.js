@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import { StackNavigator } from 'react-navigation'
 
-import ButtonSideMenu from './ButtonSideMenu'
-import ShoppingCartButton from './ShoppingCartButton'
+import ButtonSideMenu from './../Buttons/ButtonSideMenu'
+import ShoppingCartButton from './../Buttons/ShoppingCartButton'
 
 import DrawerScreen from './DrawerScreen'
-import ShoppingCart from './../../ShoppingCart'
+import ShoppingCart from './../Items/ShoppingCart'
 
 const routeConfiguration = {
   DrawerSreen: {
@@ -28,6 +28,11 @@ const routeConfiguration = {
   ShoppingCart:{
     screen: ShoppingCart,
     navigationOptions: {
+      headerTitle: 'Shopping Cart',
+      headerTitleStyle: {
+        alignSelf: 'center',
+        paddingRight: 40
+      },
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: '#e9418b',
