@@ -49,7 +49,6 @@ const common = StyleSheet.create({
     color: '#585858',
     fontSize: 14,
     fontWeight: 'bold',
-    marginTop: 20
   },
 
   title:{
@@ -59,9 +58,16 @@ const common = StyleSheet.create({
     marginTop: 20,
   },
 
-  button:{
+  buttonActive:{
     alignItems: 'center',
     backgroundColor:'#e9418b',
+    width: '40%',
+    borderRadius: 5,
+  },
+
+  buttonDisabled:{
+    alignItems: 'center',
+    backgroundColor:'#e5a5c1',
     width: '40%',
     borderRadius: 5,
   },
@@ -122,6 +128,10 @@ const common = StyleSheet.create({
   paddingLeftRight40:{
     paddingLeft: 40,
     paddingRight: 40
+  },
+
+  paddingTop40:{
+      paddingTop: 40
   },
 
   paddingTop80:{

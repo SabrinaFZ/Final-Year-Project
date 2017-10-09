@@ -26,13 +26,14 @@ export default class SelectOriginDestination extends React.Component {
         rangeStart: new Date(),
         rangeEnd: new Date(),
         arriveDepart: '',
-      }
+      },
+      addReturn: false
     }
   }
 
   async onNext() {
     try{
-      let response = await fetch('',{
+      let response = await fetch('http://10.0.2.2:8080/api/jp/journey-plan',{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -56,7 +57,7 @@ export default class SelectOriginDestination extends React.Component {
   }
 
   openReturn(){
-    this.setState({openReturn: !this.state.openReturn, openOutward: false})
+    this.setState({openReturn: !this.state.openReturn, openOutward: false, addReturn: true})
   }
 
   onDepartureDateTimeChange(date){
@@ -230,6 +231,10 @@ export default class SelectOriginDestination extends React.Component {
     }
   }
 
+  cancel(){
+    return null
+  }
+
   renderOpenSchedule(){
     if(this.state.openOutward){
       var title = 'OUTWARD'
@@ -237,6 +242,7 @@ export default class SelectOriginDestination extends React.Component {
       var handleRequestClose = this.openOutward.bind(this)
       var textDateTimeDepart = this.state.outward.rangeStart
       var textDateTimeArrival = this.state.outward.rangeEnd
+      var addCancelReturn = null
     }
     else if(this.state.openReturn){
       var title = 'RETURN'
@@ -244,6 +250,11 @@ export default class SelectOriginDestination extends React.Component {
       var handleRequestClose = this.openReturn.bind(this)
       var textDateTimeDepart = this.state.returnBack.rangeStart
       var textDateTimeArrival = this.state.returnBack.rangeEnd
+      var addCancelReturn =
+        <View style={[common.center, common.row, common.marginTop50]}>
+           <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={() => this.setState({addReturn: false, openReturn: false})}/>
+           <Text style={common.textMedium} onPress={() => this.setState({addReturn: false, openReturn: false})}> Cancel Return </Text>
+        </View>
     }
     else{
       return null
@@ -255,20 +266,20 @@ export default class SelectOriginDestination extends React.Component {
        visible={isVisible}
        onRequestClose={handleRequestClose}
        >
-      <View style={[common.container, common.paddingTop80, common.justifyContent, common.paddingLeftRight40]}>
+      <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
         <ScrollView>
           <Text style={[common.title, common.center, common.row, common.textCenter]}>{title}</Text>
           <Text style={[common.textBold, common.marginTop50]}>{'Departure'}</Text>
           <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(textDateTimeDepart).format('L')}</Text>
-           <TouchableOpacity style={common.button} activeOpacity={0.8} onPress={this.renderDepartureDatePicker.bind(this)}>
+           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureDatePicker.bind(this)}>
              <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
            </TouchableOpacity>
          </View>
-          <Text style={common.textMedium}>{'Leaving At'}</Text>
+          <Text style={[common.textMedium, common.marginTop20]}>{'Leaving At'}</Text>
           <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(textDateTimeDepart).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.button} activeOpacity={0.8} onPress={this.renderDepartureTimePicker.bind(this)}>
+           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureTimePicker.bind(this)}>
              <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
            </TouchableOpacity>
          </View>
@@ -276,17 +287,20 @@ export default class SelectOriginDestination extends React.Component {
          <Text style={[common.textBold, common.marginTop50]}>{'Arrival'}</Text>
          <View style={[common.center, common.spaceBetween, common.row]}>
           <Text>{moment(textDateTimeArrival).format('L')}</Text>
-          <TouchableOpacity style={common.button} activeOpacity={0.8} onPress={this.renderArrivalDatePicker.bind(this)}>
+          <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderArrivalDatePicker.bind(this)}>
             <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
           </TouchableOpacity>
         </View>
-        <Text style={common.textMedium}>{'Arriving At'}</Text>
-        <View style={[common.center, common.spaceBetween, common.row, common.marginBottom20]}>
+        <Text style={[common.textMedium, common.marginTop20]}>{'Arriving At'}</Text>
+        <View style={[common.center, common.spaceBetween, common.row]}>
          <Text>{moment(textDateTimeArrival).format('HH:mm')}</Text>
-         <TouchableOpacity style={common.button} activeOpacity={0.8} onPress={this.renderArrivalTimePicker.bind(this)}>
+         <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={(this.renderArrivalTimePicker.bind(this))}>
            <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
          </TouchableOpacity>
        </View>
+
+       {addCancelReturn}
+
      </ScrollView>
    </View>
      </Modal>
@@ -301,6 +315,18 @@ export default class SelectOriginDestination extends React.Component {
     let destinationOptions = this.state.listDestination.map( (value, index) => {
       return <Picker.Item key={index} value={value} label={value} />
     })
+
+    if(!this.state.addReturn){
+      var returnButton =
+        <TouchableOpacity style={[common.buttonDisabled, common.marginTop20]} activeOpacity={0.8} onPress={this.openReturn.bind(this)}>
+          <Text style={common.textButton}> { 'ADD RETURN' }</Text>
+        </TouchableOpacity>
+    }else if(this.state.addReturn){
+      var returnButton =
+        <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={this.openReturn.bind(this)}>
+          <Text style={common.textButton}> { 'RETURN' }</Text>
+        </TouchableOpacity>
+    }
 
     return(
       <View style={[common.container, common.start, common.padding40, common.paddingTop80]}>
@@ -330,7 +356,6 @@ export default class SelectOriginDestination extends React.Component {
           />
         </View>
         <Picker
-          mode='dropdown'
           selectedValue={this.state.destinationSelected}
           onValueChange={(itemValue, itemIndex) => this.setState({destinationSelected: itemValue})}>
           {destinationOptions}
@@ -341,12 +366,11 @@ export default class SelectOriginDestination extends React.Component {
         </TouchableOpacity> */}
 
         <View style={[common.row, common.spaceBetween]}>
-          <TouchableOpacity style={[common.button, common.marginTop20]} activeOpacity={0.8} onPress={this.openOutward.bind(this)}>
+          <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={this.openOutward.bind(this)}>
             <Text style={common.textButton}> { 'OUTWARD' }</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[common.button, common.marginTop20]} activeOpacity={0.8} onPress={this.openReturn.bind(this)}>
-            <Text style={common.textButton}> { 'RETURN' }</Text>
-          </TouchableOpacity>
+
+          {returnButton}
         </View>
 
         {this.renderOpenSchedule()}
