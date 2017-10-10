@@ -21,7 +21,7 @@ export default class SelectScheduleTiming extends Component {
   static propTypes = {
 
   }
-
+  
   openOutward(){
     this.setState({openOutward: !this.state.openOutward, openReturn: false})
   }

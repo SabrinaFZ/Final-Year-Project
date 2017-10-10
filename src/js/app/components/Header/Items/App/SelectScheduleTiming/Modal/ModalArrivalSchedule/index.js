@@ -6,31 +6,30 @@ import moment from 'moment'
 import common from './../../../../../../../../../styles'
 
 
-export default class ModalDepartureShedule extends Component {
+export default class ModalArrivalSchedule extends Component {
   constructor(props){
     super(props)
-
   }
 
   static propTypes = {
-    rangeStart: PropTypes.object.isRequired,
+    rangeEnd: PropTypes.object.isRequired,
     onChangeDate: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
   }
 
-  async renderDepartureDatePicker(){
+  async renderArrivalDatePicker(){
     if (Platform.OS === 'android'){
       try {
           const {action, year, month, day } = await DatePickerAndroid.open({
-          date: this.props.rangeStart
+          date: this.props.rangeEnd
         }).then(date =>{
           const {action, year, month, day } = date
           return date
         }).then(date =>{
           if (date.action !== DatePickerAndroid.dismissedAction) {
             const {action, year, month, day } = date
-            const hours = this.props.rangeStart.getHours()
-            const minutes = this.props.rangeStart.getMinutes()
+            const hours = this.props.rangeEnd.getHours()
+            const minutes = this.props.rangeEnd.getMinutes()
             this.props.onChangeDate(new Date(year, month, day, hours, minutes), this.props.type)
           }
           else{
@@ -43,16 +42,17 @@ export default class ModalDepartureShedule extends Component {
     }
   }
 
+
   render(){
     return(
       <View>
-        <Text style={[common.textBold, common.marginTop50]}>{'Departure'}</Text>
+        <Text style={[common.textBold, common.marginTop50]}>{'Arrival'}</Text>
         <View style={[common.center, common.spaceBetween, common.row]}>
-           <Text>{moment(this.props.rangeStart).format('L')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureDatePicker.bind(this)}>
-             <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
-           </TouchableOpacity>
-        </View>
+         <Text>{moment(this.props.rangeEnd).format('L')}</Text>
+         <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderArrivalDatePicker.bind(this)}>
+           <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
+         </TouchableOpacity>
+       </View>
       </View>
     )
   }

@@ -5,6 +5,11 @@ import moment from 'moment'
 
 import common from './../../../../../../../../styles'
 
+import ModalDepartureShedule from './ModalDepartureShedule'
+import ModalDepartureTiming from './ModalDepatureTiming'
+import ModalArrivalSchedule from './ModalArrivalSchedule'
+import ModalArrivalTiming from './ModalArrivalTiming'
+
 export default class ModalScheduleTiming extends Component {
   constructor(props){
     super(props)
@@ -30,8 +35,8 @@ export default class ModalScheduleTiming extends Component {
     handleCancelReturn: PropTypes.func,
   }
 
-  onDepartureDateTimeChange(date){
-    if(this.state.openOutward){
+  onDepartureDateTimeChange(date, type){
+    if(type == 'OUTWARD'){
       this.setState({
         outward: {
           rangeStart: date,
@@ -41,7 +46,7 @@ export default class ModalScheduleTiming extends Component {
       })
 
     }
-    else if(this.state.openReturn){
+    else {
       this.setState({
         returnBack: {
           rangeStart: date,
@@ -52,8 +57,8 @@ export default class ModalScheduleTiming extends Component {
     }
   }
 
-  onArrivalDateTimeChange(date){
-    if(this.state.openOutward){
+  onArrivalDateTimeChange(date, type){
+    if(type == 'OUTWARD'){
       this.setState({
         outward: {
           rangeStart: this.state.outward.rangeStart,
@@ -62,7 +67,7 @@ export default class ModalScheduleTiming extends Component {
         }
       })
     }
-    else if(this.state.openReturn){
+    else {
       this.setState({
         returnBack: {
           rangeStart: this.state.returnBack.rangeStart,
@@ -70,134 +75,6 @@ export default class ModalScheduleTiming extends Component {
           arriveDepart: 'Arrive'
         }
       })
-    }
-  }
-
-  async renderDepartureDatePicker(){
-    if (Platform.OS === 'android'){
-      try {
-          if(this.state.openOutward){
-            var defaultDate = this.state.outward.rangeStart
-          } else{
-            var defaultDate = this.state.returnBack.rangeStart
-          }
-          const {action, year, month, day } = await DatePickerAndroid.open({
-          date: defaultDate
-        }).then(date =>{
-          const {action, year, month, day } = date
-          return date
-        }).then(date =>{
-          if (date.action !== DatePickerAndroid.dismissedAction) {
-            const {action, year, month, day } = date
-            const hours = defaultDate.getHours()
-            const minutes = defaultDate.getMinutes()
-            this.onDepartureDateTimeChange(new Date(year, month, day, hours, minutes))
-          }
-          else{
-            //Don't change the date
-          }
-        })
-      } catch ({code, message}) {
-        console.log('Cannot open date picker', message);
-      }
-    }
-  }
-
-  async renderArrivalDatePicker(){
-    if (Platform.OS === 'android'){
-      if(this.state.openOutward){
-        var defaultDate = this.state.outward.rangeEnd
-      } else{
-        var defaultDate = this.state.returnBack.rangeEnd
-      }
-      try {
-          const {action, year, month, day } = await DatePickerAndroid.open({
-          date: defaultDate
-        }).then(date =>{
-          const {action, year, month, day } = date
-          return date
-        }).then(date =>{
-          if (date.action !== DatePickerAndroid.dismissedAction) {
-            const {action, year, month, day } = date
-            const hours = defaultDate.getHours()
-            const minutes = defaultDate.getMinutes()
-            this.onArrivalDateTimeChange(new Date(year, month, day, hours, minutes))
-          }
-          else{
-            //Don't change the date
-          }
-        })
-      } catch ({code, message}) {
-        console.log('Cannot open date picker', message);
-      }
-    }
-  }
-
-  async renderDepartureTimePicker(){
-    if (Platform.OS === 'android'){
-      if(this.state.openOutward){
-        var defaultState = this.state.outward.rangeStart
-      } else{
-        var defaultState = this.state.returnBack.rangeStart
-      }
-      try {
-        const {action, hour, minute} = await TimePickerAndroid.open({
-          hour: defaultState.getHours(),
-          minute: defaultState.getMinutes(),
-          is24Hour: true,
-        }).then(time =>{
-          const {action, hour, minute} = time
-          return time
-        }).then(time =>{
-          if (time.action !== TimePickerAndroid.dismissedAction) {
-            const {action, hour, minute} = time
-            const year = defaultState.getFullYear()
-            const month = defaultState.getMonth()
-            const day = defaultState.getDate()
-            this.onDepartureDateTimeChange(new Date(year, month, day, hour, minute))
-          }
-          else{
-            //Dont change the time
-          }
-        })
-
-      } catch ({code, message}) {
-        console.log('Cannot open time picker', message);
-      }
-    }
-  }
-
-  async renderArrivalTimePicker(){
-    if (Platform.OS === 'android'){
-      if(this.state.openOutward){
-        var defaultState = this.state.outward.rangeEnd
-      } else{
-        var defaultState = this.state.returnBack.rangeEnd
-      }
-      try {
-        const {action, hour, minute} = await TimePickerAndroid.open({
-          hour: defaultState.getHours(),
-          minute: defaultState.getMinutes(),
-          is24Hour: true,
-        }).then(time =>{
-          const {action, hour, minute} = time
-          return time
-        }).then(time =>{
-          if (time.action !== TimePickerAndroid.dismissedAction) {
-            const {action, hour, minute} = time
-            const year = defaultState.getFullYear()
-            const month = defaultState.getMonth()
-            const day = defaultState.getDate()
-            this.onArrivalDateTimeChange(new Date(year, month, day, hour, minute))
-          }
-          else{
-            //Dont change the time
-          }
-        })
-
-      } catch ({code, message}) {
-        console.log('Cannot open time picker', message);
-      }
     }
   }
 
@@ -214,10 +91,12 @@ export default class ModalScheduleTiming extends Component {
   }
 
   render(){
+    console.log(this.state.outward.rangeStart)
     if(this.props.title == 'OUTWARD'){
       var textDateTimeDepart = this.state.outward.rangeStart
       var textDateTimeArrival = this.state.outward.rangeEnd
       var addCancelReturn = null
+
     } else {
       var textDateTimeDepart = this.state.returnBack.rangeStart
       var textDateTimeArrival = this.state.returnBack.rangeEnd
@@ -237,38 +116,23 @@ export default class ModalScheduleTiming extends Component {
        >
       <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
         <ScrollView>
+          {/* TITLE */}
           <Text style={[common.title, common.center, common.row, common.textCenter]}>{this.props.title}</Text>
-          <Text style={[common.textBold, common.marginTop50]}>{'Departure'}</Text>
-          <View style={[common.center, common.spaceBetween, common.row]}>
-           <Text>{moment(textDateTimeDepart).format('L')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureDatePicker.bind(this)}>
-             <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
-           </TouchableOpacity>
-         </View>
-          <Text style={[common.textMedium, common.marginTop20]}>{'Leaving At'}</Text>
-          <View style={[common.center, common.spaceBetween, common.row]}>
-           <Text>{moment(textDateTimeDepart).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureTimePicker.bind(this)}>
-             <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
-           </TouchableOpacity>
-         </View>
 
-         <Text style={[common.textBold, common.marginTop50]}>{'Arrival'}</Text>
-         <View style={[common.center, common.spaceBetween, common.row]}>
-          <Text>{moment(textDateTimeArrival).format('L')}</Text>
-          <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderArrivalDatePicker.bind(this)}>
-            <Icon name='calendar' type='entypo' color='#fff' iconStyle={common.padding10}/>
-          </TouchableOpacity>
-        </View>
-        <Text style={[common.textMedium, common.marginTop20]}>{'Arriving At'}</Text>
-        <View style={[common.center, common.spaceBetween, common.row]}>
-         <Text>{moment(textDateTimeArrival).format('HH:mm')}</Text>
-         <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={(this.renderArrivalTimePicker.bind(this))}>
-           <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
-         </TouchableOpacity>
-       </View>
+          {/* DEPARTURE */}
+          <ModalDepartureShedule type={this.props.title} rangeStart={textDateTimeDepart} onChangeDate={this.onDepartureDateTimeChange.bind(this)} />
 
-       {addCancelReturn}
+          {/* LEAVING AT */}
+          <ModalDepartureTiming type={this.props.title} rangeStart={textDateTimeDepart} onChangeDate={this.onDepartureDateTimeChange.bind(this)}/>
+
+          {/* ARRIVAL */}
+          <ModalArrivalSchedule type={this.props.title} rangeEnd={textDateTimeArrival} onChangeDate={this.onArrivalDateTimeChange.bind(this)}/>
+
+          {/* ARRIVING AT */}
+          <ModalArrivalTiming type={this.props.title} rangeEnd={textDateTimeArrival} onChangeDate={this.onArrivalDateTimeChange.bind(this)}/>
+
+          {/* ADD CANCEL RETURN BUTTON IN CASE OF RETURN */}
+          {addCancelReturn}
 
         </ScrollView>
       </View>
