@@ -1,26 +1,24 @@
 'use strict'
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
 import welcome from '../../../../styles/Welcome'
 import common from '../../../../styles'
-import BackPageComponent from '../BackComponent'
 
 import Spinner from 'react-native-spinkit'
 
 export default class Welcome extends React.Component {
   constructor(props){
-    super()
-    this.state = {
-      isVisible: false,
-      size: 100,
-    }
+    super(props)
+  }
+
+  static propTypes = {
+    isVisible: PropTypes.bool.isRequired,
+    showHideWelcome: PropTypes.func.isRequired
   }
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({
-        isVisible: !this.state.isVisible
-      })
+      this.props.showHideWelcome(this.props.isVisible)
     }, 500)
 
     setTimeout(() => {
@@ -36,7 +34,7 @@ export default class Welcome extends React.Component {
     return(
       <View style={[common.container, common.center]}>
         <Text style={welcome.textWelcome}>{ 'Loading...' }</Text>
-        <Spinner style={welcome.spinner} type='Circle' isVisible={this.state.isVisible} size={this.state.size} />
+        <Spinner style={welcome.spinner} type='Circle' isVisible={this.props.isVisible} size={100} />
       </View>
     )
   }

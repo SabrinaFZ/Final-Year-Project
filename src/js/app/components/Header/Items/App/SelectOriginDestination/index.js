@@ -1,28 +1,31 @@
 'use strict'
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import moment from 'moment';
 
 import common from './../../../../../../../styles'
 
-import SelectScheduleTiming from '../SelectScheduleTiming'
+import SelectScheduleTimingContainer from '../../../../../containers/SelectScheduleTiming'
 
 export default class SelectOriginDestination extends React.Component {
   constructor(props){
     super(props)
+  }
 
-    this.state = {
-      listOrigin: ['A', 'B', 'C', 'D'], //props
-      originSelected: '',
-      listDestination: ['A', 'B', 'C', 'D'], //props
-      destinationSelected: '',
-    }
+  static propTypes = {
+    listOrigin: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    listDestination: PropTypes.arrayOf(PropTypes.string).isRequired,
+    originSelected: PropTypes.string.isRequired,
+    destinationSelected: PropTypes.string.isRequired,
+    post: PropTypes.func.isRequired,
+    setOrigin: PropTypes.func.isRequired,
+    setDestination: PropTypes.func.isRequired,
   }
 
   async onNext() {
     try{
-      let response = await fetch('http://10.0.2.2:8080/api/jp/journey-plan',{
+      let response = await this.props.post('http://10.0.2.2:8080/api/jp/journey-plan',{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,8 +36,6 @@ export default class SelectOriginDestination extends React.Component {
           destination: `${this.state.destinationSelected}`,
 
         })
-      }).then((res) => { return res.json() }).then((data)=> {
-        console.log(data)
       })
     } catch(errors){
       console.log('Error on posting new journey')
@@ -43,11 +44,11 @@ export default class SelectOriginDestination extends React.Component {
 
 
   render(){
-    let originOptions = this.state.listOrigin.map( (value, index) => {
+    let originOptions = this.props.listOrigin.map( (value, index) => {
       return <Picker.Item key={index} value={value} label={value} />
     })
 
-    let destinationOptions = this.state.listDestination.map( (value, index) => {
+    let destinationOptions = this.props.listDestination.map( (value, index) => {
       return <Picker.Item key={index} value={value} label={value} />
     })
 
@@ -65,8 +66,8 @@ export default class SelectOriginDestination extends React.Component {
           />
         </View>
         <Picker
-          selectedValue='{this.state.originSelected}'
-          onValueChange={(itemValue, itemIndex) => this.setState({originSelected: itemValue})}>
+          selectedValue={this.props.originSelected}
+          onValueChange={(itemValue, itemIndex) => this.props.setOrigin(itemValue)}>
           {originOptions}
         </Picker>
 
@@ -80,11 +81,11 @@ export default class SelectOriginDestination extends React.Component {
           />
         </View>
         <Picker
-          selectedValue={this.state.destinationSelected}
-          onValueChange={(itemValue, itemIndex) => this.setState({destinationSelected: itemValue})}>
+          selectedValue={this.props.destinationSelected}
+          onValueChange={(itemValue, itemIndex) => this.props.setDestination(itemValue)}>
           {destinationOptions}
         </Picker>
-        <SelectScheduleTiming />
+        <SelectScheduleTimingContainer />
       </ScrollView>
     </View>
     )

@@ -12,8 +12,8 @@ export default class ModalArrivalTiming extends Component {
 
   static propTypes = {
     rangeEnd: PropTypes.object.isRequired,
-    onChangeDate: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
+    onChangeArrivalDateTime: PropTypes.func.isRequired,
   }
 
   async renderArrivalTimePicker(){
@@ -32,7 +32,7 @@ export default class ModalArrivalTiming extends Component {
             const year = this.props.rangeEnd.getFullYear()
             const month = this.props.rangeEnd.getMonth()
             const day = this.props.rangeEnd.getDate()
-            this.props.onChangeDate(new Date(year, month, day, hour, minute), this.props.type)
+            this.props.onChangeArrivalDateTime(new Date(year, month, day, hour, minute), this.props.type)
           }
           else{
             //Dont change the time

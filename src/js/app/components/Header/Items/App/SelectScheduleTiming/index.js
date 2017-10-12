@@ -5,63 +5,63 @@ import moment from 'moment'
 
 import common from './../../../../../../../styles'
 
-import ModalScheduleTiming from './Modal/'
+import ModalScheduleTimingContainer from './../../../../../containers/SelectScheduleTiming/ModalContainer'
 
 export default class SelectScheduleTiming extends Component {
   constructor(props){
     super(props)
 
-    this.state = {
-      openOutward: false,
-      openReturn:false,
-      addReturn: false,
-    }
+    var title, handleRequestClose, handleCancelReturn
   }
 
   static propTypes = {
-
-  }
-  
-  openOutward(){
-    this.setState({openOutward: !this.state.openOutward, openReturn: false})
-  }
-
-  openReturn(){
-    this.setState({openReturn: !this.state.openReturn, openOutward: false, addReturn: true})
+    openOutward: PropTypes.bool.isRequired,
+    openReturn: PropTypes.bool.isRequired,
+    cancelReturn: PropTypes.bool.isRequired,
+    openOutwardModal: PropTypes.func.isRequired,
+    openReturnModal: PropTypes.func.isRequired,
+    cancelReturn: PropTypes.func.isRequired,
   }
 
-  cancelReturn(){
-    this.setState({openReturn: !this.state.openReturn, openOutward: false, addReturn: false})
+  getModalProps = () => {
+    if(this.props.openOutward){
+      return {
+        title: 'OUTWARD',
+        //handleRequestClose: this.props.openOutwardModal(this.props.openOutward)
+      }
+    }
+    if(this.props.openReturn){
+      return {
+        title: 'RETURN',
+        // handleRequestClose: this.props.openReturnModal(this.props.openReturn),
+        // handleCancelReturn: this.props.cancelReturn(this.props.cancelReturn),
+      }
+    }
   }
 
   renderOpenSchedule(){
-    if(this.state.openOutward){
-      var title = 'OUTWARD'
-      var handleRequestClose = this.openOutward.bind(this)
-    }
-    else if(this.state.openReturn){
-      var title = 'RETURN'
-      var handleRequestClose = this.openReturn.bind(this)
-      var handleCancelReturn = this.cancelReturn.bind(this)
-    }
-    else{
+    console.log('Aqui')
+    if(this.props.openOutward || this.props.openReturn){
+      var modalProps = this.getModalProps()
+      return (
+        <ModalScheduleTimingContainer title={modalProps.title} />
+      )
+    }else{
       return null
     }
-    return (
-      <ModalScheduleTiming title={title} handleRequestClose={handleRequestClose} handleCancelReturn={handleCancelReturn}/>
-    )
+
   }
 
 
   render(){
-    if(!this.state.addReturn){
+    if(!this.props.addReturn){
       var returnButton =
-        <TouchableOpacity style={[common.buttonDisabled, common.marginTop20]} activeOpacity={0.8} onPress={this.openReturn.bind(this)}>
+        <TouchableOpacity style={[common.buttonDisabled, common.marginTop20]} activeOpacity={0.8} onPress={() => this.props.openReturnModal(this.props.openReturn)}>
           <Text style={common.textButton}> { 'ADD RETURN' }</Text>
         </TouchableOpacity>
-    }else if(this.state.addReturn){
+    }else if(this.props.addReturn){
       var returnButton =
-        <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={this.openReturn.bind(this)}>
+        <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={() => this.props.openReturnModal(this.props.openReturn)}>
           <Text style={common.textButton}> { 'RETURN' }</Text>
         </TouchableOpacity>
     }
@@ -69,12 +69,12 @@ export default class SelectScheduleTiming extends Component {
     return(
       <View>
         <View style={[common.row, common.spaceBetween]}>
-          <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={this.openOutward.bind(this)}>
+          <TouchableOpacity style={[common.buttonActive, common.marginTop20]} activeOpacity={0.8} onPress={() => this.props.openOutwardModal(this.props.openOutward)}>
             <Text style={common.textButton}> { 'OUTWARD' }</Text>
           </TouchableOpacity>
           {returnButton}
         </View>
-        { this.renderOpenSchedule() }
+        { this.renderOpenSchedule()}
       </View>
     )
   }

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { StackNavigator} from 'react-navigation'
-import Welcome from './components/Welcome';
+//import Welcome from './components/Welcome';
 //import StackMenu from './components/Menu/stackMenu';
 //import StackApp from './components/App/stackApp'
 import CustomHeader from './components/Header/'
 
+import WelcomeContainer from './containers/Welcome'
+
 const routeConfiguration = {
   Welcome: {
-    screen: Welcome,
+    screen: WelcomeContainer,
     navigationOptions: {
       header: null
     }

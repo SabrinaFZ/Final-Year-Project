@@ -13,8 +13,8 @@ export default class ModalArrivalSchedule extends Component {
 
   static propTypes = {
     rangeEnd: PropTypes.object.isRequired,
-    onChangeDate: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
+    onChangeArrivalDateTime: PropTypes.func.isRequired,
   }
 
   async renderArrivalDatePicker(){
@@ -30,7 +30,7 @@ export default class ModalArrivalSchedule extends Component {
             const {action, year, month, day } = date
             const hours = this.props.rangeEnd.getHours()
             const minutes = this.props.rangeEnd.getMinutes()
-            this.props.onChangeDate(new Date(year, month, day, hours, minutes), this.props.type)
+            this.props.onChangeArrivalDateTime(new Date(year, month, day, hours, minutes), this.props.type)
           }
           else{
             //Don't change the date

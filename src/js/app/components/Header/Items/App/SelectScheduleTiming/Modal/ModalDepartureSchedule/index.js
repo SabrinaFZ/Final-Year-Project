@@ -6,7 +6,7 @@ import moment from 'moment'
 import common from './../../../../../../../../../styles'
 
 
-export default class ModalDepartureShedule extends Component {
+export default class ModalDepartureSchedule extends Component {
   constructor(props){
     super(props)
 
@@ -14,8 +14,8 @@ export default class ModalDepartureShedule extends Component {
 
   static propTypes = {
     rangeStart: PropTypes.object.isRequired,
-    onChangeDate: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
+    onChangeDepartureDateTime: PropTypes.func.isRequired,
   }
 
   async renderDepartureDatePicker(){
@@ -31,7 +31,7 @@ export default class ModalDepartureShedule extends Component {
             const {action, year, month, day } = date
             const hours = this.props.rangeStart.getHours()
             const minutes = this.props.rangeStart.getMinutes()
-            this.props.onChangeDate(new Date(year, month, day, hours, minutes), this.props.type)
+            this.props.onChangeDepartureDateTime(new Date(year, month, day, hours, minutes), this.props.type)
           }
           else{
             //Don't change the date

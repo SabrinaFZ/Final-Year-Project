@@ -12,8 +12,8 @@ export default class ModalDepartureTiming extends Component {
 
   static propTypes = {
     rangeStart: PropTypes.object.isRequired,
-    onChangeDate: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
+    onChangeDepartureDateTime: PropTypes.func.isRequired,
   }
 
   async renderDepartureTimePicker(){
@@ -32,7 +32,7 @@ export default class ModalDepartureTiming extends Component {
             const year = this.props.rangeStart.getFullYear()
             const month = this.props.rangeStart.getMonth()
             const day = this.props.rangeStart.getDate()
-            this.props.onChangeDate(new Date(year, month, day, hour, minute), this.props.type)
+            this.props.onChangeDepartureDateTime(new Date(year, month, day, hour, minute), this.props.type)
           }
           else{
             //Dont change the time
