@@ -10,8 +10,6 @@ import ModalScheduleTimingContainer from './../../../../../containers/SelectSche
 export default class SelectScheduleTiming extends Component {
   constructor(props){
     super(props)
-
-    var title, handleRequestClose, handleCancelReturn
   }
 
   static propTypes = {

@@ -97,5 +97,25 @@ export const onChangeArrivalDateTime = (date, type) => {
     type: 'CHANGE_DATE_ARRIVAL_RETURN',
     date
   }
+}
 
+export const showHidePassengers = (bool) => {
+  return {
+    type: 'SHOW_HIDE_PASSENGERS',
+    bool
+  }
+}
+
+export const changeAdultNumber = (number) => {
+  return {
+    type: 'CHANGE_NUMBER_ADULT',
+    number
+  }
+}
+
+export const changeChildrenNumber = (number) => {
+  return {
+    type: 'CHANGE_NUMBER_CHILDREN',
+    number
+  }
 }

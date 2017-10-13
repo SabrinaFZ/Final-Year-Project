@@ -7,6 +7,8 @@ import moment from 'moment';
 import common from './../../../../../../../styles'
 
 import SelectScheduleTimingContainer from '../../../../../containers/SelectScheduleTiming'
+import SelectPassengersContainer from '../../../../../containers/SelectPassengers'
+import FindTrainsButton from './../FindTrainsButton'
 
 export default class SelectOriginDestination extends React.Component {
   constructor(props){
@@ -23,25 +25,9 @@ export default class SelectOriginDestination extends React.Component {
     setDestination: PropTypes.func.isRequired,
   }
 
-  async onNext() {
-    try{
-      let response = await this.props.post('http://10.0.2.2:8080/api/jp/journey-plan',{
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          origin: `${this.state.originSelected}`,
-          destination: `${this.state.destinationSelected}`,
+  goMap(){
 
-        })
-      })
-    } catch(errors){
-      console.log('Error on posting new journey')
-    }
   }
-
 
   render(){
     let originOptions = this.props.listOrigin.map( (value, index) => {
@@ -54,14 +40,14 @@ export default class SelectOriginDestination extends React.Component {
 
 
     return(
-      <View style={[common.container, common.start, common.padding40, common.paddingTop80]}>
+      <View style={[common.container, common.start, common.padding40]}>
         <ScrollView>
         <Text style={common.textBold}>{ 'Origin' }</Text>
         <View style={common.row}>
           <Icon name='search' type='EvilIcons' />
           <TextInput
             style={common.input}
-            onChangeText={this.onNext.bind(this)}
+            onChangeText={this.goMap.bind(this)}
             placeholder='Search in the map...'
           />
         </View>
@@ -76,7 +62,7 @@ export default class SelectOriginDestination extends React.Component {
           <Icon name='search' type='EvilIcons' />
           <TextInput
             style={common.input}
-            onChangeText={this.onNext.bind(this)}
+            onChangeText={this.goMap.bind(this)}
             placeholder='Search in the map...'
           />
         </View>
@@ -86,6 +72,8 @@ export default class SelectOriginDestination extends React.Component {
           {destinationOptions}
         </Picker>
         <SelectScheduleTimingContainer />
+        <SelectPassengersContainer />
+        <FindTrainsButton navigation={this.props.navigation} />
       </ScrollView>
     </View>
     )

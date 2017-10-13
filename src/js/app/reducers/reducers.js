@@ -20,6 +20,9 @@ const initialState = {
     rangeEnd: new Date(),
     arriveDepart: '',
   },
+  openPassengersModal: false,
+  adults: 1,
+  children: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +62,15 @@ const reducer = (state = initialState, action) => {
     }
     case 'CHANGE_DATE_ARRIVAL_RETURN': {
       return Object.assign({}, state, { returnBack: {rangeStart: state.returnBack.rangeStart, rangeEnd: action.date, arriveDepart: 'Arrive'} })
+    }
+    case 'SHOW_HIDE_PASSENGERS': {
+      return Object.assign({}, state, { openPassengersModal: action.bool })
+    }
+    case 'CHANGE_NUMBER_ADULT': {
+      return Object.assign({}, state, { adults: action.number })
+    }
+    case 'CHANGE_NUMBER_CHILDREN': {
+      return Object.assign({}, state, { children: action.number })
     }
     default: {
       return state

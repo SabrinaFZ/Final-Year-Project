@@ -15,6 +15,10 @@ const common = StyleSheet.create({
     justifyContent:'flex-start',
   },
 
+  end:{
+    justifyContent: 'flex-end',
+  },
+
   row:{
     flexDirection: 'row',
   },
@@ -42,7 +46,6 @@ const common = StyleSheet.create({
     color: '#585858',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 20
   },
 
   textMedium:{
@@ -70,6 +73,29 @@ const common = StyleSheet.create({
     backgroundColor:'#e5a5c1',
     width: '40%',
     borderRadius: 5,
+  },
+
+  buttonActiveLarge: {
+    alignItems: 'center',
+    backgroundColor:'#e9418b',
+    width: '100%',
+    borderRadius: 5,
+  },
+
+  buttonNext: {
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e9418b',
+    width: '40%',
+    borderRadius: 5,
+  },
+
+  textButtonNext: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    padding: 10,
+    color: '#e9418b',
+    textAlign: 'center'
   },
 
   textButton:{
@@ -113,6 +139,10 @@ const common = StyleSheet.create({
     marginTop: 50
   },
 
+  marginTop80: {
+    marginTop: 80,
+  },
+
   marginBottom20:{
     marginBottom: 20
   },
@@ -144,6 +174,13 @@ const common = StyleSheet.create({
 
   backgroundColor: {
     backgroundColor: '#F2F2F2'
+  },
+
+  box:{
+    borderWidth: 2,
+    borderColor: '#e9418b',
+    borderRadius: 5,
+    width:'60%',
   }
 
 })
