@@ -1,9 +1,11 @@
 const initialState = {
   isVisible: false,
-  listOrigin: ['A', 'B', 'C', 'D'],
+  listOrigin: [],
   originSelected: '',
-  listDestination: ['A', 'B', 'C', 'D'],
+  listDestination: [],
   destinationSelected: '',
+  resultOrigin: [],
+  resultDestination: [],
   error: 'false',
   journeyPlan: [],
   openOutward: false,
@@ -31,7 +33,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {isVisible: !action.bool})
     }
     case 'POST_SUCCESS': {
-      return Object.assign({}, state, { journeyPlan: state.journeyPlan.push(action.data) })
+      return Object.assign({}, state, { journeyPlan: state.journeyPlan.concat(action.data) })
     }
     case 'SET_ORIGIN': {
       return Object.assign({}, state, { originSelected: action.itemValue })
@@ -71,6 +73,24 @@ const reducer = (state = initialState, action) => {
     }
     case 'CHANGE_NUMBER_CHILDREN': {
       return Object.assign({}, state, { children: action.number })
+    }
+    case 'GET_ORIGIN_SUCCESS': {
+      return Object.assign({}, state, { listOrigin: state.listOrigin.concat(action.data) })
+    }
+    case 'RESET_LIST_ORIGIN': {
+      return Object.assign({}, state, { resultOrigin: [] })
+    }
+    case 'GET_DESTINATION_SUCCESS': {
+      return Object.assign({}, state, { listDestination: state.listDestination.concat(action.data) })
+    }
+    case 'RESET_LIST_DESTINATION': {
+      return Object.assign({}, state, { resultDestination: [] })
+    }
+    case 'SET_RESULT_ORIGIN': {
+      return Object.assign({}, state, { resultOrigin: action.data })
+    }
+    case 'SET_RESULT_DESTINATION': {
+      return Object.assign({}, state, { resultDestination: action.data })
     }
     default: {
       return state

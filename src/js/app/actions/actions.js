@@ -19,18 +19,6 @@ export const error = (bool) => {
   }
 }
 
-export const post = (url, body) => {
-  return (dispatch) => {
-    fetch(url, body)
-      .then((response) => {
-        return response
-      })
-      .then((response) => response.json())
-      .then((data) => dispatch(postSuccess(data)))
-      .catch(() => dispatch(error(true)))
-  }
-}
-
 export const setOrigin = (itemValue) => {
   return {
     type: 'SET_ORIGIN',
@@ -117,5 +105,45 @@ export const changeChildrenNumber = (number) => {
   return {
     type: 'CHANGE_NUMBER_CHILDREN',
     number
+  }
+}
+
+export const getOriginSuccess = (data) => {
+  return {
+    type: 'GET_ORIGIN_SUCCESS',
+    data
+  }
+}
+
+export const resetListOrigin = () => {
+  return {
+    type: 'RESET_LIST_ORIGIN',
+  }
+}
+
+export const getDestinationSuccess = (data) => {
+  return {
+    type: 'GET_DESTINATION_SUCCESS',
+    data
+  }
+}
+
+export const resetListDestination = () => {
+  return {
+    type: 'RESET_LIST_DESTINATION',
+  }
+}
+
+export const setResultOrigin = (data) => {
+  return {
+    type: 'SET_RESULT_ORIGIN',
+    data
+  }
+}
+
+export const setResultDestination = (data) => {
+  return {
+    type: 'SET_RESULT_DESTINATION',
+    data
   }
 }

@@ -112,6 +112,14 @@ const common = StyleSheet.create({
     fontSize: 14,
   },
 
+  searchBar:{
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#e9418b',
+    borderRadius: 5,
+    padding: 10,
+  },
+
   errorCredentials:{
     alignItems: 'center',
     fontWeight: '500',
@@ -145,6 +153,9 @@ const common = StyleSheet.create({
 
   marginBottom20:{
     marginBottom: 20
+  },
+  marginBottom40:{
+    marginBottom: 40
   },
 
   padding10:{

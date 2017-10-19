@@ -3,14 +3,14 @@ import { TouchableOpacity } from 'react-native'
 import { StackNavigator} from 'react-navigation'
 import SelectOriginDestination from './SelectOriginDestination'
 import SelectOriginDestinationContainer from './../../../../containers/SelectOriginDestination'
-import SelectTicketTrain from './../App/SelectTicketTrain'
+import SelectTicketTrainContainer from './../../../../containers/SelectTicketTrain'
 
 const routeConfiguration = {
   SelectOriginDestination : {
     screen : SelectOriginDestinationContainer
   },
   SelectTicketTrain: {
-    screen: SelectTicketTrain
+    screen: SelectTicketTrainContainer
   }
 }
 

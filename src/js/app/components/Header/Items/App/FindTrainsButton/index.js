@@ -13,8 +13,8 @@ export default class FindTrainsButton extends Component {
 
   render(){
     return(
-      <View style={[common.row, common.end,  common.marginTop50]}>
-        <TouchableOpacity style={[common.buttonNext]} onPress={() => this.props.navigation.navigate('SelectTicketTrain')}>
+      <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
+        <TouchableOpacity style={[common.buttonNext]} onPress={() => this.props.navigation.navigate('SelectTicketTrain')} activeOpacity={0.8} >
           <Text style={common.textButtonNext}> {'FIND TRAINS'}</Text>
         </TouchableOpacity>
       </View>
