@@ -23,8 +23,10 @@ export default class SelectAdults extends Component {
   }
 
   minusAdult(){
-    let number = this.props.adults - 1
-    this.props.changeAdultNumber(number)
+    if(this.props.adults > 0){
+      let number = this.props.adults - 1
+      this.props.changeAdultNumber(number)
+    }
   }
 
   render(){
@@ -35,7 +37,7 @@ export default class SelectAdults extends Component {
         </TouchableOpacity>
         <Text style={[common.box, common.textCenter, common.padding10, common.textMedium]}>{this.props.adults} </Text>
         <TouchableOpacity onPress={this.minusAdult.bind(this)}>
-          <Icon name='minus' type='SimpleLineIcons' iconStyle={common.padding10}/>
+            <Text style={[common.padding10, common.textLarge]}> - </Text>
         </TouchableOpacity>
       </View>
     )

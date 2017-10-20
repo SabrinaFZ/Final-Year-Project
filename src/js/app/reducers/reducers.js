@@ -6,7 +6,9 @@ const initialState = {
   destinationSelected: '',
   resultOrigin: [],
   resultDestination: [],
-  error: 'false',
+  error: false,
+  loadingOrigin: false,
+  loadingDestination: false,
   journeyPlan: [],
   openOutward: false,
   openReturn:false,
@@ -75,22 +77,37 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { children: action.number })
     }
     case 'GET_ORIGIN_SUCCESS': {
-      return Object.assign({}, state, { listOrigin: state.listOrigin.concat(action.data) })
+      return Object.assign({}, state, { listOrigin: action.data, error: false, loadingOrigin: false })
+    }
+    case 'GET_ORIGIN_ERROR': {
+      return Object.assign({}, state, { listOrigin: [], resultOrigin: [], loadingOrigin: false })
     }
     case 'RESET_LIST_ORIGIN': {
-      return Object.assign({}, state, { resultOrigin: [] })
+      return Object.assign({}, state, { listOrigin: [], resultOrigin: [] })
     }
     case 'GET_DESTINATION_SUCCESS': {
-      return Object.assign({}, state, { listDestination: state.listDestination.concat(action.data) })
+      return Object.assign({}, state, { listDestination: action.data,  error: false, loadingDestination: false })
+    }
+    case 'GET_DESTINATION_ERROR': {
+      return Object.assign({}, state, { listDestination: [], resultDestination: [], loadingDestination: false })
     }
     case 'RESET_LIST_DESTINATION': {
-      return Object.assign({}, state, { resultDestination: [] })
+      return Object.assign({}, state, { listDestination: [], resultDestination: [] })
     }
     case 'SET_RESULT_ORIGIN': {
       return Object.assign({}, state, { resultOrigin: action.data })
     }
     case 'SET_RESULT_DESTINATION': {
       return Object.assign({}, state, { resultDestination: action.data })
+    }
+    case 'ERROR' : {
+      return Object.assign({}, state, { error: true })
+    }
+    case 'IS_LOADING_ORIGIN' : {
+      return Object.assign({}, state, { loadingOrigin: action.bool })
+    }
+    case 'IS_LOADING_DESTINATION' : {
+      return Object.assign({}, state, { loadingDestination: action.bool })
     }
     default: {
       return state

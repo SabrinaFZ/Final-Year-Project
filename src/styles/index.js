@@ -54,6 +54,12 @@ const common = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  textLarge:{
+    color: '#585858',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
   title:{
     color: '#e9418b',
     fontSize: 24,
@@ -192,7 +198,12 @@ const common = StyleSheet.create({
     borderColor: '#e9418b',
     borderRadius: 5,
     width:'60%',
-  }
+  },
+
+  spinner:{
+    color: '#e9418b',
+    marginTop: 10,
+  },
 
 })
 

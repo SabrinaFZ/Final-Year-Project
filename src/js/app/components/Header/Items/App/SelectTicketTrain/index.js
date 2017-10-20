@@ -21,7 +21,6 @@ export default class SelectTicketTrain extends Component {
   }
 
   async findTicketTrains() {
-    console.log('find')
     try{
       let response = await this.props.post('http://10.0.2.2:8080/api/jp/journey-plan',{
         method: 'POST',

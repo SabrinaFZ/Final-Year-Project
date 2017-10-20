@@ -115,6 +115,12 @@ export const getOriginSuccess = (data) => {
   }
 }
 
+export const getOriginError = () => {
+  return {
+    type: 'GET_ORIGIN_ERROR',
+  }
+}
+
 export const resetListOrigin = () => {
   return {
     type: 'RESET_LIST_ORIGIN',
@@ -125,6 +131,12 @@ export const getDestinationSuccess = (data) => {
   return {
     type: 'GET_DESTINATION_SUCCESS',
     data
+  }
+}
+
+export const getDestinationError = () => {
+  return {
+    type: 'GET_DESTINATION_ERROR',
   }
 }
 
@@ -145,5 +157,19 @@ export const setResultDestination = (data) => {
   return {
     type: 'SET_RESULT_DESTINATION',
     data
+  }
+}
+
+export const isLoadingOrigin = (bool) => {
+  return {
+    type: 'IS_LOADING_ORIGIN',
+    bool
+  }
+}
+
+export const isLoadingDestination = (bool) => {
+  return {
+    type: 'IS_LOADING_DESTINATION',
+    bool
   }
 }

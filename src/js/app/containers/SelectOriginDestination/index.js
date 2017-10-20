@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SelectOriginDestination from './../../components/Header/Items/App/SelectOriginDestination'
-import { setOrigin, setDestination, getOriginSuccess, error, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination } from './../../actions/actions'
+import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -11,6 +11,8 @@ const mapStateToProps = state => {
     destinationSelected: state.destinationSelected,
     resultOrigin: state.resultOrigin,
     resultDestination: state.resultDestination,
+    loadingOrigin: state.loadingOrigin,
+    loadingDestination: state.loadingDestination,
   }
 }
 
@@ -31,7 +33,7 @@ const mapDispatchToProps = dispatch => {
         .then((data) => {
           dispatch(getOriginSuccess(Object.values(data.links)))
         })
-        .catch(() => dispatch(error(true)))
+        .catch(() => dispatch(getOriginError(true)))
     },
     getDestination: (url, body) => {
       fetch(url, body)
@@ -39,10 +41,10 @@ const mapDispatchToProps = dispatch => {
           return response
         })
         .then((response) => response.json())
-        .then((data) => Object.keys(data).forEach(function(k) {
-          dispatch(getDestinationSuccess(data[k]))
-        }))
-        .catch(() => dispatch(error(true)))
+        .then((data) => {
+          dispatch(getDestinationSuccess(Object.values(data.links)))
+        })
+        .catch(() => dispatch(getDestinationError(true)))
     },
     resetListOrigin: () => {
       dispatch(resetListOrigin())
@@ -55,7 +57,13 @@ const mapDispatchToProps = dispatch => {
     },
     setResultDestination: (data) => {
       dispatch(setResultDestination(data))
-    }
+    },
+    isLoadingOrigin: (bool) => {
+      dispatch(isLoadingOrigin(bool))
+    },
+    isLoadingDestination: (bool) => {
+      dispatch(isLoadingDestination(bool))
+    },
   }
 }
 
