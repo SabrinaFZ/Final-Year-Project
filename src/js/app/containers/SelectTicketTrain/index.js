@@ -12,6 +12,8 @@ const mapStateToProps = state => {
     returnBack: state.returnBack,
     adults: state.adults,
     childrenNumber: state.children,
+    listOrigin: state.listOrigin,
+    listDestination: state.listDestination,
   }
 }
 

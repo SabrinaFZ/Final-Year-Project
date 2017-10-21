@@ -11,6 +11,8 @@ export default class SelectTicketTrain extends Component {
   }
 
   static propTypes = {
+    listOrigin: PropTypes.arrayOf(PropTypes.object),
+    listDestination: PropTypes.arrayOf(PropTypes.object),
     originSelected: PropTypes.string.isRequired,
     destinationSelected: PropTypes.string.isRequired,
     outward: PropTypes.object.isRequired,
@@ -21,6 +23,7 @@ export default class SelectTicketTrain extends Component {
   }
 
   async findTicketTrains() {
+    let { originId, destinationId } = this.getTrainsId()
     try{
       let response = await this.props.post('https://api-southern.stage.otrl.io/jp/journey-plan',{
         method: 'POST',
@@ -28,54 +31,48 @@ export default class SelectTicketTrain extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-          //'x-trace-token': '81935270b5c511e7aae9e5aab67b280d-5',
           'Authorization': 'Basic Og=='
         },
         body: JSON.stringify({
-          origin: `${this.props.originSelected}`,
-          destination: `${this.props.destinationSelected}`,
+          origin: originId,
+          destination: destinationId,
           outward:	{
-            rangeStart:"2017-10-21T18:45:00",
-            rangeEnd:"2017-10-21T21:45:00",
-            arriveDepart:"Depart"
+            rangeStart:this.props.outward.rangeStart.toJSON().slice(0, -5),
+            rangeEnd:this.props.outward.rangeEnd.toJSON().slice(0, -5),
+            arriveDepart:this.props.outward.arriveDepart,
           },
-          // outward: this.props.outward,
-          // return: this.props.returnBack,
           openReturn:false,
-          adults: `${this.props.adults}`,
-          children: `${this.props.childrenNumber}`,
+          adults: this.props.adults,
+          children: this.props.childrenNumber,
           disableGroupSavings: true,
           showCheapest: false,
           doRealTime: false,
           return:	{
-            rangeStart:"2017-10-22T20:45:00",
-            rangeEnd:"2017-10-22T23:45:00",
-            arriveDepart:"Depart"
+            rangeStart:this.props.returnBack.rangeStart.toJSON().slice(0, -5),
+            rangeEnd:this.props.returnBack.rangeEnd.toJSON().slice(0, -5),
+            arriveDepart:this.props.returnBack.arriveDepart,
           }
-
-          // origin:"1072",
-          // destination:"9529",
-          // outward:	{
-          //   rangeStart:"2017-10-21T18:45:00",
-          //   rangeEnd:"2017-10-21T21:45:00",
-          //   arriveDepart:"Depart"
-          // },
-          // openReturn:false,
-          // adults:1,
-          // children:0,
-          // disableGroupSavings:true,
-          // showCheapest:false,
-          // doRealTime:false,
-          // return:	{
-          //   rangeStart:"2017-10-21T20:45:00",
-          //   rangeEnd:"2017-10-21T23:45:00",
-          //   arriveDepart:"Depart"
-          // }
         })
       })
     } catch(errors){
       console.log('Error on posting new journey')
     }
+  }
+
+  getTrainsId(){
+    var originId = null
+    var destinationId =  null
+    this.props.listOrigin.forEach((item) => {
+      if(item.name ==  this.props.originSelected){
+        originId = item.nlc
+      }
+    })
+    this.props.listDestination.forEach((item) => {
+      if(item.name ==  this.props.destinationSelected){
+        destinationId = item.nlc
+      }
+    })
+    return { originId, destinationId }
   }
 
   componentWillMount(){
