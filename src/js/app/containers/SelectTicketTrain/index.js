@@ -18,6 +18,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     post: (url, body) => {
+      console.log(body)
       fetch(url, body)
         .then((response) => {
           return response

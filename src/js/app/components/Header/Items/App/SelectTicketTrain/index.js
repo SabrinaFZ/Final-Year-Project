@@ -22,19 +22,55 @@ export default class SelectTicketTrain extends Component {
 
   async findTicketTrains() {
     try{
-      let response = await this.props.post('http://10.0.2.2:8080/api/jp/journey-plan',{
+      let response = await this.props.post('https://api-southern.stage.otrl.io/jp/journey-plan',{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+          //'x-trace-token': '81935270b5c511e7aae9e5aab67b280d-5',
+          'Authorization': 'Basic Og=='
         },
         body: JSON.stringify({
           origin: `${this.props.originSelected}`,
           destination: `${this.props.destinationSelected}`,
-          outward: `${this.props.outward}`,
-          returnBack: `${this.props.returnBack}`,
+          outward:	{
+            rangeStart:"2017-10-21T18:45:00",
+            rangeEnd:"2017-10-21T21:45:00",
+            arriveDepart:"Depart"
+          },
+          // outward: this.props.outward,
+          // return: this.props.returnBack,
+          openReturn:false,
           adults: `${this.props.adults}`,
-          children: `${this.props.children}`,
+          children: `${this.props.childrenNumber}`,
+          disableGroupSavings: true,
+          showCheapest: false,
+          doRealTime: false,
+          return:	{
+            rangeStart:"2017-10-22T20:45:00",
+            rangeEnd:"2017-10-22T23:45:00",
+            arriveDepart:"Depart"
+          }
+
+          // origin:"1072",
+          // destination:"9529",
+          // outward:	{
+          //   rangeStart:"2017-10-21T18:45:00",
+          //   rangeEnd:"2017-10-21T21:45:00",
+          //   arriveDepart:"Depart"
+          // },
+          // openReturn:false,
+          // adults:1,
+          // children:0,
+          // disableGroupSavings:true,
+          // showCheapest:false,
+          // doRealTime:false,
+          // return:	{
+          //   rangeStart:"2017-10-21T20:45:00",
+          //   rangeEnd:"2017-10-21T23:45:00",
+          //   arriveDepart:"Depart"
+          // }
         })
       })
     } catch(errors){

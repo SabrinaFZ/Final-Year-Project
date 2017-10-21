@@ -77,8 +77,6 @@ export default class SelectOriginDestination extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log(prevProps)
-    console.log(this.props)
     /*
       we check if the current resultOrigin is empty, otherwise we check that the previous result value is different from the new one if it's not we set a new result
     */
@@ -117,6 +115,18 @@ export default class SelectOriginDestination extends React.Component {
 
   }
 
+  handleValueOriginChange(itemValue, itemIndex){
+    if(itemIndex != 0){
+      this.props.setOrigin(itemValue)
+    }
+  }
+
+  handleValueDestinationChange(itemValue, itemIndex){
+    if(itemIndex != 0){
+      this.props.setDestination(itemValue)
+    }
+  }
+
 
   render(){
     if((this.props.resultOrigin).length != 0){
@@ -126,7 +136,8 @@ export default class SelectOriginDestination extends React.Component {
       var pickerOrigin =
         <Picker
           selectedValue={this.props.originSelected}
-          onValueChange={(itemValue, itemIndex) => this.props.setOrigin(itemValue)}>
+          onValueChange={(itemValue, itemIndex) => this.handleValueOriginChange(itemValue, itemIndex)}>
+          <Picker.Item value='Select an Origin' label='Select an Origin' />
           {originOptions}
         </Picker>
     }
@@ -137,7 +148,8 @@ export default class SelectOriginDestination extends React.Component {
       var pickerDestination =
         <Picker
           selectedValue={this.props.destinationSelected}
-          onValueChange={(itemValue, itemIndex) => this.props.setDestination(itemValue)}>
+          onValueChange={(itemValue, itemIndex) => this.handleValueDestinationChange(itemValue, itemIndex)}>
+          <Picker.Item value='Select a Destination' label='Select a Destination' />
           {destinationOptions}
         </Picker>
       }

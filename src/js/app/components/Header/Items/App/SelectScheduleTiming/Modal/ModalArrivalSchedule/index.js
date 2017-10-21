@@ -21,6 +21,7 @@ export default class ModalArrivalSchedule extends Component {
     if (Platform.OS === 'android'){
       try {
           const {action, year, month, day } = await DatePickerAndroid.open({
+          minDate: new Date(),
           date: this.props.rangeEnd
         }).then(date =>{
           const {action, year, month, day } = date
