@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import ModalScheduleTiming from './../../../components/Header/Items/App/SelectScheduleTiming/Modal/'
 
-import { cancelReturn, showHideModal, openOutwardModal, openReturnModal } from './../../../actions/actions'
+import { cancelReturn, showHideModal, openOutwardModal, openReturnModal, setArrivingLeaving } from './../../../actions/actions'
 
 const mapStateToProps =  (state, ownProps) => {
   return {
@@ -13,6 +13,7 @@ const mapStateToProps =  (state, ownProps) => {
     openOutward: state.openOutward,
     openReturn: state.openReturn,
     addReturn: state.addReturn,
+    arrivingLeaving: state.arrivingLeaving,
   }
 }
 
@@ -30,6 +31,9 @@ const mapDispatchToProps = dispatch => {
     openReturnModal: (bool) => {
       dispatch(openReturnModal(bool))
     },
+    setArrivingLeaving: (type) => {
+      dispatch(setArrivingLeaving(type))
+    }
   }
 }
 

@@ -9,7 +9,8 @@ const initialState = {
   error: false,
   loadingOrigin: false,
   loadingDestination: false,
-  journeyPlan: [],
+  loadingTrains: false,
+  journeyPlan: {},
   openOutward: false,
   openReturn:false,
   addReturn: false,
@@ -27,6 +28,7 @@ const initialState = {
   openPassengersModal: false,
   adults: 1,
   children: 0,
+  arrivingLeaving: 'Leaving'
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,7 +37,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {isVisible: !action.bool})
     }
     case 'POST_SUCCESS': {
-      return Object.assign({}, state, { journeyPlan: state.journeyPlan.concat(action.data) })
+      return Object.assign({}, state, { error: false, journeyPlan: action.data, loadingTrains:false })
     }
     case 'SET_ORIGIN': {
       return Object.assign({}, state, { originSelected: action.itemValue })
@@ -56,17 +58,37 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { showModal: !action.bool })
     }
     case 'CHANGE_DATE_DEPARTURE_OUTWARD': {
-      return Object.assign({}, state, { outward: {rangeStart: action.date, rangeEnd: state.outward.rangeEnd, arriveDepart: 'Depart'} })
+      return Object.assign({}, state, { outward: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: 'Depart'} })
     }
     case 'CHANGE_DATE_DEPARTURE_RETURN': {
+      return Object.assign({}, state, { returnBack: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: 'Depart'} })
+    }
+    case 'CHANGE_DATE_DEPARTURE_TIME_FROM_OUTWARD': {
+      return Object.assign({}, state, { outward: {rangeStart: action.date, rangeEnd: state.outward.rangeEnd, arriveDepart: 'Depart'} })
+    }
+    case 'CHANGE_DATE_DEPARTURE_TIME_TO_OUTWARD': {
+      return Object.assign({}, state, { outward: {rangeStart: state.outward.rangeStart, rangeEnd: action.date, arriveDepart: 'Depart'} })
+    }
+    case 'CHANGE_DATE_DEPARTURE_TIME_FROM_RETURN': {
       return Object.assign({}, state, { returnBack: {rangeStart: action.date, rangeEnd: state.returnBack.rangeEnd, arriveDepart: 'Depart'} })
     }
-    case 'CHANGE_DATE_ARRIVAL_OUTWARD': {
-      return Object.assign({}, state, { outward: {rangeStart: state.outward.rangeStart , rangeEnd: action.date, arriveDepart: 'Arrive'} })
+    case 'CHANGE_DATE_DEPARTURE_TIME_TO_RETURN': {
+      return Object.assign({}, state, { returnBack: {rangeStart: state.returnBack.rangeStart, rangeEnd: action.date, arriveDepart: 'Depart'} })
     }
-    case 'CHANGE_DATE_ARRIVAL_RETURN': {
+
+    case 'CHANGE_DATE_ARRIVAL_TIME_FROM_OUTWARD': {
+      return Object.assign({}, state, { outward: {rangeStart: action.date, rangeEnd: state.outward.rangeEnd, arriveDepart: 'Arrive'} })
+    }
+    case 'CHANGE_DATE_ARRIVAL_TIME_TO_OUTWARD': {
+      return Object.assign({}, state, { outward: {rangeStart: state.outward.rangeStart, rangeEnd: action.date, arriveDepart: 'Arrive'} })
+    }
+    case 'CHANGE_DATE_ARRIVAL_TIME_FROM_RETURN': {
+      return Object.assign({}, state, { returnBack: {rangeStart: action.date, rangeEnd: state.returnBack.rangeEnd, arriveDepart: 'Arrive'} })
+    }
+    case 'CHANGE_DATE_ARRIVAL_TIME_TO_RETURN': {
       return Object.assign({}, state, { returnBack: {rangeStart: state.returnBack.rangeStart, rangeEnd: action.date, arriveDepart: 'Arrive'} })
     }
+
     case 'SHOW_HIDE_PASSENGERS': {
       return Object.assign({}, state, { openPassengersModal: action.bool })
     }
@@ -101,13 +123,19 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { resultDestination: action.data })
     }
     case 'ERROR' : {
-      return Object.assign({}, state, { error: true })
+      return Object.assign({}, state, { error: true, loadingTrains: false })
     }
     case 'IS_LOADING_ORIGIN' : {
       return Object.assign({}, state, { loadingOrigin: action.bool })
     }
     case 'IS_LOADING_DESTINATION' : {
       return Object.assign({}, state, { loadingDestination: action.bool })
+    }
+    case 'SET_ARRIVING_LEAVING' : {
+      return Object.assign({}, state, { arrivingLeaving: action.value })
+    }
+    case 'IS_LOADING_TRAINS' : {
+      return Object.assign({}, state, { loadingTrains: action.bool })
     }
     default: {
       return state

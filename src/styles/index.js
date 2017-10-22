@@ -42,6 +42,11 @@ const common = StyleSheet.create({
     marginTop:100,
   },
 
+  textNormal:{
+    color: '#444e55',
+    fontSize: 20,
+  },
+
   textBold:{
     color: '#585858',
     fontSize: 20,
@@ -197,7 +202,6 @@ const common = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#e9418b',
     borderRadius: 5,
-    width:'60%',
   },
 
   spinner:{

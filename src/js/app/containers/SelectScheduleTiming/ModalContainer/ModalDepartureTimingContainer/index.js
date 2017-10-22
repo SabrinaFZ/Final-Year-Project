@@ -2,19 +2,20 @@ import { connect } from 'react-redux'
 
 import ModalDepartureTiming from './../../../../components/Header/Items/App/SelectScheduleTiming/Modal/ModalDepartureTiming'
 
-import { onChangeDepartureDateTime } from './../../../../actions/actions'
+import { onChangeDepartureTime } from './../../../../actions/actions'
 
 const mapStateToProps =  (state, ownProps) => {
   return {
     type: ownProps.type,
     rangeStart: ownProps.rangeStart,
+    rangeEnd: ownProps.rangeEnd,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChangeDepartureDateTime: (date, type) => {
-      dispatch(onChangeDepartureDateTime(date, type))
+    onChangeDepartureTime: (date, type, rangeType) => {
+      dispatch(onChangeDepartureTime(date, type, rangeType))
     }
   }
 }

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectTicketTrain from './../../components/Header/Items/App/SelectTicketTrain'
 
-import { error, postSuccess } from './../../actions/actions'
+import { error, postSuccess, isLoadingTrains } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -14,6 +14,10 @@ const mapStateToProps = state => {
     childrenNumber: state.children,
     listOrigin: state.listOrigin,
     listDestination: state.listDestination,
+    addReturn: state.addReturn,
+    journeyPlan: state.journeyPlan,
+    loadingTrains: state.loadingTrains,
+    error: state.error
   }
 }
 
@@ -28,6 +32,9 @@ const mapDispatchToProps = dispatch => {
         .then((response) => response.json())
         .then((data) => dispatch(postSuccess(data)))
         .catch(() => dispatch(error(true)))
+    },
+    isLoadingTrains: (bool) => {
+      dispatch(isLoadingTrains(bool))
     }
   }
 }

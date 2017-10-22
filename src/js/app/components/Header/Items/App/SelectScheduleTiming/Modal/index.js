@@ -7,7 +7,6 @@ import common from './../../../../../../../../styles'
 
 import ModalDepartureScheduleContainer from './../../../../../../containers/SelectScheduleTiming/ModalContainer/ModalDepartureScheduleContainer'
 import ModalDepartureTimingContainer from './../../../../../../containers/SelectScheduleTiming/ModalContainer/ModalDepartureTimingContainer'
-import ModalArrivalScheduleContainer from './../../../../../../containers/SelectScheduleTiming/ModalContainer/ModalArrivalScheduleContainer'
 import ModalArrivalTimingContainer from './../../../../../../containers/SelectScheduleTiming/ModalContainer/ModalArrivalTimingContainer'
 
 export default class ModalScheduleTiming extends Component {
@@ -23,10 +22,12 @@ export default class ModalScheduleTiming extends Component {
     openOutward: PropTypes.bool.isRequired,
     openReturn: PropTypes.bool.isRequired,
     addReturn: PropTypes.bool.isRequired,
+    arrivingLeaving: PropTypes.string.isRequired,
     showHideModal: PropTypes.func.isRequired,
     openOutwardModal: PropTypes.func.isRequired,
     openReturnModal: PropTypes.func.isRequired,
     cancelReturn: PropTypes.func.isRequired,
+    setArrivingLeaving: PropTypes.func.isRequired,
   }
 
 
@@ -47,22 +48,32 @@ export default class ModalScheduleTiming extends Component {
     this.props.cancelReturn(this.props.addReturn)
   }
 
+  handleValueChange(itemValue){
+    this.props.setArrivingLeaving(itemValue)
+  }
+
   render(){
     if(this.props.title == 'OUTWARD'){
-      console.log('AQUIIIIII')
-      var textDateTimeDepart = this.props.outward.rangeStart
-      var textDateTimeArrival = this.props.outward.rangeEnd
+      var textDateTimeFrom = this.props.outward.rangeStart
+      var textDateTimeTo = this.props.outward.rangeEnd
       var addCancelReturn = null
 
     } else {
-      var textDateTimeDepart = this.props.returnBack.rangeStart
-      var textDateTimeArrival = this.props.returnBack.rangeEnd
+      var textDateTimeFrom = this.props.returnBack.rangeStart
+      var textDateTimeTo = this.props.returnBack.rangeEnd
       var addCancelReturn =
         <View style={[common.center, common.row, common.marginTop50]}>
            <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={this.handleCancelReturn.bind(this)}/>
            <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> Cancel Return </Text>
         </View>
     }
+
+    if(this.props.arrivingLeaving == 'Leaving'){
+      var modalTimePicker = <ModalDepartureTimingContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo} />
+    } else {
+      var modalTimePicker = <ModalArrivalTimingContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo} />
+    }
+
 
     return(
       <Modal
@@ -77,16 +88,17 @@ export default class ModalScheduleTiming extends Component {
           <Text style={[common.title, common.center, common.row, common.textCenter]}>{this.props.title}</Text>
 
           {/* DEPARTURE */}
-          <ModalDepartureScheduleContainer type={this.props.title} rangeStart={textDateTimeDepart} />
+          <ModalDepartureScheduleContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo}/>
 
-          {/* LEAVING AT */}
-          <ModalDepartureTimingContainer type={this.props.title} rangeStart={textDateTimeDepart} />
+          <Picker
+            selectedValue={this.props.arrivingLeaving}
+            onValueChange={(itemValue, itemIndex) => this.handleValueChange(itemValue, itemIndex)}>
+            <Picker.Item value='Leaving' label='Leaving At' />
+            <Picker.Item value='Arriving' label='Arriving At' />
+          </Picker>
 
-          {/* ARRIVAL */}
-          <ModalArrivalScheduleContainer type={this.props.title} rangeEnd={textDateTimeArrival} />
-
-          {/* ARRIVING AT */}
-          <ModalArrivalTimingContainer type={this.props.title} rangeEnd={textDateTimeArrival} />
+          {/* LEAVING AT / ARRIVING AT */}
+          {modalTimePicker}
 
           {/* ADD CANCEL RETURN BUTTON IN CASE OF RETURN */}
           {addCancelReturn}

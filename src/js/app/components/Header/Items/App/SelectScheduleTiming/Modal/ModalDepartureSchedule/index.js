@@ -14,6 +14,7 @@ export default class ModalDepartureSchedule extends Component {
 
   static propTypes = {
     rangeStart: PropTypes.object.isRequired,
+    rangeEnd: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     onChangeDepartureDateTime: PropTypes.func.isRequired,
   }
@@ -30,9 +31,11 @@ export default class ModalDepartureSchedule extends Component {
         }).then(date =>{
           if (date.action !== DatePickerAndroid.dismissedAction) {
             const {action, year, month, day } = date
-            const hours = this.props.rangeStart.getHours()
-            const minutes = this.props.rangeStart.getMinutes()
-            this.props.onChangeDepartureDateTime(new Date(year, month, day, hours, minutes), this.props.type)
+            const hoursLeaving = this.props.rangeStart.getHours()
+            const minutesLeaving = this.props.rangeStart.getMinutes()
+            const hoursArriving = this.props.rangeEnd.getHours()
+            const minutesArriving = this.props.rangeEnd.getMinutes()
+            this.props.onChangeDepartureDateTime(new Date(year, month, day, hoursLeaving, minutesLeaving), new Date(year, month, day, hoursArriving, minutesArriving), this.props.type)
           }
           else{
             //Don't change the date

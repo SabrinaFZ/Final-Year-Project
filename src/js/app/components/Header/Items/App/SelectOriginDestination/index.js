@@ -10,7 +10,7 @@ import welcome from '../../../../../../../styles'
 
 import SelectScheduleTimingContainer from '../../../../../containers/SelectScheduleTiming'
 import SelectPassengersContainer from '../../../../../containers/SelectPassengers'
-import FindTrainsButton from './../FindTrainsButton'
+import FindTrainsButtonContainer from './../../../../../containers/FindTrainsButton'
 
 export default class SelectOriginDestination extends React.Component {
   constructor(props){
@@ -162,29 +162,9 @@ export default class SelectOriginDestination extends React.Component {
     }
 
     return(
-      <View style={[common.container, common.start, common.padding40]}>
-        <ScrollView>
-        <Text style={common.textBold}>{ 'Origin' }</Text>
-        <View style={common.row}>
-          <Icon name='search' type='EvilIcons' />
-          <TextInput
-            style={common.input}
-            onChangeText={this.goMap.bind(this)}
-            placeholder='Search in the map...'
-          />
-        </View>
-
-        <View style={[common.searchBar, common.marginBottom20]}>
-          <TextInput
-            onChangeText={(text) => this.onChangeOriginText(text)}
-            placeholder='Enter Origin...'
-            underlineColorAndroid='#e9418b'
-          />
-          {pickerOrigin}
-          {spinnerOrigin}
-        </View>
-
-          <Text style={common.textBold}>{ 'Destination' }</Text>
+      <ScrollView>
+        <View style={[common.container, common.start, common.padding40]}>
+          <Text style={common.textBold}>{ 'Origin' }</Text>
           <View style={common.row}>
             <Icon name='search' type='EvilIcons' />
             <TextInput
@@ -193,20 +173,40 @@ export default class SelectOriginDestination extends React.Component {
               placeholder='Search in the map...'
             />
           </View>
-        <View style={[common.searchBar, common.marginBottom20]}>
-          <TextInput
-            onChangeText={(text) => this.onChangeDestinationText(text)}
-            placeholder='Enter Destination...'
-            underlineColorAndroid='#e9418b'
-          />
-          {pickerDestination}
-          {spinnerDestination}
+
+          <View style={[common.searchBar, common.marginBottom20]}>
+            <TextInput
+              onChangeText={(text) => this.onChangeOriginText(text)}
+              placeholder='Enter Origin...'
+              underlineColorAndroid='#e9418b'
+            />
+            {pickerOrigin}
+            {spinnerOrigin}
+          </View>
+
+            <Text style={common.textBold}>{ 'Destination' }</Text>
+            <View style={common.row}>
+              <Icon name='search' type='EvilIcons' />
+              <TextInput
+                style={common.input}
+                onChangeText={this.goMap.bind(this)}
+                placeholder='Search in the map...'
+              />
+            </View>
+          <View style={[common.searchBar, common.marginBottom20]}>
+            <TextInput
+              onChangeText={(text) => this.onChangeDestinationText(text)}
+              placeholder='Enter Destination...'
+              underlineColorAndroid='#e9418b'
+            />
+            {pickerDestination}
+            {spinnerDestination}
+          </View>
+          <SelectScheduleTimingContainer />
+          <SelectPassengersContainer />
+          <FindTrainsButtonContainer navigation={this.props.navigation} />
         </View>
-        <SelectScheduleTimingContainer />
-        <SelectPassengersContainer />
-        <FindTrainsButton navigation={this.props.navigation} />
       </ScrollView>
-    </View>
     )
   }
 }

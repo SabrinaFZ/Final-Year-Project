@@ -61,29 +61,74 @@ export const showHideModal = (bool) => {
   }
 }
 
-export const onChangeDepartureDateTime = (date, type) => {
+export const onChangeDepartureDateTime = (dateStart, dateEnd, type) => {
   if(type == 'OUTWARD'){
     return {
       type: 'CHANGE_DATE_DEPARTURE_OUTWARD',
-      date
+      date: {
+        dateStart: dateStart,
+        dateEnd: dateEnd,
+      }
     }
   }
   return {
     type: 'CHANGE_DATE_DEPARTURE_RETURN',
-    date
+    date: {
+      dateStart: dateStart,
+      dateEnd: dateEnd,
+    }
   }
 }
-
-export const onChangeArrivalDateTime = (date, type) => {
+export const onChangeDepartureTime = (date, type, rangeType) => {
   if(type == 'OUTWARD'){
+    if(rangeType == 'from'){
+      return {
+        type: 'CHANGE_DATE_DEPARTURE_TIME_FROM_OUTWARD',
+        date
+      }
+    }else{
+      return {
+        type: 'CHANGE_DATE_DEPARTURE_TIME_TO_OUTWARD',
+        date
+      }
+    }
+  }
+  if(rangeType == 'from'){
     return {
-      type: 'CHANGE_DATE_ARRIVAL_OUTWARD',
+      type: 'CHANGE_DATE_DEPARTURE_TIME_FROM_RETURN',
+      date
+    }
+  }else{
+    return {
+      type: 'CHANGE_DATE_DEPARTURE_TIME_TO_RETURN',
       date
     }
   }
-  return {
-    type: 'CHANGE_DATE_ARRIVAL_RETURN',
-    date
+}
+export const onChangeArrivalTime = (date, type, rangeType) => {
+  if(type == 'OUTWARD'){
+    if(rangeType == 'from'){
+      return {
+        type: 'CHANGE_DATE_ARRIVAL_TIME_FROM_OUTWARD',
+        date
+      }
+    }else{
+      return {
+        type: 'CHANGE_DATE_ARRIVAL_TIME_TO_OUTWARD',
+        date
+      }
+    }
+  }
+  if(rangeType == 'from'){
+    return {
+      type: 'CHANGE_DATE_ARRIVAL_TIME_FROM_RETURN',
+      date
+    }
+  }else{
+    return {
+      type: 'CHANGE_DATE_ARRIVAL_TIME_TO_RETURN',
+      date
+    }
   }
 }
 
@@ -170,6 +215,20 @@ export const isLoadingOrigin = (bool) => {
 export const isLoadingDestination = (bool) => {
   return {
     type: 'IS_LOADING_DESTINATION',
+    bool
+  }
+}
+
+export const setArrivingLeaving = (value) => {
+  return {
+    type: 'SET_ARRIVING_LEAVING',
+    value
+  }
+}
+
+export const isLoadingTrains = (bool) => {
+  return {
+    type: 'IS_LOADING_TRAINS',
     bool
   }
 }

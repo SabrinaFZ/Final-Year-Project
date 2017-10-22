@@ -8,13 +8,14 @@ const mapStateToProps =  (state, ownProps) => {
   return {
     type: ownProps.type,
     rangeStart: ownProps.rangeStart,
+    rangeEnd: ownProps.rangeEnd,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChangeDepartureDateTime: (date, type) => {
-      dispatch(onChangeDepartureDateTime(date, type))
+    onChangeDepartureDateTime: (dateStart, dateEnd, type) => {
+      dispatch(onChangeDepartureDateTime(dateStart, dateEnd, type))
     }
   }
 }
