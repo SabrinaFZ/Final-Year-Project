@@ -213,52 +213,51 @@ export default class SelectTicketTrain extends Component {
     if(!this.props.loadingTrains && this.props.error==false){
       //Return an object for outward and journey
       var trains = this.getTrains()
-      var info_station_outward = trains.journeyOutwardInfo.map((item, index) => {
-        var fares = item.fares.map((fare,i) => {
-          return (
-            <View key={i}>
-              <Text>{fare.totalPrice}</Text>
-              <Text>{this.getTicketType(fare.ticketType)}</Text>
-            </View>
-          )
-        })
-        return (
-          <View key={index} style={[common.marginTop20, common.box, common.padding10]}>
-            <Text> Origin Station: {this.getTrainsName(item.origin_station)} </Text>
-            <Text> Dest Station {this.getTrainsName(item.destination_station)} </Text>
-            <Text> Leaving At: {item.origin_time} </Text>
-            <Text> Arriving At: {item.destination_time} </Text>
-            <Text> Changes: {item.changes} </Text>
-            {fares}
-          </View>
-        )
-      })
-      var info_station_return = trains.journeyReturnInfo.map((item, index) => {
-        var fares = item.fares.map((fare,i) => {
-          return (
-            <View key={i}>
-              <Text>{fare.totalPrice}</Text>
-              <Text>{this.getTicketType(fare.ticketType)}</Text>
-            </View>
-          )
-        })
-        return (
-          <View key={index} style={[common.marginTop20, common.box, common.padding10]}>
-            <Text> Origin Station: {this.getTrainsName(item.origin_station)} </Text>
-            <Text> Dest Station {this.getTrainsName(item.destination_station)} </Text>
-            <Text> Leaving At: {item.origin_time} </Text>
-            <Text> Arriving At: {item.destination_time} </Text>
-            <Text> Changes: {item.changes} </Text>
-            {fares}
-          </View>
-        )
+      var info_station = trains.journeyOutwardInfo.map((outwardItem, index) => {
+        if (this.props.addReturn){
+          var get_info = trains.journeyReturnInfo.map((returnItem, index) => {
+            let faresOutward = outwardItem.fares.map((fare,i) => {
+              return (
+                <View key={i}>
+                  <Text>{fare.totalPrice}</Text>
+                  <Text>{this.getTicketType(fare.ticketType)}</Text>
+                </View>
+              )
+            })
+            let faresReturn = returnItem.fares.map((fare,i) => {
+              return (
+                <View key={i}>
+                  <Text>{fare.totalPrice}</Text>
+                  <Text>{this.getTicketType(fare.ticketType)}</Text>
+                </View>
+              )
+            })
+            return (
+              <View key={index} style={[common.marginTop20, common.box, common.padding10]}>
+                <Text> Outward </Text>
+                <Text> Origin Station: {this.getTrainsName(outwardItem.origin_station)} </Text>
+                <Text> Dest Station {this.getTrainsName(outwardItem.destination_station)} </Text>
+                <Text> Leaving At: {outwardItem.origin_time} </Text>
+                <Text> Arriving At: {outwardItem.destination_time} </Text>
+                <Text> Changes: {outwardItem.changes} </Text>
+                {faresOutward}
+
+                <Text> Return </Text>
+                <Text> Origin Station: {this.getTrainsName(returnItem.origin_station)} </Text>
+                <Text> Dest Station {this.getTrainsName(returnItem.destination_station)} </Text>
+                <Text> Leaving At: {returnItem.origin_time} </Text>
+                <Text> Arriving At: {returnItem.destination_time} </Text>
+                <Text> Changes: {returnItem.changes} </Text>
+                {faresReturn}
+              </View>
+            )
+          })
+        }
+        return get_info
       })
       return(
         <ScrollView contentContainerStyle={[common.padding40]}>
-          <Text> Outward </Text>
-          {info_station_outward}
-          <Text> Return </Text>
-          {info_station_return}
+          {info_station}
         </ScrollView>
       )
     }
