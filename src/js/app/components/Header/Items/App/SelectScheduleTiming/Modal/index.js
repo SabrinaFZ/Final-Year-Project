@@ -91,6 +91,7 @@ export default class ModalScheduleTiming extends Component {
           <ModalDepartureScheduleContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo}/>
 
           <Picker
+            style={common.marginTop20}
             selectedValue={this.props.arrivingLeaving}
             onValueChange={(itemValue, itemIndex) => this.handleValueChange(itemValue, itemIndex)}>
             <Picker.Item value='Leaving' label='Leaving At' />

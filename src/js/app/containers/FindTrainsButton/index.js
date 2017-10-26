@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
   return {
     isLoadingTrains: (bool) => {
       dispatch(isLoadingTrains(bool))
-    }
+    },
   }
 }
 

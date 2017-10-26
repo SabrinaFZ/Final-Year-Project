@@ -56,7 +56,6 @@ export default class ModalArrivalTiming extends Component {
   render(){
     return(
       <View>
-        <Text style={[common.textMedium, common.marginTop20]}>{'Arriving At'}</Text>
         <Text style={[common.textMedium, common.marginTop20]}>{'From'}</Text>
         <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(this.props.rangeStart).format('HH:mm')}</Text>

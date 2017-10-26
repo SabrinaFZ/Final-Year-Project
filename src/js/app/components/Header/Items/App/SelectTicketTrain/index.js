@@ -164,14 +164,14 @@ export default class SelectTicketTrain extends Component {
       returnSinglePrice.push(aux)
     })
 
-    // outwardReturnFares.map((value, index) =>{
-    //   let aux = []
-    //   value.map((fares, i) => {
-    //     let item = this.props.journeyPlan.links[fares]
-    //     aux.push(item)
-    //   })
-    //   outwardReturnPrice.push(aux)
-    // })
+    outwardReturnFares.map((value, index) =>{
+      let aux = []
+      value.map((fares, i) => {
+        let item = this.props.journeyPlan.links[fares]
+        aux.push(item)
+      })
+      outwardReturnPrice.push(aux)
+    })
 
 
     outwardJourney.map((value, index) => {
@@ -210,13 +210,6 @@ export default class SelectTicketTrain extends Component {
   }
 
   render(){
-
-    if(this.props.error){
-      return(
-        <Text> Error </Text>
-      )
-    }
-
     if(!this.props.loadingTrains && this.props.error==false){
       //Return an object for outward and journey
       var trains = this.getTrains()
@@ -268,7 +261,15 @@ export default class SelectTicketTrain extends Component {
           {info_station_return}
         </ScrollView>
       )
-    } else {
+    }
+
+    if(this.props.error && !this.props.loadingTrains){
+      return(
+        <Text> Error </Text>
+      )
+    }
+
+    else if(this.props.loadingTrains) {
       var trains = {}
       return(
         <View style={[common.marginTop80, common.center]}>
