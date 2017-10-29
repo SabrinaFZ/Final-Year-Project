@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SelectOriginDestination from './../../components/Header/Items/App/SelectOriginDestination'
-import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination } from './../../actions/actions'
+import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -13,6 +13,7 @@ const mapStateToProps = state => {
     resultDestination: state.resultDestination,
     loadingOrigin: state.loadingOrigin,
     loadingDestination: state.loadingDestination,
+    addCart: state.addCart
   }
 }
 
@@ -63,6 +64,9 @@ const mapDispatchToProps = dispatch => {
     },
     isLoadingDestination: (bool) => {
       dispatch(isLoadingDestination(bool))
+    },
+    resetAll: () => {
+      dispatch(resetAll())
     },
   }
 }

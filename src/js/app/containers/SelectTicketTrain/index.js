@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectTicketTrain from './../../components/Header/Items/App/SelectTicketTrain'
 
-import { error, postSuccess, isLoadingTrains } from './../../actions/actions'
+import { error, postSuccess, isLoadingTrains, setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, setOpenMoreTicketsReturnId, setOpenMoreTicketsReturn, selectedOutward, selectedReturn } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -17,7 +17,12 @@ const mapStateToProps = state => {
     addReturn: state.addReturn,
     journeyPlan: state.journeyPlan,
     loadingTrains: state.loadingTrains,
-    error: state.error
+    error: state.error,
+    outwardReturn: state.outwardReturn,
+    openMoreTicketsOutwardId: state.openMoreTicketsOutwardId,
+    openMoreTicketsOutward: state.openMoreTicketsOutward,
+    openMoreTicketsReturnId: state.openMoreTicketsReturnId,
+    openMoreTicketsReturn: state.openMoreTicketsReturn
   }
 }
 
@@ -35,6 +40,27 @@ const mapDispatchToProps = dispatch => {
     },
     isLoadingTrains: (bool) => {
       dispatch(isLoadingTrains(bool))
+    },
+    setOutwardReturn: (value) => {
+      dispatch(setOutwardReturn(value))
+    },
+    setOpenMoreTicketsOutwardId: (id) => {
+      dispatch(setOpenMoreTicketsOutwardId(id))
+    },
+    setOpenMoreTicketsOutward: (bool) => {
+      dispatch(setOpenMoreTicketsOutward(bool))
+    },
+    setOpenMoreTicketsReturnId: (id) => {
+      dispatch(setOpenMoreTicketsReturnId(id))
+    },
+    setOpenMoreTicketsReturn: (bool) => {
+      dispatch(setOpenMoreTicketsReturn(bool))
+    },
+    selectedOutward: (value) => {
+      dispatch(selectedOutward(value))
+    },
+    selectedReturn: (value) => {
+      dispatch(selectedReturn(value))
     }
   }
 }

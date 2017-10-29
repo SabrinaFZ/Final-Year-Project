@@ -3,6 +3,7 @@ import { StackNavigator } from 'react-navigation'
 
 import ButtonSideMenu from './../Buttons/ButtonSideMenu'
 import ShoppingCartButton from './../Buttons/ShoppingCartButton'
+import GoBackButtonContainer from './../../../containers/GoBackButton'
 
 import DrawerScreen from './DrawerScreen'
 import ShoppingCart from './../Items/ShoppingCart'
@@ -27,7 +28,7 @@ const routeConfiguration = {
   },
   ShoppingCart:{
     screen: ShoppingCart,
-    navigationOptions: {
+    navigationOptions:  ({navigation}) => ({
       headerTitle: 'Shopping Cart',
       headerTitleStyle: {
         alignSelf: 'center',
@@ -35,9 +36,12 @@ const routeConfiguration = {
       },
       headerTintColor: 'white',
       headerStyle: {
+        paddingLeft: 10,
+        paddingRight: 10,
         backgroundColor: '#e9418b',
-      }
-    }
+      },
+      headerLeft: <GoBackButtonContainer navigation={navigation}/>
+    })
   }
 }
 

@@ -28,7 +28,16 @@ const initialState = {
   openPassengersModal: false,
   adults: 1,
   children: 0,
-  arrivingLeaving: 'Leaving'
+  arrivingLeaving: 'Leaving',
+  outwardReturn: 'Outward',
+  openMoreTicketsOutwardId: 0,
+  openMoreTicketsOutward: false,
+  openMoreTicketsReturnId: 0,
+  openMoreTicketsReturn: false,
+  selectedOutward: {},
+  selectedReturn: {},
+  shoppingCart: [],
+  addCart: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -136,6 +145,62 @@ const reducer = (state = initialState, action) => {
     }
     case 'IS_LOADING_TRAINS' : {
       return Object.assign({}, state, { loadingTrains: action.bool })
+    }
+    case 'SET_OUTWARD_RETURN' : {
+      return Object.assign({}, state, { outwardReturn: action.value })
+    }
+    case 'SET_OPEN_MORE_TICKETS_OUTWARD_ID' : {
+      return Object.assign({}, state, { openMoreTicketsOutwardId: action.id })
+    }
+    case 'SET_OPEN_MORE_TICKETS_OUTWARD' : {
+      return Object.assign({}, state, { openMoreTicketsOutward: action.bool })
+    }
+    case 'SET_OPEN_MORE_TICKETS_RETURN_ID' : {
+      return Object.assign({}, state, { openMoreTicketsReturnId: action.id })
+    }
+    case 'SET_OPEN_MORE_TICKETS_RETURN' : {
+      return Object.assign({}, state, { openMoreTicketsReturn: action.bool })
+    }
+    case 'SET_OPEN_MORE_TICKETS_RETURN' : {
+      return Object.assign({}, state, { openMoreTicketsReturn: action.bool })
+    }
+    case 'SELECT_OUTWARD': {
+      return Object.assign({}, state, { selectedOutward: action.value })
+    }
+    case 'SELECT_RETURN': {
+      return Object.assign({}, state, { selectedReturn: action.value })
+    }
+    case 'ADD_SHOPPING_CART': {
+      return Object.assign({}, state, { shoppingCart: state.shoppingCart.concat(action.value) })
+    }
+    case 'ADD_CART': {
+      return Object.assign({}, state, { addCart: action.bool })
+    }
+    case 'RESET_ALL': {
+      return Object.assign({}, state, {
+        listOrigin: [],
+        originSelected: '',
+        listDestination: [],
+        destinationSelected: '',
+        resultOrigin: [],
+        resultDestination: [],
+        addReturn: false,
+        outward: {
+          rangeStart: new Date(),
+          rangeEnd: new Date(),
+          arriveDepart: '',
+        },
+        returnBack: {
+          rangeStart: new Date(),
+          rangeEnd: new Date(),
+          arriveDepart: '',
+        },
+        adults: 1,
+        children: 0,
+        arrivingLeaving: 'Leaving',
+        outwardReturn: 'Outward',
+        addCart: false,
+      })
     }
     default: {
       return state

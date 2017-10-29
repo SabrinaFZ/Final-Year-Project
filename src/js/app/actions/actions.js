@@ -232,3 +232,72 @@ export const isLoadingTrains = (bool) => {
     bool
   }
 }
+
+export const setOutwardReturn = (value) => {
+  return {
+    type: 'SET_OUTWARD_RETURN',
+    value
+  }
+}
+
+export const setOpenMoreTicketsOutwardId = (id) => {
+  return {
+    type: 'SET_OPEN_MORE_TICKETS_OUTWARD_ID',
+    id
+  }
+}
+
+export const setOpenMoreTicketsOutward = (bool) => {
+  return {
+    type: 'SET_OPEN_MORE_TICKETS_OUTWARD',
+    bool
+  }
+}
+
+export const setOpenMoreTicketsReturnId = (id) => {
+  return {
+    type: 'SET_OPEN_MORE_TICKETS_RETURN_ID',
+    id
+  }
+}
+
+export const setOpenMoreTicketsReturn = (bool) => {
+  return {
+    type: 'SET_OPEN_MORE_TICKETS_RETURN',
+    bool
+  }
+}
+
+export const selectedOutward = (value) => {
+  return {
+    type: 'SELECT_OUTWARD',
+    value
+  }
+}
+
+export const selectedReturn = (value) => {
+  return {
+    type: 'SELECT_RETURN',
+    value
+  }
+}
+
+export const addShoppingCart = (value) => {
+  return {
+    type: 'ADD_SHOPPING_CART',
+    value
+  }
+}
+
+export const addedCart = (bool) => {
+  return {
+    type: 'ADD_CART',
+    bool
+  }
+}
+
+export const resetAll = () => {
+  return {
+    type: 'RESET_ALL',
+  }
+}

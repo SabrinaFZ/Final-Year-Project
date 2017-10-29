@@ -117,6 +117,12 @@ const common = StyleSheet.create({
     textAlign: 'center'
   },
 
+  textPink:{
+    color: '#e9418b',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
   input: {
     width: '90%',
     textAlign: 'left',
@@ -177,13 +183,27 @@ const common = StyleSheet.create({
     padding: 40,
   },
 
+  paddingLeftRight20:{
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+
   paddingLeftRight40:{
     paddingLeft: 40,
     paddingRight: 40
   },
 
+  paddingTopBottom20:{
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+
+  paddingTop20:{
+    paddingTop: 20
+  },
+
   paddingTop40:{
-      paddingTop: 40
+    paddingTop: 40
   },
 
   paddingTop80:{
@@ -198,6 +218,10 @@ const common = StyleSheet.create({
     backgroundColor: '#F2F2F2'
   },
 
+  backgroundColorWhite: {
+    backgroundColor: '#FFFFFF'
+  },
+
   box:{
     borderWidth: 2,
     borderColor: '#e9418b',
@@ -208,6 +232,12 @@ const common = StyleSheet.create({
     color: '#e9418b',
     marginTop: 10,
   },
+
+  separator:{
+    borderStyle: 'dashed',
+    borderTopWidth: 1,
+    borderTopColor: '#e9418b'
+  }
 
 })
 

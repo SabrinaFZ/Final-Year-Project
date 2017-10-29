@@ -10,6 +10,9 @@ import ModalScheduleTimingContainer from './../../../../../containers/SelectSche
 export default class SelectScheduleTiming extends Component {
   constructor(props){
     super(props)
+
+    this.getModalProps = this.getModalProps.bind(this)
+    this.renderOpenSchedule = this.renderOpenSchedule.bind(this)
   }
 
   static propTypes = {
@@ -38,7 +41,6 @@ export default class SelectScheduleTiming extends Component {
   }
 
   renderOpenSchedule(){
-    console.log('Aqui')
     if(this.props.openOutward || this.props.openReturn){
       var modalProps = this.getModalProps()
       return (

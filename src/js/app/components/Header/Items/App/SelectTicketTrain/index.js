@@ -3,6 +3,7 @@ import { ScrollView, Platform, Modal, TextInput, Button, Picker, View, Text, Tou
 import { Icon } from 'react-native-elements'
 import moment from 'moment';
 import Spinner from 'react-native-spinkit'
+import { NavigationActions } from 'react-navigation'
 
 import common from './../../../../../../../styles'
 
@@ -12,6 +13,10 @@ export default class SelectTicketTrain extends Component {
 
     this.getTrainsName = this.getTrainsName.bind(this)
     this.getTicketType = this.getTicketType.bind(this)
+    this.handleOnPressOutward =  this.handleOnPressOutward.bind(this)
+    this.handleOnPressReturn =  this.handleOnPressReturn.bind(this)
+    this.handleOnPressSelectOutward = this.handleOnPressSelectOutward.bind(this)
+    this.handleOnPressSelectReturn = this.handleOnPressSelectReturn.bind(this)
   }
 
   static propTypes = {
@@ -26,9 +31,21 @@ export default class SelectTicketTrain extends Component {
     addReturn: PropTypes.bool.isRequired,
     journeyPlan: PropTypes.object.isRequired,
     loadingTrains: PropTypes.bool.isRequired,
+    outwardReturn: PropTypes.string.isRequired,
+    openMoreTicketsOutwardId: PropTypes.number.isRequired,
+    openMoreTicketsOutward: PropTypes.bool.isRequired,
+    openMoreTicketsReturnId: PropTypes.number.isRequired,
+    openMoreTicketsReturn: PropTypes.bool.isRequired,
     isLoadingTrains: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
     post: PropTypes.func.isRequired,
+    setOutwardReturn: PropTypes.func.isRequired,
+    setOpenMoreTicketsOutwardId: PropTypes.func.isRequired,
+    setOpenMoreTicketsOutward: PropTypes.func.isRequired,
+    setOpenMoreTicketsReturnId: PropTypes.func.isRequired,
+    setOpenMoreTicketsReturn: PropTypes.func.isRequired,
+    selectedOutward: PropTypes.func.isRequired,
+    selectedReturn: PropTypes.func.isRequired,
   }
 
   async findTicketTrains() {
@@ -113,23 +130,41 @@ export default class SelectTicketTrain extends Component {
     return station.name
   }
 
+  getTrainsCRS(trainId){
+    let station = this.props.journeyPlan.links[trainId]
+    return station.crs
+  }
+
   getTicketType(ticketType){
     let ticket = this.props.journeyPlan.links[ticketType]
     return ticket.name
   }
 
   componentWillMount(){
+    this.props.setOutwardReturn('Outward')
+    this.props.setOpenMoreTicketsOutward(false)
+    this.props.setOpenMoreTicketsOutwardId(0)
     this.findTicketTrains()
   }
 
+  componentWillUpdate(nextProps, nextState){
+    if(nextProps.openMoreTicketsOutwardId != this.props.openMoreTicketsOutwardId){
+      this.props.setOpenMoreTicketsOutward(true)
+    }
+    if(nextProps.openMoreTicketsReturnId != this.props.openMoreTicketsReturnId){
+      this.props.setOpenMoreTicketsReturn(true)
+    }
+  }
 
   getTrains(){
     var outwardJourney = []
     var returnJourney = []
     var outwardSingleFares = []
     var outwardReturnFares = []
+    var outwardCheapestFares = []
     var returnSingleFares = []
     var returnReturnFares = []
+    var returnCheapestFares = []
     var journeyOutwardInfo = []
     var journeyReturnInfo = []
     var outwardSinglePrice = []
@@ -140,10 +175,12 @@ export default class SelectTicketTrain extends Component {
     this.props.journeyPlan.result.outward.forEach((item) => {
       outwardJourney.push(item.journey)
       outwardSingleFares.push(item.fares.singles)
+      outwardCheapestFares.push(item.fares.cheapest.totalPrice)
     })
     this.props.journeyPlan.result.return.forEach((item) => {
       returnJourney.push(item.journey)
       returnSingleFares.push(item.fares.singles)
+      returnCheapestFares.push(item.fares.cheapest.totalPrice)
     })
 
     outwardSingleFares.map((value, index) =>{
@@ -173,7 +210,6 @@ export default class SelectTicketTrain extends Component {
       outwardReturnPrice.push(aux)
     })
 
-
     outwardJourney.map((value, index) => {
       let info = {}
       let item = this.props.journeyPlan.links[value]
@@ -185,7 +221,8 @@ export default class SelectTicketTrain extends Component {
         changes: item.changes,
         legs: item.legs,
         status: item.status,
-        fares: outwardSinglePrice[index]
+        fares: outwardSinglePrice[index],
+        cheapest: outwardCheapestFares[index],
       }
       journeyOutwardInfo.push(info)
     })
@@ -201,7 +238,8 @@ export default class SelectTicketTrain extends Component {
         changes: item.changes,
         legs: item.legs,
         status: item.status,
-        fares: returnSinglePrice[index]
+        fares: returnSinglePrice[index],
+        cheapest: returnCheapestFares[index],
       }
       journeyReturnInfo.push(info)
     })
@@ -209,54 +247,156 @@ export default class SelectTicketTrain extends Component {
     return { journeyOutwardInfo, journeyReturnInfo }
   }
 
+  handleOnValueChange(itemValue){
+    this.props.setOutwardReturn(itemValue)
+  }
+
+  handleOnPressOutward(index){
+    this.props.setOpenMoreTicketsOutwardId(index)
+    if(index == this.props.openMoreTicketsOutwardId){
+      this.props.setOpenMoreTicketsOutward(!this.props.openMoreTicketsOutward)
+    }
+  }
+
+  handleOnPressReturn(index){
+    this.props.setOpenMoreTicketsReturnId(index)
+    if(index == this.props.openMoreTicketsReturnId){
+      this.props.setOpenMoreTicketsReturn(!this.props.openMoreTicketsReturn)
+    }
+  }
+
+  handleOnPressSelectOutward(item){
+    this.props.selectedOutward(item)
+    if(this.props.addReturn){
+      this.props.setOutwardReturn('Return')
+    }else{
+      this.props.navigation.dispatch(
+        NavigationActions.navigate({
+          routeName: 'SelectTicketTrain',
+          action: NavigationActions.navigate({ routeName: 'DetailsTickets' }),
+        }),
+      )
+    }
+  }
+
+  handleOnPressSelectReturn(item){
+    this.props.selectedReturn(item)
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({
+        routeName: 'SelectTicketTrain',
+        action: NavigationActions.navigate({ routeName: 'DetailsTickets' }),
+      }),
+    )
+  }
+
   render(){
     if(!this.props.loadingTrains && this.props.error==false){
       //Return an object for outward and journey
       var trains = this.getTrains()
-      var info_station = trains.journeyOutwardInfo.map((outwardItem, index) => {
-        if (this.props.addReturn){
-          var get_info = trains.journeyReturnInfo.map((returnItem, index) => {
-            let faresOutward = outwardItem.fares.map((fare,i) => {
+      var picker;
+      if(this.props.addReturn){
+        picker =
+        <Picker
+          selectedValue={this.props.outwardReturn}
+          onValueChange={(itemValue) => this.handleOnValueChange(itemValue)}>
+          <Picker.Item value='Outward' label='Select Outward' />
+          <Picker.Item value='Return' label='Select Return' />
+        </Picker>
+      }else{
+        picker =
+        <Picker
+          selectedValue={this.props.outwardReturn}
+          onValueChange={(itemValue) => this.handleOnValueChange(itemValue)}>
+          <Picker.Item value='Outward' label='Select Outward' />
+        </Picker>
+      }
+      if(this.props.outwardReturn == 'Outward'){
+        var info_station = trains.journeyOutwardInfo.map((outwardItem, index) => {
+          let faresOutward = null
+          if(this.props.openMoreTicketsOutwardId == index && this.props.openMoreTicketsOutward){
+            faresOutward = outwardItem.fares.map((fare,i) => {
               return (
-                <View key={i}>
-                  <Text>{fare.totalPrice}</Text>
-                  <Text>{this.getTicketType(fare.ticketType)}</Text>
+                <View key={i} style={common.paddingTopBottom20}>
+                  <TouchableOpacity style={[common.backgroundColor, common.alignItems]}>
+                    <Text style={common.textBold}>{this.getTicketType(fare.ticketType)}</Text>
+                    <Text style={common.textNormal}>{((fare.totalPrice)/1000).toFixed(2)} £ </Text>
+                  </TouchableOpacity>
                 </View>
               )
             })
-            let faresReturn = returnItem.fares.map((fare,i) => {
+          }
+          return(
+            <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
+                <View style={[common.alignItems]}>
+                  <Text style={common.textNormal}> {this.getTrainsCRS(outwardItem.origin_station)} </Text>
+                  <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> {this.getTrainsCRS(outwardItem.destination_station)} </Text>
+                  <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
+                  <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest)/1000).toFixed(2)} £ </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                <View style={[common.marginTop20, common.separator]}>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressOutward(index)}>
+                <View style={[common.marginTop20, common.separator]}>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> More Tickets </Text>
+                </View>
+              </TouchableOpacity>
+              {faresOutward}
+            </View>
+          )
+        })
+      }
+      else{
+        var info_station = trains.journeyReturnInfo.map((returnItem, index) => {
+          let faresReturn = null
+          if(this.props.openMoreTicketsReturnId == index && this.props.openMoreTicketsReturn){
+            faresReturn = returnItem.fares.map((fare,i) => {
               return (
-                <View key={i}>
-                  <Text>{fare.totalPrice}</Text>
-                  <Text>{this.getTicketType(fare.ticketType)}</Text>
+                <View key={i} style={common.paddingTopBottom20}>
+                  <TouchableOpacity style={[common.backgroundColor, common.alignItems]}>
+                    <Text style={common.textBold}>{this.getTicketType(fare.ticketType)}</Text>
+                    <Text style={common.textNormal}>{((fare.totalPrice)/1000).toFixed(2)} £ </Text>
+                  </TouchableOpacity>
                 </View>
               )
             })
-            return (
-              <View key={index} style={[common.marginTop20, common.box, common.padding10]}>
-                <Text> Outward </Text>
-                <Text> Origin Station: {this.getTrainsName(outwardItem.origin_station)} </Text>
-                <Text> Dest Station {this.getTrainsName(outwardItem.destination_station)} </Text>
-                <Text> Leaving At: {outwardItem.origin_time} </Text>
-                <Text> Arriving At: {outwardItem.destination_time} </Text>
-                <Text> Changes: {outwardItem.changes} </Text>
-                {faresOutward}
-
-                <Text> Return </Text>
-                <Text> Origin Station: {this.getTrainsName(returnItem.origin_station)} </Text>
-                <Text> Dest Station {this.getTrainsName(returnItem.destination_station)} </Text>
-                <Text> Leaving At: {returnItem.origin_time} </Text>
-                <Text> Arriving At: {returnItem.destination_time} </Text>
-                <Text> Changes: {returnItem.changes} </Text>
-                {faresReturn}
-              </View>
-            )
-          })
-        }
-        return get_info
-      })
+          }
+          return (
+            <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectReturn(returnItem) }>
+                <View style={[common.alignItems]}>
+                  <Text style={common.textNormal}> {this.getTrainsCRS(returnItem.origin_station)} </Text>
+                  <Text style={common.textBold}> {returnItem.origin_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> {this.getTrainsCRS(returnItem.destination_station)} </Text>
+                  <Text style={common.textBold}> {returnItem.destination_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> Changes: {returnItem.changes} </Text>
+                  <Text style={common.title}> {((returnItem.cheapest)/1000).toFixed(2)} £ </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                <View style={[common.marginTop20, common.separator]}>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index)}>
+                <View style={[common.marginTop20, common.separator]}>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> More Tickets </Text>
+                </View>
+              </TouchableOpacity>
+              {faresReturn}
+            </View>
+          )
+        })
+      }
       return(
         <ScrollView contentContainerStyle={[common.padding40]}>
+          {picker}
           {info_station}
         </ScrollView>
       )

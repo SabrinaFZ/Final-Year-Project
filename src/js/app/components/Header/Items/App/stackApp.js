@@ -4,6 +4,7 @@ import { StackNavigator} from 'react-navigation'
 import SelectOriginDestination from './SelectOriginDestination'
 import SelectOriginDestinationContainer from './../../../../containers/SelectOriginDestination'
 import SelectTicketTrainContainer from './../../../../containers/SelectTicketTrain'
+import DetailsTicketsContainer from './../../../../containers/DetailsTickets'
 
 const routeConfiguration = {
   SelectOriginDestination : {
@@ -11,6 +12,9 @@ const routeConfiguration = {
   },
   SelectTicketTrain: {
     screen: SelectTicketTrainContainer
+  },
+  DetailsTickets: {
+    screen: DetailsTicketsContainer
   }
 }
 
