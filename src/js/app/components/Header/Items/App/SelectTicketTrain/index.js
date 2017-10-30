@@ -214,8 +214,10 @@ export default class SelectTicketTrain extends Component {
       let info = {}
       let item = this.props.journeyPlan.links[value]
       info = {
-        origin_station: item.origin.station,
-        destination_station: item.destination.station,
+        origin_station_id: this.getTrainsCRS(item.origin.station),
+        destination_station_id: this.getTrainsCRS(item.destination.station),
+        origin_station_name: this.getTrainsName(item.origin.station),
+        destination_station_name: this.getTrainsName(item.destination.station),
         origin_time: item.origin.time.scheduledTime,
         destination_time: item.destination.time.scheduledTime,
         changes: item.changes,
@@ -231,10 +233,10 @@ export default class SelectTicketTrain extends Component {
       let info = {}
       let item = this.props.journeyPlan.links[value]
       info = {
-        origin_station: item.origin.station,
-        destination_station: item.destination.station,
-        origin_time: item.origin.time.scheduledTime,
-        destination_time: item.destination.time.scheduledTime,
+        origin_station_id: this.getTrainsCRS(item.origin.station),
+        destination_station_id: this.getTrainsCRS(item.destination.station),
+        origin_station_name: this.getTrainsName(item.origin.station),
+        destination_station_name: this.getTrainsName(item.destination.station),
         changes: item.changes,
         legs: item.legs,
         status: item.status,
@@ -329,9 +331,9 @@ export default class SelectTicketTrain extends Component {
             <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
                 <View style={[common.alignItems]}>
-                  <Text style={common.textNormal}> {this.getTrainsCRS(outwardItem.origin_station)} </Text>
+                  <Text style={common.textNormal}> {outwardItem.origin_station} </Text>
                   <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> {this.getTrainsCRS(outwardItem.destination_station)} </Text>
+                  <Text style={common.textNormal}> {outwardItem.destination_station} </Text>
                   <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
                   <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
                   <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest)/1000).toFixed(2)} £ </Text>
@@ -339,12 +341,12 @@ export default class SelectTicketTrain extends Component {
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.8}>
                 <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressOutward(index)}>
                 <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> More Tickets </Text>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> MORE TICKETS </Text>
                 </View>
               </TouchableOpacity>
               {faresOutward}
@@ -381,12 +383,12 @@ export default class SelectTicketTrain extends Component {
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.8}>
                 <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index)}>
                 <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> More Tickets </Text>
+                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> MORE TICKETS </Text>
                 </View>
               </TouchableOpacity>
               {faresReturn}

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { NavigationActions } from 'react-navigation'
 import {
   View,
   Text,
@@ -25,21 +26,6 @@ export default class DetailsTickets extends Component{
     addedCart: PropTypes.func.isRequired,
   }
 
-  getTrainsName(trainId){
-    let station = this.props.journeyPlan.links[trainId]
-    return station.name
-  }
-
-  getTrainsCRS(trainId){
-    let station = this.props.journeyPlan.links[trainId]
-    return station.crs
-  }
-
-  getTicketType(ticketType){
-    let ticket = this.props.journeyPlan.links[ticketType]
-    return ticket.name
-  }
-
   handleOnPress(){
     let item = {
       outward: this.props.selectedOutward,
@@ -47,7 +33,14 @@ export default class DetailsTickets extends Component{
     }
     this.props.addShoppingCart(item)
     this.props.addedCart(!this.props.addCart)
-    this.props.navigation.navigate('ShoppingCart')
+    this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'SelectOriginDestination' }),
+        ]
+      })
+    )
   }
 
   render(){
@@ -56,39 +49,39 @@ export default class DetailsTickets extends Component{
       returnTicketInfo =
       <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
         <View style={[common.alignItems]}>
-          <Text style={common.textPink}> Return </Text>
+          <Text style={common.textPink}> RETURN </Text>
           <Text style={common.textBold}> {this.props.selectedReturn.origin_time.slice(0, 10)} </Text>
-          <Text style={common.textNormal}> {this.getTrainsCRS(this.props.selectedReturn.origin_station)} </Text>
+          <Text style={common.textNormal}> {this.props.selectedReturn.origin_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedReturn.origin_time.slice(-8, -3)} </Text>
-          <Text style={common.textNormal}> {this.getTrainsCRS(this.props.selectedReturn.destination_station)} </Text>
+          <Text style={common.textNormal}> {this.props.selectedReturn.destination_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedReturn.destination_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> Changes: {this.props.selectedReturn.changes} </Text>
           <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedReturn.cheapest)/1000).toFixed(2)} £ </Text>
         </View>
         <TouchableOpacity activeOpacity={0.8}>
           <View style={[common.marginTop20, common.separator]}>
-            <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+            <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
           </View>
         </TouchableOpacity>
       </View>
     }
     return(
       <ScrollView contentContainerStyle={[common.padding40]}>
-        <Text style={[common.textCenter, common.title]}> Your Tickets </Text>
+        <Text style={[common.textCenter, common.title]}> YOUR TICKETS </Text>
         <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
           <View style={[common.alignItems]}>
-            <Text style={common.textPink}> Outward </Text>
+            <Text style={common.textPink}> OUTWARD </Text>
             <Text style={common.textBold}> {this.props.selectedOutward.origin_time.slice(0, 10)} </Text>
-            <Text style={common.textNormal}> {this.getTrainsCRS(this.props.selectedOutward.origin_station)} </Text>
+            <Text style={common.textNormal}> {this.props.selectedOutward.origin_station_id} </Text>
             <Text style={common.textBold}> {this.props.selectedOutward.origin_time.slice(-8, -3)} </Text>
-            <Text style={common.textNormal}> {this.getTrainsCRS(this.props.selectedOutward.destination_station)} </Text>
+            <Text style={common.textNormal}> {this.props.selectedOutward.destination_station_id} </Text>
             <Text style={common.textBold}> {this.props.selectedOutward.destination_time.slice(-8, -3)} </Text>
             <Text style={common.textNormal}> Changes: {this.props.selectedOutward.changes} </Text>
             <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedOutward.cheapest)/1000).toFixed(2)} £ </Text>
           </View>
           <TouchableOpacity activeOpacity={0.8}>
             <View style={[common.marginTop20, common.separator]}>
-              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> Info </Text>
+              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
             </View>
           </TouchableOpacity>
         </View>

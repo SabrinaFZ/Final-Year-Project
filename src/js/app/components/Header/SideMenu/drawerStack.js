@@ -6,7 +6,7 @@ import ShoppingCartButton from './../Buttons/ShoppingCartButton'
 import GoBackButtonContainer from './../../../containers/GoBackButton'
 
 import DrawerScreen from './DrawerScreen'
-import ShoppingCart from './../Items/ShoppingCart'
+import ShoppingCartContainer from './../../../containers/ShoppingCart'
 
 const routeConfiguration = {
   DrawerSreen: {
@@ -27,7 +27,7 @@ const routeConfiguration = {
     })
   },
   ShoppingCart:{
-    screen: ShoppingCart,
+    screen: ShoppingCartContainer,
     navigationOptions:  ({navigation}) => ({
       headerTitle: 'Shopping Cart',
       headerTitleStyle: {
@@ -40,7 +40,7 @@ const routeConfiguration = {
         paddingRight: 10,
         backgroundColor: '#e9418b',
       },
-      headerLeft: <GoBackButtonContainer navigation={navigation}/>
+      headerLeft: <GoBackButtonContainer navigation={navigation}/>,
     })
   }
 }

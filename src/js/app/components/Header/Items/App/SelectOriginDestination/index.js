@@ -1,6 +1,6 @@
 'use strict'
 import React, { PropTypes } from 'react'
-import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity, BackHandler } from 'react-native'
+import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import moment from 'moment'
 import Spinner from 'react-native-spinkit'
@@ -42,15 +42,14 @@ export default class SelectOriginDestination extends React.Component {
 
   componentWillMount(){
     if(this.props.addCart){
-      console.log('1')
       this.props.resetAll()
     }
   }
 
   componentDidMount(){
     if(this.props.addCart){
-      console.log('2')
       this.props.resetAll()
+
     }
   }
 
