@@ -67,7 +67,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { showModal: !action.bool })
     }
     case 'CHANGE_DATE_DEPARTURE_OUTWARD': {
-      return Object.assign({}, state, { outward: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: 'Depart'} })
+      return Object.assign({}, state, { outward: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: 'Depart'}, returnBack: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: '' }})
     }
     case 'CHANGE_DATE_DEPARTURE_RETURN': {
       return Object.assign({}, state, { returnBack: {rangeStart: action.date.dateStart, rangeEnd: action.date.dateEnd, arriveDepart: 'Depart'} })

@@ -20,10 +20,14 @@ export default class ModalDepartureSchedule extends Component {
   }
 
   async renderDepartureDatePicker(){
+    let minDate = new Date()
+    if(this.props.type == 'RETURN'){
+      minDate = this.props.rangeStart
+    }
     if (Platform.OS === 'android'){
       try {
           const {action, year, month, day } = await DatePickerAndroid.open({
-          minDate: new Date(),
+          minDate: minDate,
           date: this.props.rangeStart
         }).then(date =>{
           const {action, year, month, day } = date
