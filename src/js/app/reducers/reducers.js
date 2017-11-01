@@ -176,6 +176,9 @@ const reducer = (state = initialState, action) => {
     case 'ADD_CART': {
       return Object.assign({}, state, { addCart: action.bool })
     }
+    case 'UPDATE': {
+      return Object.assign({}, state, { shoppingCart: action.value })
+    }
     case 'RESET_ALL': {
       return Object.assign({}, state, {
         listOrigin: [],

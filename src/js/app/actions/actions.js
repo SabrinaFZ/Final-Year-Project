@@ -301,3 +301,10 @@ export const resetAll = () => {
     type: 'RESET_ALL',
   }
 }
+
+export const update = (value) => {
+  return {
+    type: 'UPDATE',
+    value
+  }
+}

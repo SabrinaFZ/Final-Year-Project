@@ -239,6 +239,8 @@ export default class SelectTicketTrain extends Component {
         destination_station_id: this.getTrainsCRS(item.destination.station),
         origin_station_name: this.getTrainsName(item.origin.station),
         destination_station_name: this.getTrainsName(item.destination.station),
+        origin_time: item.origin.time.scheduledTime,
+        destination_time: item.destination.time.scheduledTime,
         changes: item.changes,
         legs: item.legs,
         status: item.status,
@@ -333,9 +335,9 @@ export default class SelectTicketTrain extends Component {
             <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
                 <View style={[common.alignItems]}>
-                  <Text style={common.textNormal}> {outwardItem.origin_station} </Text>
+                  <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
                   <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> {outwardItem.destination_station} </Text>
+                  <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
                   <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
                   <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
                   <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest)/1000).toFixed(2)} £ </Text>
@@ -375,9 +377,9 @@ export default class SelectTicketTrain extends Component {
             <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectReturn(returnItem) }>
                 <View style={[common.alignItems]}>
-                  <Text style={common.textNormal}> {this.getTrainsCRS(returnItem.origin_station)} </Text>
+                  <Text style={common.textNormal}> {returnItem.origin_station_id} </Text>
                   <Text style={common.textBold}> {returnItem.origin_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> {this.getTrainsCRS(returnItem.destination_station)} </Text>
+                  <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
                   <Text style={common.textBold}> {returnItem.destination_time.slice(-8, -3)} </Text>
                   <Text style={common.textNormal}> Changes: {returnItem.changes} </Text>
                   <Text style={common.title}> {((returnItem.cheapest)/1000).toFixed(2)} £ </Text>

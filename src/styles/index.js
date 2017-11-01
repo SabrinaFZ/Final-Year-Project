@@ -119,7 +119,7 @@ const common = StyleSheet.create({
 
   textPink:{
     color: '#e9418b',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 

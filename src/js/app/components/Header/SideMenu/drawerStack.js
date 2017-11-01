@@ -9,7 +9,7 @@ import DrawerScreen from './DrawerScreen'
 import ShoppingCartContainer from './../../../containers/ShoppingCart'
 
 const routeConfiguration = {
-  DrawerSreen: {
+  DrawerScreen: {
     screen: DrawerScreen,
     navigationOptions: ({navigation}) => ({
       headerTitle: 'App',

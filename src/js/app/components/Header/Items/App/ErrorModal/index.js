@@ -23,7 +23,7 @@ export default class ErrorModal extends Component {
     return(
       <View>
         <Modal
-          animationType='fade'
+          animationType='none'
           transparent={true}
           visible={this.props.error}
           onRequestClose={() => this.props.navigation.goBack()}

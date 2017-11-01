@@ -30,17 +30,11 @@ export default class DetailsTickets extends Component{
     let item = {
       outward: this.props.selectedOutward,
       return: this.props.selectedReturn,
+      hasReturn: this.props.addReturn,
     }
     this.props.addShoppingCart(item)
     this.props.addedCart(!this.props.addCart)
-    this.props.navigation.dispatch(
-      NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'SelectOriginDestination' }),
-        ]
-      })
-    )
+    this.props.navigation.navigate('ShoppingCart')
   }
 
   render(){
