@@ -123,6 +123,12 @@ const common = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  textWhite:{
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
   input: {
     width: '90%',
     textAlign: 'left',
@@ -174,7 +180,10 @@ const common = StyleSheet.create({
   marginBottom40:{
     marginBottom: 40
   },
-
+  marginLeftRight40:{
+    marginLeft: 40,
+    marginRight: 40,
+  },
   padding10:{
     padding: 10,
   },
@@ -237,6 +246,12 @@ const common = StyleSheet.create({
     borderStyle: 'dashed',
     borderTopWidth: 1,
     borderTopColor: '#e9418b'
+  },
+
+  error:{
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#B22222',
   }
 
 })

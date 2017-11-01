@@ -5,6 +5,8 @@ import moment from 'moment';
 import Spinner from 'react-native-spinkit'
 import { NavigationActions } from 'react-navigation'
 
+import ErrorModalContainer from './../../../../../containers/ErrorModal'
+
 import common from './../../../../../../../styles'
 
 export default class SelectTicketTrain extends Component {
@@ -406,7 +408,7 @@ export default class SelectTicketTrain extends Component {
 
     if(this.props.error && !this.props.loadingTrains){
       return(
-        <Text> Error </Text>
+        <ErrorModalContainer navigation={this.props.navigation} message='There must be a problem with your request. Please check the information and seach again'/>
       )
     }
 
