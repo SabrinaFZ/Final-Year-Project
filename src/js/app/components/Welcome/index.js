@@ -1,10 +1,11 @@
 'use strict'
 import React, { PropTypes } from 'react'
 import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import Spinner from 'react-native-spinkit'
+
 import welcome from '../../../../styles/Welcome'
 import common from '../../../../styles'
-
-import Spinner from 'react-native-spinkit'
 
 export default class Welcome extends React.Component {
   constructor(props){
@@ -18,12 +19,20 @@ export default class Welcome extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.props.showHideWelcome(this.props.isVisible)
+      this.props.showHideWelcome(!this.props.isVisible)
     }, 500)
 
     setTimeout(() => {
       //this.props.navigation.navigate('Menu')
-      this.props.navigation.navigate('CustomHeader')
+      this.props.showHideWelcome(!this.props.isVisible)
+      this.props.navigation.dispatch(
+        NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'CustomHeader' }),
+          ]
+        })
+      )
       //this.props.navigation.navigate('App')
     }, 1000)
   }

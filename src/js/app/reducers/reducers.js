@@ -43,7 +43,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case 'SHOW_HIDE_WELCOME': {
-      return Object.assign({}, state, {isVisible: !action.bool})
+      return Object.assign({}, state, {isVisible: action.bool})
     }
     case 'POST_SUCCESS': {
       return Object.assign({}, state, { error: false, journeyPlan: action.data, loadingTrains:false })
