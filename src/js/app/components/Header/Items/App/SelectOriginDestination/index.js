@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements'
 import moment from 'moment'
 import Spinner from 'react-native-spinkit'
 import RNGooglePlaces from 'react-native-google-places'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import MapView from 'react-native-maps'
 
 import common from './../../../../../../../styles'
@@ -14,10 +15,14 @@ import SelectScheduleTimingContainer from '../../../../../containers/SelectSched
 import SelectPassengersContainer from '../../../../../containers/SelectPassengers'
 import FindTrainsButtonContainer from './../../../../../containers/FindTrainsButton'
 import MapContainer from './../../../../../containers/Map'
+//import SearchMap from './../SearchMap'
 
 export default class SelectOriginDestination extends React.Component {
   constructor(props){
     super(props)
+    this.state= {
+      openMap: false
+    }
   }
 
   static propTypes = {
@@ -97,52 +102,6 @@ export default class SelectOriginDestination extends React.Component {
     })
   }
 
-  // goMap(text){
-  //   return (
-  //     <GooglePlacesAutocomplete
-  //       placeholder='Search'
-  //       minLength={2} // minimum length of text to search
-  //       autoFocus={false}
-  //       returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-  //       listViewDisplayed='auto'    // true/false/undefined
-  //       fetchDetails={true}
-  //       renderDescription={row => row.description} // custom description render
-  //       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-  //         console.log(data, details);
-  //       }}
-  //
-  //       getDefaultValue={() => ''}
-  //
-  //       query={{
-  //         // available options: https://developers.google.com/places/web-service/autocomplete
-  //         key: 'YOUR API KEY',
-  //         language: 'en', // language of the results
-  //         types: '(cities)' // default: 'geocode'
-  //       }}
-  //
-  //       styles={{
-  //         textInputContainer: {
-  //           width: '100%'
-  //         },
-  //         description: {
-  //           fontWeight: 'bold'
-  //         },
-  //         predefinedPlacesDescription: {
-  //           color: '#1faadb'
-  //         }
-  //       }}
-  //
-  //       currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-  //       currentLocationLabel="Current location"
-  //       nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-  //       GoogleReverseGeocodingQuery={{
-  //         // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-  //       }}
-  //
-  //     />
-  //   );
-  // }
-
   componentDidUpdate(prevProps){
     /*
       we check if the current resultOrigin is empty, otherwise we check that the previous result value is different from the new one if it's not we set a new result
@@ -187,24 +146,25 @@ export default class SelectOriginDestination extends React.Component {
         'Content-Type': 'application/json'
       },
     })
-    //
-    //los resultados lo pongo en el mapa -> Marker
   }
 
   goMap(){
-    RNGooglePlaces.openAutocompleteModal({
-      type: 'geocode',
-  	  country: 'GB',
+    this.setState({
+      openMap: true
     })
-    .then((place) => {
-		    console.log(place)
-        this.props.setLatitude(place.latitude)
-        this.props.setLongitude(place.longitude)
-        this.getOriginStations(place.latitude, place.longitude)
-        this.props.navigation.navigate('Map')
-        //this.props.setOrigin(place.name)
-    })
-    .catch(error => console.log(error.message));
+    // RNGooglePlaces.openAutocompleteModal({
+    //   type: 'geocode',
+  	//   country: 'GB',
+    // })
+    // .then((place) => {
+		//     console.log(place)
+    //     this.props.setLatitude(place.latitude)
+    //     this.props.setLongitude(place.longitude)
+    //     this.getOriginStations(place.latitude, place.longitude)
+    //     this.props.navigation.navigate('Map')
+    //     //this.props.setOrigin(place.name)
+    // })
+    // .catch(error => console.log(error.message));
   }
 
   handleValueOriginChange(itemValue, itemIndex){
@@ -263,6 +223,7 @@ export default class SelectOriginDestination extends React.Component {
               style={common.input}
               onFocus={this.goMap.bind(this)}
               placeholder='Search in the map...'
+              underlineColorAndroid='#e9418b'
             />
           </View>
 
@@ -283,6 +244,7 @@ export default class SelectOriginDestination extends React.Component {
                 style={common.input}
                 onFocus={this.goMap.bind(this)}
                 placeholder='Search in the map...'
+                underlineColorAndroid='#e9418b'
               />
             </View>
           <View style={[common.searchBar, common.marginBottom20]}>
@@ -297,6 +259,48 @@ export default class SelectOriginDestination extends React.Component {
           <SelectScheduleTimingContainer />
           <SelectPassengersContainer />
           <FindTrainsButtonContainer navigation={this.props.navigation} />
+          <Modal
+           animationType="slide"
+           transparent={false}
+           visible={this.state.openMap}
+           onRequestClose={() => this.setState({
+             openMap: false
+           })}
+           >
+          <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
+            <ScrollView>
+              <GooglePlacesAutocomplete
+                placeholder='Search'
+                minLength={2}
+                autoFocus={false}
+                returnKeyType={'search'}
+                listViewDisplayed='auto'
+                fetchDetails={true}
+                renderDescription={row => row.description}
+                onPress={(data, details = null) => {
+                  console.log(data, details)
+                  this.props.setLatitude(details.geometry.location.lat)
+                  this.props.setLongitude(details.geometry.location.lng)
+                  this.getOriginStations(details.geometry.location.lat, details.geometry.location.lng)
+                  this.setState({
+                    openMap: false
+                  })
+                  this.props.navigation.navigate('Map')
+                }}
+                getDefaultValue={() => ''}
+                query={{
+                  key: 'AIzaSyD3g40E3xMy3PhXoZbIRFz9FEx_w7vcOrA',
+                  language: 'en',
+                  types: 'geocode',
+                  components: 'country:gb'
+                }}
+                currentLocation={true}
+                currentLocationLabel="Current location"
+                nearbyPlacesAPI='GooglePlacesSearch'
+                />
+              </ScrollView>
+            </View>
+          </Modal>
         </View>
       </ScrollView>
     )
