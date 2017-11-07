@@ -34,7 +34,6 @@ export default class ShoppingCart extends Component {
   }
 
   handleOnPressDelete(index){
-    console.log(index)
     this.props.shoppingCart.splice(index,1)
     this.props.update(this.props.shoppingCart)
     this.forceUpdate()

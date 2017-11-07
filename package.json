@@ -23,7 +23,9 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4",
 		"react-native-elements": "^0.17.0",
+		"react-native-google-places": "^2.4.2",
 		"react-native-keyboard-aware-scroll-view": "^0.3.0",
+		"react-native-maps": "^0.17.1",
 		"react-native-spinkit": "^1.1.1",
 		"react-native-vector-icons": "^4.4.0",
 		"react-navigation": "^1.0.0-beta.13",
@@ -32,7 +34,8 @@
 		"redux-logger": "^3.0.6",
 		"request": "^2.83.0",
 		"request-promise": "^4.2.2",
-		"soap": "^0.22.0"
+		"soap": "^0.22.0",
+		"watchman": "^0.1.8"
 	},
 	"devDependencies": {
 		"babel-jest": "21.0.2",
