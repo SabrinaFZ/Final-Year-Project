@@ -4,6 +4,8 @@ import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, Text
 import { Icon } from 'react-native-elements'
 import moment from 'moment'
 import Spinner from 'react-native-spinkit'
+import RNGooglePlaces from 'react-native-google-places'
+import MapView from 'react-native-maps'
 
 import common from './../../../../../../../styles'
 import welcome from '../../../../../../../styles'
@@ -11,6 +13,7 @@ import welcome from '../../../../../../../styles'
 import SelectScheduleTimingContainer from '../../../../../containers/SelectScheduleTiming'
 import SelectPassengersContainer from '../../../../../containers/SelectPassengers'
 import FindTrainsButtonContainer from './../../../../../containers/FindTrainsButton'
+import MapContainer from './../../../../../containers/Map'
 
 export default class SelectOriginDestination extends React.Component {
   constructor(props){
@@ -37,7 +40,10 @@ export default class SelectOriginDestination extends React.Component {
     setResultDestination: PropTypes.func.isRequired,
     isLoadingOrigin: PropTypes.func.isRequired,
     isLoadingDestination: PropTypes.func.isRequired,
-    resetAll: PropTypes.func.isRequired
+    resetAll: PropTypes.func.isRequired,
+    getOriginStations: PropTypes.func.isRequired,
+    setLatitude: PropTypes.func.isRequired,
+    setLongitude: PropTypes.func.isRequired,
   }
 
   componentWillMount(){
@@ -91,6 +97,52 @@ export default class SelectOriginDestination extends React.Component {
     })
   }
 
+  // goMap(text){
+  //   return (
+  //     <GooglePlacesAutocomplete
+  //       placeholder='Search'
+  //       minLength={2} // minimum length of text to search
+  //       autoFocus={false}
+  //       returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+  //       listViewDisplayed='auto'    // true/false/undefined
+  //       fetchDetails={true}
+  //       renderDescription={row => row.description} // custom description render
+  //       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+  //         console.log(data, details);
+  //       }}
+  //
+  //       getDefaultValue={() => ''}
+  //
+  //       query={{
+  //         // available options: https://developers.google.com/places/web-service/autocomplete
+  //         key: 'YOUR API KEY',
+  //         language: 'en', // language of the results
+  //         types: '(cities)' // default: 'geocode'
+  //       }}
+  //
+  //       styles={{
+  //         textInputContainer: {
+  //           width: '100%'
+  //         },
+  //         description: {
+  //           fontWeight: 'bold'
+  //         },
+  //         predefinedPlacesDescription: {
+  //           color: '#1faadb'
+  //         }
+  //       }}
+  //
+  //       currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+  //       currentLocationLabel="Current location"
+  //       nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+  //       GoogleReverseGeocodingQuery={{
+  //         // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+  //       }}
+  //
+  //     />
+  //   );
+  // }
+
   componentDidUpdate(prevProps){
     /*
       we check if the current resultOrigin is empty, otherwise we check that the previous result value is different from the new one if it's not we set a new result
@@ -126,8 +178,33 @@ export default class SelectOriginDestination extends React.Component {
     }
   }
 
-  goMap(){
+  async getOriginStations(latitude, longitude){
+    let baseURL = `https://api.thameslinkrailway.com/config/stations?latitude=${latitude}&longitude=${longitude}&num_stations=5`
+    await this.props.getOriginStations(baseURL, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    //
+    //los resultados lo pongo en el mapa -> Marker
+  }
 
+  goMap(){
+    RNGooglePlaces.openAutocompleteModal({
+      type: 'geocode',
+  	  country: 'GB',
+    })
+    .then((place) => {
+		    console.log(place)
+        this.props.setLatitude(place.latitude)
+        this.props.setLongitude(place.longitude)
+        this.getOriginStations(place.latitude, place.longitude)
+        this.props.navigation.navigate('Map')
+        //this.props.setOrigin(place.name)
+    })
+    .catch(error => console.log(error.message));
   }
 
   handleValueOriginChange(itemValue, itemIndex){
@@ -184,7 +261,7 @@ export default class SelectOriginDestination extends React.Component {
             <Icon name='search' type='EvilIcons' />
             <TextInput
               style={common.input}
-              onChangeText={this.goMap.bind(this)}
+              onFocus={this.goMap.bind(this)}
               placeholder='Search in the map...'
             />
           </View>
@@ -204,7 +281,7 @@ export default class SelectOriginDestination extends React.Component {
               <Icon name='search' type='EvilIcons' />
               <TextInput
                 style={common.input}
-                onChangeText={this.goMap.bind(this)}
+                onFocus={this.goMap.bind(this)}
                 placeholder='Search in the map...'
               />
             </View>

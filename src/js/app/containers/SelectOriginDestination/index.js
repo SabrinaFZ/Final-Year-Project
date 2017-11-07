@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SelectOriginDestination from './../../components/Header/Items/App/SelectOriginDestination'
-import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll } from './../../actions/actions'
+import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll, setLatitude, setLongitude } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -68,6 +68,34 @@ const mapDispatchToProps = dispatch => {
     resetAll: () => {
       dispatch(resetAll())
     },
+    getOriginStations: (url, body) => {
+      fetch(url, body)
+        .then((response) => {
+          return response
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(getOriginSuccess(Object.values(data.links)))
+        })
+        .catch(() => dispatch(getOriginError(true)))
+    },
+    getDestinationStations: (url, body) => {
+      fetch(url, body)
+        .then((response) => {
+          return response
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(getDestinationSuccess(Object.values(data.links)))
+        })
+        .catch(() => dispatch(getDestinationError(true)))
+    },
+    setLatitude: (value) => {
+      dispatch(setLatitude(value))
+    },
+    setLongitude: (value) => {
+      dispatch(setLongitude(value))
+    }
   }
 }
 

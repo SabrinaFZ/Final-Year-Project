@@ -5,6 +5,7 @@ import SelectOriginDestination from './SelectOriginDestination'
 import SelectOriginDestinationContainer from './../../../../containers/SelectOriginDestination'
 import SelectTicketTrainContainer from './../../../../containers/SelectTicketTrain'
 import DetailsTicketsContainer from './../../../../containers/DetailsTickets'
+import MapContainer from './../../../../containers/Map'
 
 const routeConfiguration = {
   SelectOriginDestination : {
@@ -15,6 +16,9 @@ const routeConfiguration = {
   },
   DetailsTickets: {
     screen: DetailsTicketsContainer
+  },
+  Map: {
+    screen: MapContainer
   }
 }
 

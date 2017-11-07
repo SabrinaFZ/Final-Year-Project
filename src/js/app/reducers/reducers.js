@@ -38,6 +38,8 @@ const initialState = {
   selectedReturn: {},
   shoppingCart: [],
   addCart: false,
+  latitude: 0,
+  longitude: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -178,6 +180,12 @@ const reducer = (state = initialState, action) => {
     }
     case 'UPDATE': {
       return Object.assign({}, state, { shoppingCart: action.value })
+    }
+    case 'SET_LATITUDE': {
+      return Object.assign({}, state, { latitude: action.value })
+    }
+    case 'SET_LONGITUDE': {
+      return Object.assign({}, state, { longitude: action.value })
     }
     case 'RESET_ALL': {
       return Object.assign({}, state, {
