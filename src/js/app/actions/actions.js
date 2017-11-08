@@ -336,3 +336,10 @@ export const selectedMap = (value) => {
     value
   }
 }
+
+export const openModalInfo = (bool) => {
+  return {
+    type: 'OPEN_MODAL_INFO',
+    bool
+  }
+}

@@ -6,6 +6,7 @@ import Spinner from 'react-native-spinkit'
 import { NavigationActions } from 'react-navigation'
 
 import ErrorModalContainer from './../../../../../containers/ErrorModal'
+import InfoModalContainer from './../../../../../containers/SelectTicketTrain/InfoModal'
 
 import common from './../../../../../../../styles'
 
@@ -19,6 +20,7 @@ export default class SelectTicketTrain extends Component {
     this.handleOnPressReturn =  this.handleOnPressReturn.bind(this)
     this.handleOnPressSelectOutward = this.handleOnPressSelectOutward.bind(this)
     this.handleOnPressSelectReturn = this.handleOnPressSelectReturn.bind(this)
+    this.handleOnPressInfo = this.handleOnPressInfo.bind(this)
   }
 
   static propTypes = {
@@ -48,6 +50,7 @@ export default class SelectTicketTrain extends Component {
     setOpenMoreTicketsReturn: PropTypes.func.isRequired,
     selectedOutward: PropTypes.func.isRequired,
     selectedReturn: PropTypes.func.isRequired,
+    setOpenModalInfo: PropTypes.func.isRequired,
   }
 
   async findTicketTrains() {
@@ -294,6 +297,12 @@ export default class SelectTicketTrain extends Component {
     )
   }
 
+  handleOnPressInfo(index){
+    this.props.setOpenMoreTicketsOutwardId(index)
+    this.props.setOpenModalInfo(true)
+    this.forceUpdate()
+  }
+
   render(){
     if(!this.props.loadingTrains && this.props.error==false){
       //Return an object for outward and journey
@@ -342,7 +351,7 @@ export default class SelectTicketTrain extends Component {
                   <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest)/1000).toFixed(2)} £ </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
                 <View style={[common.marginTop20, common.separator]}>
                   <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
                 </View>
@@ -384,7 +393,7 @@ export default class SelectTicketTrain extends Component {
                   <Text style={common.title}> {((returnItem.cheapest)/1000).toFixed(2)} £ </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity activeOpacity={0.8} >
                 <View style={[common.marginTop20, common.separator]}>
                   <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
                 </View>
@@ -403,6 +412,7 @@ export default class SelectTicketTrain extends Component {
         <ScrollView contentContainerStyle={[common.padding40]}>
           {picker}
           {info_station}
+          <InfoModalContainer routeTrains={trains.journeyOutwardInfo[this.props.openMoreTicketsReturnId].legs}/>
         </ScrollView>
       )
     }

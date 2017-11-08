@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react'
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import RNGooglePlaces from 'react-native-google-places'
 import MapView from 'react-native-maps'
 import { Icon } from 'react-native-elements'
 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectTicketTrain from './../../components/Header/Items/App/SelectTicketTrain'
 
-import { error, postSuccess, isLoadingTrains, setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, setOpenMoreTicketsReturnId, setOpenMoreTicketsReturn, selectedOutward, selectedReturn } from './../../actions/actions'
+import { error, postSuccess, isLoadingTrains, setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, setOpenMoreTicketsReturnId, setOpenMoreTicketsReturn, selectedOutward, selectedReturn, openModalInfo } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -61,6 +61,9 @@ const mapDispatchToProps = dispatch => {
     },
     selectedReturn: (value) => {
       dispatch(selectedReturn(value))
+    },
+    setOpenModalInfo: (bool) => {
+      dispatch(openModalInfo(bool))
     }
   }
 }

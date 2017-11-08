@@ -186,6 +186,11 @@ const common = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
+
+  padding5:{
+    padding: 5,
+  },
+
   padding10:{
     padding: 10,
   },

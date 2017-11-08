@@ -214,7 +214,7 @@ export default class SelectOriginDestination extends Component {
               activeOpacity={0.8}
               style={{width:'100%', backgroundColor: '#e9418b', borderTopLeftRadius: 5, borderTopRightRadius: 5}}
               onPress={() => this.goMap('origin')}>
-              <View style={[common.row, common.padding10]}>
+              <View style={[common.row, common.padding5, common.paddingLeftRight20]}>
                 <Icon name='search' type='EvilIcons' color='#fff'/>
                 <Text style={common.textButton}>SEARCH IN THE MAP . . .</Text>
               </View>
@@ -238,7 +238,7 @@ export default class SelectOriginDestination extends Component {
                 activeOpacity={0.8}
                 style={{width:'100%', backgroundColor: '#e9418b', borderTopLeftRadius: 5, borderTopRightRadius: 5}}
                 onPress={() => this.goMap('destination')}>
-                <View style={[common.row, common.padding10]}>
+                <View style={[common.row, common.padding5, common.paddingLeftRight20]}>
                   <Icon name='search' type='EvilIcons' color='#fff'/>
                   <Text style={common.textButton}>SEARCH IN THE MAP . . .</Text>
                 </View>
