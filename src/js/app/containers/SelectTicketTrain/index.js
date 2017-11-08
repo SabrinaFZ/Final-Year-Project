@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectTicketTrain from './../../components/Header/Items/App/SelectTicketTrain'
 
-import { error, postSuccess, isLoadingTrains, setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, setOpenMoreTicketsReturnId, setOpenMoreTicketsReturn, selectedOutward, selectedReturn, openModalInfo } from './../../actions/actions'
+import { error, postSuccess, isLoadingTrains, setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, setOpenMoreTicketsReturnId, setOpenMoreTicketsReturn, selectedOutward, selectedReturn, openModalInfoOutward, setOpenModalInfoOutwardId } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +22,8 @@ const mapStateToProps = state => {
     openMoreTicketsOutwardId: state.openMoreTicketsOutwardId,
     openMoreTicketsOutward: state.openMoreTicketsOutward,
     openMoreTicketsReturnId: state.openMoreTicketsReturnId,
-    openMoreTicketsReturn: state.openMoreTicketsReturn
+    openMoreTicketsReturn: state.openMoreTicketsReturn,
+    openModalInfoOutwardId: state.openModalInfoOutwardId
   }
 }
 
@@ -62,8 +63,11 @@ const mapDispatchToProps = dispatch => {
     selectedReturn: (value) => {
       dispatch(selectedReturn(value))
     },
-    setOpenModalInfo: (bool) => {
-      dispatch(openModalInfo(bool))
+    setOpenModalInfoOutward: (bool) => {
+      dispatch(openModalInfoOutward(bool))
+    },
+    setOpenModalInfoOutwardId: (value) => {
+      dispatch(setOpenModalInfoOutwardId(value))
     }
   }
 }

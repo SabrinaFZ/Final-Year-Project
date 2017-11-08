@@ -2,20 +2,20 @@ import { connect } from 'react-redux'
 
 import InfoModal from './../../../components/Header/Items/App/SelectTicketTrain/InfoModal'
 
-import { openModalInfo } from './../../../actions/actions'
+import { openModalInfoOutward } from './../../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     journeyPlan: state.journeyPlan,
-    openModalInfo: state.openModalInfo,
+    openModalInfoOutward: state.openModalInfoOutward,
     routeTrains: ownProps.routeTrains
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setOpenModalInfo: (bool) => {
-      dispatch(openModalInfo(bool))
+    setOpenModalInfoOutward: (bool) => {
+      dispatch(openModalInfoOutward(bool))
     }
   }
 }

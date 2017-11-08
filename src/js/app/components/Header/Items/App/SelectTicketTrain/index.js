@@ -40,6 +40,7 @@ export default class SelectTicketTrain extends Component {
     openMoreTicketsOutward: PropTypes.bool.isRequired,
     openMoreTicketsReturnId: PropTypes.number.isRequired,
     openMoreTicketsReturn: PropTypes.bool.isRequired,
+    openModalInfoOutwardId: PropTypes.number.isRequired,
     isLoadingTrains: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
     post: PropTypes.func.isRequired,
@@ -50,7 +51,8 @@ export default class SelectTicketTrain extends Component {
     setOpenMoreTicketsReturn: PropTypes.func.isRequired,
     selectedOutward: PropTypes.func.isRequired,
     selectedReturn: PropTypes.func.isRequired,
-    setOpenModalInfo: PropTypes.func.isRequired,
+    setOpenModalInfoOutward: PropTypes.func.isRequired,
+    setOpenModalInfoOutwardId: PropTypes.func.isRequired,
   }
 
   async findTicketTrains() {
@@ -298,8 +300,8 @@ export default class SelectTicketTrain extends Component {
   }
 
   handleOnPressInfo(index){
-    this.props.setOpenMoreTicketsOutwardId(index)
-    this.props.setOpenModalInfo(true)
+    this.props.setOpenModalInfoOutwardId(index)
+    this.props.setOpenModalInfoOutward(true)
     this.forceUpdate()
   }
 
@@ -412,7 +414,7 @@ export default class SelectTicketTrain extends Component {
         <ScrollView contentContainerStyle={[common.padding40]}>
           {picker}
           {info_station}
-          <InfoModalContainer routeTrains={trains.journeyOutwardInfo[this.props.openMoreTicketsReturnId].legs}/>
+          <InfoModalContainer routeTrains={trains.journeyOutwardInfo[this.props.openModalInfoOutwardId].legs}/>
         </ScrollView>
       )
     }

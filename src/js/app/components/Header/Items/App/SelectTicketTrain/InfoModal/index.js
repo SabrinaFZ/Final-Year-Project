@@ -23,9 +23,9 @@ export default class InfoModal extends Component {
 
   static propTypes = {
     journeyPlan: PropTypes.object.isRequired,
-    openModalInfo: PropTypes.bool.isRequired,
+    openModalInfoOutward: PropTypes.bool.isRequired,
     routeTrains: PropTypes.arrayOf(PropTypes.object),
-    setOpenModalInfo: PropTypes.func.isRequired
+    setOpenModalInfoOutward: PropTypes.func.isRequired
   }
 
   getTrainsLatitude(trainId){
@@ -62,8 +62,8 @@ export default class InfoModal extends Component {
         <Modal
           animationType='slide'
           transparent={false}
-          visible={this.props.openModalInfo}
-          onRequestClose={() => this.props.setOpenModalInfo(false)}
+          visible={this.props.openModalInfoOutward}
+          onRequestClose={() => this.props.setOpenModalInfoOutward(false)}
           >
             <View style ={styles.container}>
               <MapView

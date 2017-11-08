@@ -42,7 +42,8 @@ const initialState = {
   longitude: 0,
   openModalMap: false,
   selectedMap: 'origin',
-  openModalInfo: false,
+  openModalInfoOutward: false,
+  openModalInfoOutwardId: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -196,8 +197,11 @@ const reducer = (state = initialState, action) => {
     case 'SELECTED_MAP': {
       return Object.assign({}, state, { selectedMap: action.value })
     }
-    case 'OPEN_MODAL_INFO': {
-      return Object.assign({}, state, { openModalInfo: action.bool })
+    case 'OPEN_MODAL_INFO_OUTWARD': {
+      return Object.assign({}, state, { openModalInfoOutward: action.bool })
+    }
+    case 'OPEN_MODAL_INFO_OUTWARD_ID': {
+      return Object.assign({}, state, { openModalInfoOutwardId: action.value })
     }
     case 'RESET_ALL': {
       return Object.assign({}, state, {

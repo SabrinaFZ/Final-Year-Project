@@ -337,9 +337,16 @@ export const selectedMap = (value) => {
   }
 }
 
-export const openModalInfo = (bool) => {
+export const openModalInfoOutward = (bool) => {
   return {
-    type: 'OPEN_MODAL_INFO',
+    type: 'OPEN_MODAL_INFO_OUTWARD',
     bool
+  }
+}
+
+export const setOpenModalInfoOutwardId = (value) => {
+  return {
+    type: 'OPEN_MODAL_INFO_OUTWARD_ID',
+    value
   }
 }
