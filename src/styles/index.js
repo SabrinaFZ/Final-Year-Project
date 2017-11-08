@@ -140,6 +140,8 @@ const common = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e9418b',
     borderRadius: 5,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
     padding: 10,
   },
 

@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => {
     longitude: state.longitude,
     listOrigin: state.listOrigin,
     listDestination: state.listDestination,
+    selectedMap: state.selectedMap,
   }
 }
 

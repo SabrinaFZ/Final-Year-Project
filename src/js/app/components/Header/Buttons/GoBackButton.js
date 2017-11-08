@@ -24,6 +24,7 @@ export default class GoBackButton extends Component {
         ]
       })
     )
+    this.forceUpdate()
   }
 
 

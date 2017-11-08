@@ -322,3 +322,17 @@ export const setLongitude = (value) => {
     value
   }
 }
+
+export const openModalMap = (bool) => {
+  return {
+    type: 'OPEN_MODAL_MAP',
+    bool
+  }
+}
+
+export const selectedMap = (value) => {
+  return {
+    type: 'SELECTED_MAP',
+    value
+  }
+}

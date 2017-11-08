@@ -52,7 +52,6 @@ export default class SelectScheduleTiming extends Component {
 
   }
 
-
   render(){
     if(!this.props.addReturn){
       var returnButton =

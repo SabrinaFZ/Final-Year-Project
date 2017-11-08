@@ -108,7 +108,6 @@ export default class SelectTicketTrain extends Component {
         })
       })
     }
-
   }
 
   getTrainsId(){

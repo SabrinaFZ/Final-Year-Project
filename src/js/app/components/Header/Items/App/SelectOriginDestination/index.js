@@ -1,28 +1,31 @@
 'use strict'
-import React, { PropTypes } from 'react'
-import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
+import React, { PropTypes, Component } from 'react'
+import { ScrollView, TextInput, Picker, View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import moment from 'moment'
 import Spinner from 'react-native-spinkit'
-import RNGooglePlaces from 'react-native-google-places'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
-import MapView from 'react-native-maps'
 
 import common from './../../../../../../../styles'
-import welcome from '../../../../../../../styles'
 
 import SelectScheduleTimingContainer from '../../../../../containers/SelectScheduleTiming'
 import SelectPassengersContainer from '../../../../../containers/SelectPassengers'
 import FindTrainsButtonContainer from './../../../../../containers/FindTrainsButton'
 import MapContainer from './../../../../../containers/Map'
-//import SearchMap from './../SearchMap'
+import SearchMapContainer from './../../../../../containers/SearchMap'
 
-export default class SelectOriginDestination extends React.Component {
+export default class SelectOriginDestination extends Component {
   constructor(props){
     super(props)
-    this.state= {
-      openMap: false
-    }
+
+    this.goMap = this.goMap.bind(this)
+    this.searchOrigin = this.searchOrigin.bind(this)
+    this.searchDestination = this.searchDestination.bind(this)
+    this.onChangeOriginText = this.onChangeOriginText.bind(this)
+    this.onChangeDestinationText = this.onChangeDestinationText.bind(this)
+    this.setResultOrigin = this.setResultOrigin.bind(this)
+    this.setResultDestination = this.setResultDestination.bind(this)
+    this.handleValueOriginChange = this.handleValueOriginChange.bind(this)
+    this.handleValueDestinationChange = this.handleValueDestinationChange.bind(this)
   }
 
   static propTypes = {
@@ -35,6 +38,8 @@ export default class SelectOriginDestination extends React.Component {
     loadingOrigin: PropTypes.bool.isRequired,
     loadingDestination: PropTypes.bool.isRequired,
     addCart: PropTypes.bool.isRequired,
+    openModalMap: PropTypes.bool.isRequired,
+    selectedMap: PropTypes.string.isRequired,
     setOrigin: PropTypes.func.isRequired,
     setDestination: PropTypes.func.isRequired,
     getOrigin: PropTypes.func.isRequired,
@@ -46,9 +51,8 @@ export default class SelectOriginDestination extends React.Component {
     isLoadingOrigin: PropTypes.func.isRequired,
     isLoadingDestination: PropTypes.func.isRequired,
     resetAll: PropTypes.func.isRequired,
-    getOriginStations: PropTypes.func.isRequired,
-    setLatitude: PropTypes.func.isRequired,
-    setLongitude: PropTypes.func.isRequired,
+    setOpenModalMap: PropTypes.func.isRequired,
+    setSelectedMap: PropTypes.func.isRequired,
   }
 
   componentWillMount(){
@@ -64,11 +68,23 @@ export default class SelectOriginDestination extends React.Component {
     }
   }
 
+
+  componentDidUpdate(prevProps){
+    if(this.props.listOrigin.length == 0 || prevProps.listOrigin !== this.props.listOrigin){
+      this.setResultOrigin()
+    }
+    if(this.props.listDestination.length == 0 || prevProps.listDestination !== this.props.listDestination){
+      this.setResultDestination()
+    }
+  }
+
+
   onChangeOriginText(text){
     this.props.resetListOrigin()
     if(text != ''  && text.length >= 3){
       this.props.isLoadingOrigin(true)
       this.searchOrigin(text)
+      this.setResultOrigin()
     }
   }
 
@@ -77,6 +93,7 @@ export default class SelectOriginDestination extends React.Component {
     if(text != ''  && text.length >= 3){
       this.props.isLoadingDestination(true)
       this.searchDestination(text)
+      this.setResultDestination()
     }
   }
 
@@ -89,6 +106,7 @@ export default class SelectOriginDestination extends React.Component {
         'Content-Type': 'application/json'
       },
     })
+    this.forceUpdate()
   }
 
   async searchDestination(text){
@@ -100,21 +118,7 @@ export default class SelectOriginDestination extends React.Component {
         'Content-Type': 'application/json'
       },
     })
-  }
-
-  componentDidUpdate(prevProps){
-    /*
-      we check if the current resultOrigin is empty, otherwise we check that the previous result value is different from the new one if it's not we set a new result
-    */
-    if((this.props.listOrigin.length != 0 && prevProps.listOrigin.length !== this.props.listOrigin.length)){
-      this.setResultOrigin()
-    }
-    if((this.props.listDestination.length != 0 && prevProps.listDestination.length !== this.props.listDestination.length)){
-      this.setResultDestination()
-    }
-    else{
-      //nothing
-    }
+    this.forceUpdate()
   }
 
   setResultOrigin(){
@@ -137,21 +141,9 @@ export default class SelectOriginDestination extends React.Component {
     }
   }
 
-  async getOriginStations(latitude, longitude){
-    let baseURL = `https://api.thameslinkrailway.com/config/stations?latitude=${latitude}&longitude=${longitude}&num_stations=5`
-    await this.props.getOriginStations(baseURL, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-  }
-
-  goMap(){
-    this.setState({
-      openMap: true
-    })
+  goMap(type){
+    this.props.setOpenModalMap(!this.props.openModalMap)
+    this.props.setSelectedMap(type)
     // RNGooglePlaces.openAutocompleteModal({
     //   type: 'geocode',
   	//   country: 'GB',
@@ -217,14 +209,16 @@ export default class SelectOriginDestination extends React.Component {
       <ScrollView>
         <View style={[common.container, common.start, common.padding40]}>
           <Text style={common.textBold}>{ 'Origin' }</Text>
-          <View style={common.row}>
-            <Icon name='search' type='EvilIcons' />
-            <TextInput
-              style={common.input}
-              onFocus={this.goMap.bind(this)}
-              placeholder='Search in the map...'
-              underlineColorAndroid='#e9418b'
-            />
+          <View style={common.marginTop20}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={{width:'100%', backgroundColor: '#e9418b', borderTopLeftRadius: 5, borderTopRightRadius: 5}}
+              onPress={() => this.goMap('origin')}>
+              <View style={[common.row, common.padding10]}>
+                <Icon name='search' type='EvilIcons' color='#fff'/>
+                <Text style={common.textButton}>SEARCH IN THE MAP . . .</Text>
+              </View>
+            </TouchableOpacity>
           </View>
 
           <View style={[common.searchBar, common.marginBottom20]}>
@@ -232,26 +226,30 @@ export default class SelectOriginDestination extends React.Component {
               onChangeText={(text) => this.onChangeOriginText(text)}
               placeholder='Enter Origin...'
               underlineColorAndroid='#e9418b'
+              clearTextOnFocus={true}
             />
             {pickerOrigin}
             {spinnerOrigin}
           </View>
 
             <Text style={common.textBold}>{ 'Destination' }</Text>
-            <View style={common.row}>
-              <Icon name='search' type='EvilIcons' />
-              <TextInput
-                style={common.input}
-                onFocus={this.goMap.bind(this)}
-                placeholder='Search in the map...'
-                underlineColorAndroid='#e9418b'
-              />
+            <View style={common.marginTop20}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{width:'100%', backgroundColor: '#e9418b', borderTopLeftRadius: 5, borderTopRightRadius: 5}}
+                onPress={() => this.goMap('destination')}>
+                <View style={[common.row, common.padding10]}>
+                  <Icon name='search' type='EvilIcons' color='#fff'/>
+                  <Text style={common.textButton}>SEARCH IN THE MAP . . .</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           <View style={[common.searchBar, common.marginBottom20]}>
             <TextInput
               onChangeText={(text) => this.onChangeDestinationText(text)}
               placeholder='Enter Destination...'
               underlineColorAndroid='#e9418b'
+              clearTextOnFocus={true}
             />
             {pickerDestination}
             {spinnerDestination}
@@ -259,48 +257,7 @@ export default class SelectOriginDestination extends React.Component {
           <SelectScheduleTimingContainer />
           <SelectPassengersContainer />
           <FindTrainsButtonContainer navigation={this.props.navigation} />
-          <Modal
-           animationType="slide"
-           transparent={false}
-           visible={this.state.openMap}
-           onRequestClose={() => this.setState({
-             openMap: false
-           })}
-           >
-          <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
-            <ScrollView>
-              <GooglePlacesAutocomplete
-                placeholder='Search'
-                minLength={2}
-                autoFocus={false}
-                returnKeyType={'search'}
-                listViewDisplayed='auto'
-                fetchDetails={true}
-                renderDescription={row => row.description}
-                onPress={(data, details = null) => {
-                  console.log(data, details)
-                  this.props.setLatitude(details.geometry.location.lat)
-                  this.props.setLongitude(details.geometry.location.lng)
-                  this.getOriginStations(details.geometry.location.lat, details.geometry.location.lng)
-                  this.setState({
-                    openMap: false
-                  })
-                  this.props.navigation.navigate('Map')
-                }}
-                getDefaultValue={() => ''}
-                query={{
-                  key: 'AIzaSyD3g40E3xMy3PhXoZbIRFz9FEx_w7vcOrA',
-                  language: 'en',
-                  types: 'geocode',
-                  components: 'country:gb'
-                }}
-                currentLocation={true}
-                currentLocationLabel="Current location"
-                nearbyPlacesAPI='GooglePlacesSearch'
-                />
-              </ScrollView>
-            </View>
-          </Modal>
+          <SearchMapContainer navigation={this.props.navigation} text={this.props.selectedMap}/>
         </View>
       </ScrollView>
     )

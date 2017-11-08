@@ -40,6 +40,8 @@ const initialState = {
   addCart: false,
   latitude: 0,
   longitude: 0,
+  openModalMap: false,
+  selectedMap: 'origin'
 }
 
 const reducer = (state = initialState, action) => {
@@ -186,6 +188,12 @@ const reducer = (state = initialState, action) => {
     }
     case 'SET_LONGITUDE': {
       return Object.assign({}, state, { longitude: action.value })
+    }
+    case 'OPEN_MODAL_MAP': {
+      return Object.assign({}, state, { openModalMap: action.bool })
+    }
+    case 'SELECTED_MAP': {
+      return Object.assign({}, state, { selectedMap: action.value })
     }
     case 'RESET_ALL': {
       return Object.assign({}, state, {
