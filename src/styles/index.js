@@ -129,6 +129,12 @@ const common = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  textWhiteMedium:{
+    color: '#F2F2F2',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
   input: {
     width: '90%',
     textAlign: 'left',
@@ -259,6 +265,12 @@ const common = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#B22222',
+  },
+
+  buttonInfo: {
+    alignItems: 'center',
+    backgroundColor:'#e9418b',
+    width: '100%',
   }
 
 })
