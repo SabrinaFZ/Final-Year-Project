@@ -244,6 +244,10 @@ const common = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
 
+  backgroundColorPink: {
+    backgroundColor: '#e9418b'
+  },
+
   box:{
     borderWidth: 2,
     borderColor: '#e9418b',

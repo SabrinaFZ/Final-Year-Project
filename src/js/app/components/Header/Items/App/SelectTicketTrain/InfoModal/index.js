@@ -11,8 +11,6 @@ import { Icon } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import DrawerLayout from 'react-native-drawer-layout'
 
-import InfoDrawer from './InfoDrawer'
-
 import common from './../../../../../../../../styles'
 import styles from './../../../../../../../../styles/Map'
 
@@ -29,7 +27,8 @@ export default class InfoModal extends Component {
     journeyPlan: PropTypes.object.isRequired,
     openModalInfoOutward: PropTypes.bool.isRequired,
     routeTrains: PropTypes.arrayOf(PropTypes.object),
-    setOpenModalInfoOutward: PropTypes.func.isRequired
+    setOpenModalInfoOutward: PropTypes.func.isRequired,
+    setOpenModalInfoReturn: PropTypes.func.isRequired,
   }
 
   getTrainsLatitude(trainId){
@@ -53,6 +52,14 @@ export default class InfoModal extends Component {
 
   closeDrawer() {
     this.drawer.closeDrawer()
+  }
+
+  handleOnRequestClose(){
+    if(this.props.openModalInfoOutward){
+      this.props.setOpenModalInfoOutward(false)
+    } else{
+      this.props.setOpenModalInfoReturn(false)
+    }
   }
 
   render(){
@@ -92,8 +99,8 @@ export default class InfoModal extends Component {
         <Modal
           animationType='slide'
           transparent={false}
-          visible={this.props.openModalInfoOutward}
-          onRequestClose={() => this.props.setOpenModalInfoOutward(false)}
+          visible={this.props.openModalInfoOutward || this.props.openModalInfoReturn}
+          onRequestClose={() => this.handleOnRequestClose()}
           >
             <DrawerLayout
               drawerBackgroundColor='rgba(255, 255, 255, 1)'

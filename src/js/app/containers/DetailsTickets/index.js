@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import DetailsTickets from './../../components/Header/Items/App/DetailsTickets'
 
-import { addShoppingCart, addedCart } from './../../actions/actions'
+import { addShoppingCart, addedCart, openModalInfoOutward, openModalInfoReturn} from './../../actions/actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,6 +11,8 @@ const mapStateToProps = (state) => {
     addReturn: state.addReturn,
     journeyPlan: state.journeyPlan,
     addCart: state.addCart,
+    openModalInfoOutward: state.openModalInfoOutward,
+    openModalInfoReturn: state.openModalInfoReturn
   }
 }
 
@@ -21,6 +23,12 @@ const mapDispatchToProps = dispatch => {
     },
     addedCart: (bool) => {
       dispatch(addedCart(bool))
+    },
+    setOpenModalInfoOutward: (bool) => {
+      dispatch(openModalInfoOutward(bool))
+    },
+    setOpenModalInfoReturn: (bool) => {
+      dispatch(openModalInfoReturn(bool))
     }
   }
 }

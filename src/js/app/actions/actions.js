@@ -350,3 +350,17 @@ export const setOpenModalInfoOutwardId = (value) => {
     value
   }
 }
+
+export const openModalInfoReturn = (bool) => {
+  return {
+    type: 'OPEN_MODAL_INFO_RETURN',
+    bool
+  }
+}
+
+export const setOpenModalInfoReturnId = (value) => {
+  return {
+    type: 'OPEN_MODAL_INFO_RETURN_ID',
+    value
+  }
+}

@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
+import InfoModalContainer from './../../../../../containers/SelectTicketTrain/InfoModal'
+
 import common from './../../../../../../../styles'
 
 export default class DetailsTickets extends Component{
@@ -22,9 +24,14 @@ export default class DetailsTickets extends Component{
     addReturn: PropTypes.bool.isRequired,
     journeyPlan: PropTypes.object.isRequired,
     addedCart: PropTypes.bool.isRequired,
+    openModalInfoOutward:PropTypes.bool.isRequired,
+    openModalInfoReturn: PropTypes.bool.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     addedCart: PropTypes.func.isRequired,
+    setOpenModalInfoOutward: PropTypes.func.isRequired,
+    setOpenModalInfoReturn: PropTypes.func.isRequired
   }
+
 
   handleOnPress(){
     let item = {
@@ -37,8 +44,25 @@ export default class DetailsTickets extends Component{
     this.props.navigation.navigate('ShoppingCart')
   }
 
+  handleOnPressInfoOutward(){
+    this.props.setOpenModalInfoOutward(true)
+    this.forceUpdate()
+  }
+
+  handleOnPressInfoReturn(){
+    this.props.setOpenModalInfoReturn(true)
+    this.forceUpdate()
+  }
+
   render(){
     let returnTicketInfo =  null
+    let modalInfo = null
+    if(this.props.openModalInfoOutward){
+      modalInfo = <InfoModalContainer routeTrains={this.props.selectedOutward.legs}/>
+    }
+    else if(this.props.openModalInfoReturn){
+      modalInfo = <InfoModalContainer routeTrains={this.props.selectedReturn.legs}/>
+    }
     if(this.props.addReturn){
       returnTicketInfo =
       <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
@@ -52,7 +76,7 @@ export default class DetailsTickets extends Component{
           <Text style={common.textNormal}> Changes: {this.props.selectedReturn.changes} </Text>
           <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedReturn.cheapest)/1000).toFixed(2)} £ </Text>
         </View>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoReturn()}>
           <View style={[common.marginTop20, common.separator]}>
             <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
           </View>
@@ -73,7 +97,7 @@ export default class DetailsTickets extends Component{
             <Text style={common.textNormal}> Changes: {this.props.selectedOutward.changes} </Text>
             <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedOutward.cheapest)/1000).toFixed(2)} £ </Text>
           </View>
-          <TouchableOpacity activeOpacity={0.8}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward()}>
             <View style={[common.marginTop20, common.separator]}>
               <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
             </View>
@@ -85,6 +109,7 @@ export default class DetailsTickets extends Component{
             <Text style={common.textButtonNext}> ADD TO CART </Text>
           </TouchableOpacity>
         </View>
+        {modalInfo}
       </ScrollView>
     )
   }

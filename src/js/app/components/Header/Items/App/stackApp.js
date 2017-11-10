@@ -4,6 +4,7 @@ import { StackNavigator} from 'react-navigation'
 import SelectOriginDestination from './SelectOriginDestination'
 import SelectOriginDestinationContainer from './../../../../containers/SelectOriginDestination'
 import SelectTicketTrainContainer from './../../../../containers/SelectTicketTrain'
+import SelectTicketTrainReturnContainer from './../../../../containers/SelectTicketTrain/SelectTicketTrainReturn'
 import DetailsTicketsContainer from './../../../../containers/DetailsTickets'
 import MapContainer from './../../../../containers/Map'
 
@@ -14,12 +15,15 @@ const routeConfiguration = {
   SelectTicketTrain: {
     screen: SelectTicketTrainContainer
   },
+  SelectTicketTrainReturn: {
+    screen: SelectTicketTrainReturnContainer,
+  },
   DetailsTickets: {
     screen: DetailsTicketsContainer
   },
   Map: {
     screen: MapContainer
-  }
+  },
 }
 
 const stackNavigatorConfiguration = {

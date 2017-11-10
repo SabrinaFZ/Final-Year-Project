@@ -44,30 +44,6 @@ const mapDispatchToProps = dispatch => {
     },
     setOutwardReturn: (value) => {
       dispatch(setOutwardReturn(value))
-    },
-    setOpenMoreTicketsOutwardId: (id) => {
-      dispatch(setOpenMoreTicketsOutwardId(id))
-    },
-    setOpenMoreTicketsOutward: (bool) => {
-      dispatch(setOpenMoreTicketsOutward(bool))
-    },
-    setOpenMoreTicketsReturnId: (id) => {
-      dispatch(setOpenMoreTicketsReturnId(id))
-    },
-    setOpenMoreTicketsReturn: (bool) => {
-      dispatch(setOpenMoreTicketsReturn(bool))
-    },
-    selectedOutward: (value) => {
-      dispatch(selectedOutward(value))
-    },
-    selectedReturn: (value) => {
-      dispatch(selectedReturn(value))
-    },
-    setOpenModalInfoOutward: (bool) => {
-      dispatch(openModalInfoOutward(bool))
-    },
-    setOpenModalInfoOutwardId: (value) => {
-      dispatch(setOpenModalInfoOutwardId(value))
     }
   }
 }
