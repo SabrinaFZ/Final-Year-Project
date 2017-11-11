@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import InfoModal from './../../../components/Header/Items/App/SelectTicketTrain/InfoModal'
+import InfoModal from './../../components/Header/Items/App/InfoModal'
 
-import { openModalInfoOutward, openModalInfoReturn } from './../../../actions/actions'
+import { openModalInfoOutward, openModalInfoReturn } from './../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

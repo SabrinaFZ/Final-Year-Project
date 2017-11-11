@@ -5,7 +5,7 @@ import moment from 'moment';
 import Spinner from 'react-native-spinkit'
 import { NavigationActions } from 'react-navigation'
 
-import InfoModalContainer from './../../../../../../containers/SelectTicketTrain/InfoModal'
+import InfoModalContainer from './../../../../../../containers/InfoModal'
 
 import common from './../../../../../../../../styles'
 

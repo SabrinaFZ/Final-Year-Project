@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import InfoModalContainer from './../../../../../containers/SelectTicketTrain/InfoModal'
+import InfoModalContainer from './../../../../../containers/InfoModal'
 
 import common from './../../../../../../../styles'
 
@@ -16,6 +16,8 @@ export default class DetailsTickets extends Component{
     super(props)
 
     this.handleOnPress = this.handleOnPress.bind(this)
+    this.handleOnPressInfoOutward = this.handleOnPressInfoOutward.bind(this)
+    this.handleOnPressInfoReturn = this.handleOnPressInfoReturn.bind(this)
   }
 
   static propTypes = {
@@ -45,6 +47,8 @@ export default class DetailsTickets extends Component{
   }
 
   handleOnPressInfoOutward(){
+    console.log(this.props.openModalInfoReturn)
+    console.log(this.props.openModalInfoOutward)
     this.props.setOpenModalInfoOutward(true)
     this.forceUpdate()
   }
@@ -57,10 +61,10 @@ export default class DetailsTickets extends Component{
   render(){
     let returnTicketInfo =  null
     let modalInfo = null
-    if(this.props.openModalInfoOutward){
+    if(this.props.openModalInfoOutward && !this.props.openModalInfoReturn){
       modalInfo = <InfoModalContainer routeTrains={this.props.selectedOutward.legs}/>
     }
-    else if(this.props.openModalInfoReturn){
+    else if(this.props.openModalInfoReturn && !this.props.openModalInfoOutward){
       modalInfo = <InfoModalContainer routeTrains={this.props.selectedReturn.legs}/>
     }
     if(this.props.addReturn){
@@ -104,12 +108,12 @@ export default class DetailsTickets extends Component{
           </TouchableOpacity>
         </View>
         {returnTicketInfo}
+        {modalInfo}
         <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
           <TouchableOpacity activeOpacity={0.8} style={common.buttonNext} onPress={() => this.handleOnPress()}>
             <Text style={common.textButtonNext}> ADD TO CART </Text>
           </TouchableOpacity>
         </View>
-        {modalInfo}
       </ScrollView>
     )
   }

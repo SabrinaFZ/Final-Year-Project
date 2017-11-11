@@ -11,8 +11,8 @@ import { Icon } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import DrawerLayout from 'react-native-drawer-layout'
 
-import common from './../../../../../../../../styles'
-import styles from './../../../../../../../../styles/Map'
+import common from './../../../../../../../styles'
+import styles from './../../../../../../../styles/Map'
 
 export default class InfoModal extends Component {
   constructor(props){
@@ -21,6 +21,7 @@ export default class InfoModal extends Component {
     this.getTrainsName = this.getTrainsName.bind(this)
     this.getTrainsLatitude = this.getTrainsLatitude.bind(this)
     this.getTrainsLongitude = this.getTrainsLongitude.bind(this)
+    this.handleOnRequestClose = this.handleOnRequestClose.bind(this)
   }
 
   static propTypes = {
@@ -59,6 +60,14 @@ export default class InfoModal extends Component {
       this.props.setOpenModalInfoOutward(false)
     } else{
       this.props.setOpenModalInfoReturn(false)
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn){
+      return false
+    } else {
+      return true
     }
   }
 
