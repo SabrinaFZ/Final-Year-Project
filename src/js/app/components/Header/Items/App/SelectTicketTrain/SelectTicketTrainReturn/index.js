@@ -55,6 +55,7 @@ export default class SelectTicketTrainReturn extends Component {
   }
 
   componentWillMount(){
+    this.props.setOpenModalInfoReturn(false)
     this.props.setOpenMoreTicketsReturn(false)
     this.props.setOpenMoreTicketsReturnId(0)
   }

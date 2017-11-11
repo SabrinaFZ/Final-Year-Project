@@ -58,6 +58,7 @@ export default class SelectTicketTrainOutward extends Component {
   componentWillMount(){
     this.props.setOutwardReturn('Outward')
     this.props.setOpenMoreTicketsOutward(false)
+    this.props.setOpenModalInfoOutward(false)
     this.props.setOpenMoreTicketsOutwardId(0)
   }
 

@@ -79,6 +79,14 @@ const common = StyleSheet.create({
     borderRadius: 5,
   },
 
+  buttonActiveSmall:{
+    alignItems: 'center',
+    backgroundColor:'#e9418b',
+    width: '30%',
+    height: '30%',
+    borderRadius: 5,
+  },
+
   buttonDisabled:{
     alignItems: 'center',
     backgroundColor:'#e5a5c1',

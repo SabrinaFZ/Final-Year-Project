@@ -47,8 +47,6 @@ export default class DetailsTickets extends Component{
   }
 
   handleOnPressInfoOutward(){
-    console.log(this.props.openModalInfoReturn)
-    console.log(this.props.openModalInfoOutward)
     this.props.setOpenModalInfoOutward(true)
     this.forceUpdate()
   }

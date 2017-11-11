@@ -32,6 +32,14 @@ export default class InfoModal extends Component {
     setOpenModalInfoReturn: PropTypes.func.isRequired,
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn){
+      return false
+    } else {
+      return true
+    }
+  }
+
   getTrainsLatitude(trainId){
     let station = this.props.journeyPlan.links[trainId]
     return station.latitude
@@ -63,15 +71,8 @@ export default class InfoModal extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn){
-      return false
-    } else {
-      return true
-    }
-  }
-
   render(){
+    console.log('aqui')
     let array = []
     this.props.routeTrains.map((marker, index) => {
       array.push(
@@ -85,7 +86,7 @@ export default class InfoModal extends Component {
         }
       )
     })
-    const width = Dimensions.get('window').width - 80;
+    const width = Dimensions.get('window').width - 80
     const navigationView = (
      <ScrollView>
       <View style={common.alignItems}>
