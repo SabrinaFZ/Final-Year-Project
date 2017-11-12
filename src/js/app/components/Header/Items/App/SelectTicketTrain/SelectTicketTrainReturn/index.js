@@ -31,6 +31,7 @@ export default class SelectTicketTrainReturn extends Component {
     openMoreTicketsReturnId: PropTypes.number.isRequired,
     openMoreTicketsReturn: PropTypes.bool.isRequired,
     openModalInfoReturnId: PropTypes.number.isRequired,
+    openModalInfoReturn: PropTypes.bool.isRequired,
     setOutwardReturn: PropTypes.func.isRequired,
     setOpenMoreTicketsReturnId: PropTypes.func.isRequired,
     setOpenMoreTicketsReturn: PropTypes.func.isRequired,
@@ -142,6 +143,7 @@ export default class SelectTicketTrainReturn extends Component {
   render(){
       //Return an object for outward and journey
     var trains = this.getTrains()
+    var modalInfo = null
     var header =
       <View>
         <Text style={common.textLarge}>RETURN</Text>
@@ -163,6 +165,9 @@ export default class SelectTicketTrainReturn extends Component {
             </View>
           )
         })
+      }
+      if(this.props.openModalInfoReturn){
+        modalInfo = <InfoModalContainer routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
       }
       return (
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
@@ -194,7 +199,7 @@ export default class SelectTicketTrainReturn extends Component {
       <ScrollView contentContainerStyle={[common.padding40]}>
         {header}
         {info_station}
-        <InfoModalContainer routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
+        {modalInfo}
       </ScrollView>
     )
   }

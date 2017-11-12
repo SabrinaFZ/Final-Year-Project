@@ -31,6 +31,7 @@ export default class SelectTicketTrainOutward extends Component {
     outwardReturn: PropTypes.string.isRequired,
     openMoreTicketsOutwardId: PropTypes.number.isRequired,
     openMoreTicketsOutward: PropTypes.bool.isRequired,
+    openModalInfoOutward: PropTypes.bool.isRequired,
     openModalInfoOutwardId: PropTypes.number.isRequired,
     setOutwardReturn: PropTypes.func.isRequired,
     setOpenMoreTicketsOutwardId: PropTypes.func.isRequired,
@@ -162,6 +163,7 @@ export default class SelectTicketTrainOutward extends Component {
 
   render(){
       //Return an object for outward and journey
+    var modalInfo = null
     var trains = this.getTrains()
     var header =
       <View>
@@ -185,6 +187,9 @@ export default class SelectTicketTrainOutward extends Component {
           )
         })
       }
+    if(this.props.openModalInfoOutward){
+      modalInfo = <InfoModalContainer routeTrains={trains[this.props.openModalInfoOutwardId].legs}/>
+    }
       return(
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
@@ -215,7 +220,7 @@ export default class SelectTicketTrainOutward extends Component {
       <ScrollView contentContainerStyle={[common.padding40]}>
         {header}
         {info_station}
-        <InfoModalContainer routeTrains={trains[this.props.openModalInfoOutwardId].legs}/>
+        {modalInfo}
       </ScrollView>
     )
   }

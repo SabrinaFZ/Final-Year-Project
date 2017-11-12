@@ -34,8 +34,10 @@ export default class InfoModal extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn){
+      console.log('1')
       return false
     } else {
+      console.log('2')
       return true
     }
   }

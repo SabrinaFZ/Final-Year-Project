@@ -17,6 +17,7 @@ const mapStateToProps = state => {
     outwardReturn: state.outwardReturn,
     openMoreTicketsOutwardId: state.openMoreTicketsOutwardId,
     openMoreTicketsOutward: state.openMoreTicketsOutward,
+    openModalInfoOutward: state.openModalInfoOutward,
     openModalInfoOutwardId: state.openModalInfoOutwardId
   }
 }
