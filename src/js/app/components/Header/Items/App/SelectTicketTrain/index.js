@@ -96,6 +96,7 @@ export default class SelectTicketTrain extends Component {
 
   componentWillMount(){
     this.findTicketTrains()
+    this.forceUpdate()
   }
 
   getTrainsId(){

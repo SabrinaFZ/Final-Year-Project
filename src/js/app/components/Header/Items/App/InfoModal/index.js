@@ -32,16 +32,6 @@ export default class InfoModal extends Component {
     setOpenModalInfoReturn: PropTypes.func.isRequired,
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn){
-      console.log('1')
-      return false
-    } else {
-      console.log('2')
-      return true
-    }
-  }
-
   getTrainsLatitude(trainId){
     let station = this.props.journeyPlan.links[trainId]
     return station.latitude
@@ -71,10 +61,19 @@ export default class InfoModal extends Component {
     } else{
       this.props.setOpenModalInfoReturn(false)
     }
+    this.forceUpdate()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.openModalInfoOutward || nextProps.openModalInfoReturn || this.props.openModalInfoOutward || this.props.openModalInfoReturn){
+      return false
+    }
+    else {
+      return true
+    }
   }
 
   render(){
-    console.log('aqui')
     let array = []
     this.props.routeTrains.map((marker, index) => {
       array.push(
@@ -106,56 +105,112 @@ export default class InfoModal extends Component {
       </View>
      </ScrollView>
    )
-    return(
-      <View>
-        <Modal
-          animationType='slide'
-          transparent={false}
-          visible={this.props.openModalInfoOutward || this.props.openModalInfoReturn}
-          onRequestClose={() => this.handleOnRequestClose()}
-          >
-            <DrawerLayout
-              drawerBackgroundColor='rgba(255, 255, 255, 1)'
-              drawerLockMode='unlocked'
-      	      drawerWidth={width}
-      	      drawerPosition={DrawerLayout.positions.Left}
-      	      renderNavigationView={() => navigationView}
-              ref={drawer => { return (this.drawer = drawer)}}
-              >
-              <View style ={styles.container}>
-                <MapView
-                  region={{
-                    latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[0].origin[0].station)),
-                    longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[0].origin[0].station)),
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}
-                  zoomEnabled={true}
-                  loadingEnabled={true}
-                  showsMyLocationButton={true}
-                  cacheEnabled={false}
-                  style={ styles.map }>
-                    <MapView.Marker
-                      pinColor='#e9418b'
-                      coordinate={{
-                        latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
-                        longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
-                      }}
-                      title={this.getTrainsName(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)}
-                    />
-                  <MapView.Polyline
-                      coordinates={array}
-                      strokeWidth={4}
-                      strokeColor='#e9418b'>
-                  </MapView.Polyline>
-                </MapView>
-                <TouchableOpacity activeOpacity={0.8} style={[common.buttonInfo, common.padding5]} onPress={() => this.openDrawer()}>
-                  <Text style={common.textButton}> SHOW INFO </Text>
-                </TouchableOpacity>
-              </View>
-            </DrawerLayout>
-       </Modal>
-      </View>
-    )
+   if(this.props.openModalInfoOutward){
+     return(
+       <View>
+         <Modal
+           animationType='slide'
+           transparent={false}
+           visible={this.props.openModalInfoOutward}
+           onRequestClose={() => this.handleOnRequestClose()}
+           >
+             <DrawerLayout
+               drawerBackgroundColor='rgba(255, 255, 255, 1)'
+               drawerLockMode='unlocked'
+               drawerWidth={width}
+               drawerPosition={DrawerLayout.positions.Left}
+               renderNavigationView={() => navigationView}
+               ref={drawer => { return (this.drawer = drawer)}}
+               >
+               <View style ={styles.container}>
+                 <MapView
+                   region={{
+                     latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[0].origin[0].station)),
+                     longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[0].origin[0].station)),
+                     latitudeDelta: 0.0922,
+                     longitudeDelta: 0.0421,
+                   }}
+                   zoomEnabled={true}
+                   loadingEnabled={true}
+                   showsMyLocationButton={true}
+                   cacheEnabled={false}
+                   style={ styles.map }>
+                     <MapView.Marker
+                       pinColor='#e9418b'
+                       coordinate={{
+                         latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
+                         longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
+                       }}
+                       title={this.getTrainsName(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)}
+                     />
+                   <MapView.Polyline
+                       coordinates={array}
+                       strokeWidth={4}
+                       strokeColor='#e9418b'>
+                   </MapView.Polyline>
+                 </MapView>
+                 <TouchableOpacity activeOpacity={0.8} style={[common.buttonInfo, common.padding5]} onPress={() => this.openDrawer()}>
+                   <Text style={common.textButton}> SHOW INFO </Text>
+                 </TouchableOpacity>
+               </View>
+             </DrawerLayout>
+        </Modal>
+       </View>
+     )
+   } else if(this.props.openModalInfoReturn) {
+     return(
+       <View>
+         <Modal
+           animationType='slide'
+           transparent={false}
+           visible={this.props.openModalInfoReturn}
+           onRequestClose={() => this.handleOnRequestClose()}
+           >
+             <DrawerLayout
+               drawerBackgroundColor='rgba(255, 255, 255, 1)'
+               drawerLockMode='unlocked'
+               drawerWidth={width}
+               drawerPosition={DrawerLayout.positions.Left}
+               renderNavigationView={() => navigationView}
+               ref={drawer => { return (this.drawer = drawer)}}
+               >
+               <View style ={styles.container}>
+                 <MapView
+                   region={{
+                     latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[0].origin[0].station)),
+                     longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[0].origin[0].station)),
+                     latitudeDelta: 0.0922,
+                     longitudeDelta: 0.0421,
+                   }}
+                   zoomEnabled={true}
+                   loadingEnabled={true}
+                   showsMyLocationButton={true}
+                   cacheEnabled={false}
+                   style={ styles.map }>
+                     <MapView.Marker
+                       pinColor='#e9418b'
+                       coordinate={{
+                         latitude: parseFloat(this.getTrainsLatitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
+                         longitude: parseFloat(this.getTrainsLongitude(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)),
+                       }}
+                       title={this.getTrainsName(this.props.routeTrains[this.props.routeTrains.length -1 ].destination[0].station)}
+                     />
+                   <MapView.Polyline
+                       coordinates={array}
+                       strokeWidth={4}
+                       strokeColor='#e9418b'>
+                   </MapView.Polyline>
+                 </MapView>
+                 <TouchableOpacity activeOpacity={0.8} style={[common.buttonInfo, common.padding5]} onPress={() => this.openDrawer()}>
+                   <Text style={common.textButton}> SHOW INFO </Text>
+                 </TouchableOpacity>
+               </View>
+             </DrawerLayout>
+        </Modal>
+       </View>
+     )
+   } else {
+      return null
+   }
   }
 }
