@@ -6,10 +6,10 @@ import { openModalInfoOutward, openModalInfoReturn } from './../../actions/actio
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    journeyPlan: state.journeyPlan,
     openModalInfoOutward: state.openModalInfoOutward,
     openModalInfoReturn: state.openModalInfoReturn,
-    routeTrains: ownProps.routeTrains
+    routeTrains: ownProps.routeTrains,
+    links: ownProps.links
   }
 }
 

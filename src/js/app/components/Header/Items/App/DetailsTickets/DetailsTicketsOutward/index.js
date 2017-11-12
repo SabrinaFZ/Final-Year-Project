@@ -43,7 +43,7 @@ export default class DetailsTicketsOutward extends Component{
             <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
           </View>
         </TouchableOpacity>
-        <InfoModalContainer routeTrains={this.props.selectedOutward.legs}/>
+        <InfoModalContainer links={this.props.selectedOutward.links} routeTrains={this.props.selectedOutward.legs}/>
       </View>
     )
   }

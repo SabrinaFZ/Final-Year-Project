@@ -53,22 +53,25 @@ export default class ShoppingCart extends Component {
   handleOnPressInfoOutward(index){
     this.props.setOpenModalInfoOutwardId(index)
     this.props.setOpenModalInfoOutward(true)
+    this.forceUpdate()
   }
 
   handleOnPressInfoReturn(index){
     this.props.setOpenModalInfoReturnId(index)
     this.props.setOpenModalInfoReturn(true)
+    this.forceUpdate()
   }
 
   render(){
     let shoppingCart = null
-    if(this.props.openModalInfoOutward && !this.props.openModalInfoReturn){
-      modalInfo = <InfoModalContainer routeTrains={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.legs}/>
-    }
-    else if(this.props.openModalInfoReturn && !this.props.openModalInfoOutward){
-      modalInfo = <InfoModalContainer routeTrains={this.props.shoppingCart[this.props.openModalInfoReturnId].return.legs}/>
-    }
+    var modalInfo = null
     if(this.props.shoppingCart.length != 0){
+      if(this.props.openModalInfoOutward){
+        modalInfo = <InfoModalContainer links={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.links} routeTrains={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.legs}/>
+      }
+      else if(this.props.openModalInfoReturn){
+        modalInfo = <InfoModalContainer links={this.props.shoppingCart[this.props.openModalInfoOutwardId].return.links} routeTrains={this.props.shoppingCart[this.props.openModalInfoReturnId].return.legs}/>
+      }
       shoppingCart = this.props.shoppingCart.map((item, index) => {
         let returnInfo = null
         if(item.hasReturn){
@@ -129,6 +132,7 @@ export default class ShoppingCart extends Component {
     return(
       <ScrollView contentContainerStyle={common.padding40}>
         {shoppingCart}
+        {modalInfo}
       </ScrollView>
     )
   }

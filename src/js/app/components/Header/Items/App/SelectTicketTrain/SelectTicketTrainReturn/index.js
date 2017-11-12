@@ -106,6 +106,7 @@ export default class SelectTicketTrainReturn extends Component {
         status: item.status,
         fares: returnSinglePrice[index],
         cheapest: returnCheapestFares[index],
+        links: this.props.journeyPlan.links
       }
       journeyReturnInfo.push(info)
     })
@@ -167,7 +168,7 @@ export default class SelectTicketTrainReturn extends Component {
         })
       }
       if(this.props.openModalInfoReturn){
-        modalInfo = <InfoModalContainer routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
+        modalInfo = <InfoModalContainer links={returnItem.links} routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
       }
       return (
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>

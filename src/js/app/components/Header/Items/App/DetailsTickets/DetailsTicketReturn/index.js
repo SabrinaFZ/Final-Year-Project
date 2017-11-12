@@ -48,7 +48,7 @@ export default class DetailsTicketsReturn extends Component{
             <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
           </View>
         </TouchableOpacity>
-        <InfoModalContainer routeTrains={this.props.selectedReturn.legs}/>
+        <InfoModalContainer links={this.props.selectedReturn.links} routeTrains={this.props.selectedReturn.legs}/>
       </View>
     )
   }

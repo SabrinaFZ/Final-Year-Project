@@ -25,7 +25,7 @@ export default class InfoModal extends Component {
   }
 
   static propTypes = {
-    journeyPlan: PropTypes.object.isRequired,
+    links: PropTypes.object.isRequired,
     openModalInfoOutward: PropTypes.bool.isRequired,
     routeTrains: PropTypes.arrayOf(PropTypes.object),
     setOpenModalInfoOutward: PropTypes.func.isRequired,
@@ -33,17 +33,17 @@ export default class InfoModal extends Component {
   }
 
   getTrainsLatitude(trainId){
-    let station = this.props.journeyPlan.links[trainId]
+    let station = this.props.links[trainId]
     return station.latitude
   }
 
   getTrainsLongitude(trainId){
-    let station = this.props.journeyPlan.links[trainId]
+    let station = this.props.links[trainId]
     return station.longitude
   }
 
   getTrainsName(trainId){
-    let station = this.props.journeyPlan.links[trainId]
+    let station = this.props.links[trainId]
     return station.name
   }
 
@@ -74,6 +74,7 @@ export default class InfoModal extends Component {
   }
 
   render(){
+    console.log(this.props.routeTrains)
     let array = []
     this.props.routeTrains.map((marker, index) => {
       array.push(
