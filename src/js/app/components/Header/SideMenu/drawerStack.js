@@ -7,6 +7,7 @@ import ShoppingCartButton from './../Buttons/ShoppingCartButton'
 
 import DrawerScreen from './DrawerScreen'
 import ShoppingCartContainer from './../../../containers/ShoppingCart'
+import GoHomeContainer from './../../../containers/GoHome'
 
 const routeConfiguration = {
   DrawerScreen: {
@@ -28,6 +29,13 @@ const routeConfiguration = {
   },
   ShoppingCart:{
     screen: ShoppingCartContainer,
+    transitionConfig: () => ({
+     transitionSpec: {
+       duration: 300,
+       easing: Easing.out(Easing.poly(4)),
+       timing: Animated.timing,
+     },
+   }),
     navigationOptions:  ({navigation}) => ({
       headerTitle: 'Shopping Cart',
       headerTitleStyle: {
@@ -42,8 +50,7 @@ const routeConfiguration = {
       headerLeft: <Icon name='arrow-left' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
           onPress={() => navigation.goBack() }
         />,
-      headerRight: <Icon name='home' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
-        onPress={() => navigation.navigate('App') }/>
+      headerRight: <GoHomeContainer navigation={navigation}/>
     })
   }
 }
