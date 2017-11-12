@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { StackNavigator } from 'react-navigation'
+import { Icon } from 'react-native-elements'
 
 import ButtonSideMenu from './../Buttons/ButtonSideMenu'
 import ShoppingCartButton from './../Buttons/ShoppingCartButton'
@@ -32,7 +33,6 @@ const routeConfiguration = {
       headerTitle: 'Shopping Cart',
       headerTitleStyle: {
         alignSelf: 'center',
-        paddingRight: 40
       },
       headerTintColor: 'white',
       headerStyle: {
@@ -40,7 +40,11 @@ const routeConfiguration = {
         paddingRight: 10,
         backgroundColor: '#e9418b',
       },
-      headerLeft: <GoBackButtonContainer navigation={navigation}/>,
+      headerLeft: <Icon name='arrow-left' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
+          onPress={() => navigation.goBack() }
+        />,
+      headerRight: <Icon name='home' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
+        onPress={() => navigation.navigate('App') }/>
     })
   }
 }

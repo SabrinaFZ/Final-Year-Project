@@ -11,7 +11,6 @@ export default class ShoppingCart extends Component {
   constructor(props){
     super(props)
 
-    this._BackAndroid = this._BackAndroid.bind(this)
     this.handleOnPressDelete = this.handleOnPressDelete.bind(this)
     this.handleOnPressInfoOutward = this.handleOnPressInfoOutward.bind(this)
     this.handleOnPressInfoReturn = this.handleOnPressInfoReturn.bind(this)
@@ -28,20 +27,6 @@ export default class ShoppingCart extends Component {
     update: PropTypes.func.isRequired,
     setOpenModalInfoOutward: PropTypes.func.isRequired,
     setOpenModalInfoReturn: PropTypes.func.isRequired
-  }
-
-  componentWillMount() {
-    if(this.props.addCart){
-      BackHandler.addEventListener('hardwareBackPress',this._BackAndroid)
-    }
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress',this._BackAndroid)
-  }
-
-   _BackAndroid=()=>{
-    return true
   }
 
   handleOnPressDelete(index){

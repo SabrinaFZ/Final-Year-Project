@@ -189,7 +189,7 @@ export default class SelectTicketTrainOutward extends Component {
         })
       }
     if(this.props.openModalInfoOutward){
-      modalInfo = <InfoModalContainer links={outwardItem.links} routeTrains={trains[this.props.openModalInfoOutwardId].legs}/>
+      modalInfo = <InfoModalContainer links={trains[this.props.openModalInfoOutwardId].links} routeTrains={trains[this.props.openModalInfoOutwardId].legs}/>
     }
       return(
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>

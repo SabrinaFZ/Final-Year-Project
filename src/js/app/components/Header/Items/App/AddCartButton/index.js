@@ -17,12 +17,14 @@ export default class AddCartButton extends Component{
   }
 
   static propTypes = {
+    shoppingCart: PropTypes.arrayOf(PropTypes.object).isRequired,
     selectedOutward: PropTypes.object.isRequired,
     selectedReturn: PropTypes.object.isRequired,
     addCart: PropTypes.bool.isRequired,
     addReturn: PropTypes.bool.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     setAddedCart: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
   }
 
   handleOnPress(){
@@ -31,8 +33,15 @@ export default class AddCartButton extends Component{
       return: this.props.selectedReturn,
       hasReturn: this.props.addReturn,
     }
-    this.props.addShoppingCart(item)
-    this.props.setAddedCart(!this.props.addCart)
+    if(!this.props.addCart){
+      this.props.addShoppingCart(item)
+      this.props.setAddedCart(!this.props.addCart)
+    } else {
+      this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
+      this.props.update(this.props.shoppingCart)
+      this.props.addShoppingCart(item)
+      this.forceUpdate()
+    }
     this.props.navigation.navigate('ShoppingCart')
   }
 

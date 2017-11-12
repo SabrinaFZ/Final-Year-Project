@@ -168,7 +168,7 @@ export default class SelectTicketTrainReturn extends Component {
         })
       }
       if(this.props.openModalInfoReturn){
-        modalInfo = <InfoModalContainer links={returnItem.links} routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
+        modalInfo = <InfoModalContainer links={trains[this.props.openModalInfoReturnId].links} routeTrains={trains[this.props.openModalInfoReturnId].legs}/>
       }
       return (
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import AddCartButton from './../../components/Header/Items/App/AddCartButton'
 
-import { addShoppingCart, addedCart } from './../../actions/actions'
+import { addShoppingCart, addedCart, update } from './../../actions/actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     selectedReturn: state.selectedReturn,
     addCart: state.addCart,
     addReturn: state.addReturn,
+    shoppingCart: state.shoppingCart,
   }
 }
 
@@ -20,7 +21,10 @@ const mapDispatchToProps = dispatch => {
     },
     addShoppingCart: (item) => {
       dispatch(addShoppingCart(item))
-    }
+    },
+    update: (value) =>{
+      dispatch(update(value))
+    },
   }
 }
 

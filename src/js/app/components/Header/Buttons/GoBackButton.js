@@ -24,7 +24,6 @@ export default class GoBackButton extends Component {
         ]
       })
     )
-    this.forceUpdate()
   }
 
 
@@ -37,7 +36,7 @@ export default class GoBackButton extends Component {
         />
     }else{
       backButton =
-        <Icon name='home' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
+        <Icon name='arrow-left' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
           onPress={() => this.handleOnPress() }
         />
     }
