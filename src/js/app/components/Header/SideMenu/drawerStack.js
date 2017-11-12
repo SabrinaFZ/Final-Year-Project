@@ -4,7 +4,6 @@ import { Icon } from 'react-native-elements'
 
 import ButtonSideMenu from './../Buttons/ButtonSideMenu'
 import ShoppingCartButton from './../Buttons/ShoppingCartButton'
-import GoBackButtonContainer from './../../../containers/GoBackButton'
 
 import DrawerScreen from './DrawerScreen'
 import ShoppingCartContainer from './../../../containers/ShoppingCart'
