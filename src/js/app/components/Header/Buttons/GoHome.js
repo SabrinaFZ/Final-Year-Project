@@ -18,8 +18,10 @@ export default class GoHome extends Component {
   handleOnPress(){
     this.props.navigation.dispatch(
       NavigationActions.reset({
-        index: 0,
+        key: 'CustomHeader',
+        index: 1,
         actions: [
+          NavigationActions.navigate({ routeName: 'ShoppingCart' }),
           NavigationActions.navigate({ routeName: 'DrawerScreen' }),
         ]
       })
