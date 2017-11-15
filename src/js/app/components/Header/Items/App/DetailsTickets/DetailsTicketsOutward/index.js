@@ -36,7 +36,7 @@ export default class DetailsTicketsOutward extends Component{
           <Text style={common.textNormal}> {this.props.selectedOutward.destination_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedOutward.destination_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> Changes: {this.props.selectedOutward.changes} </Text>
-          <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedOutward.cheapest)/1000).toFixed(2)} £ </Text>
+          <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.selectedOutward.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
         </View>
         <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward()}>
           <View style={[common.marginTop20, common.separator]}>

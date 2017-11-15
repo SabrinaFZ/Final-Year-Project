@@ -364,3 +364,115 @@ export const setOpenModalInfoReturnId = (value) => {
     value
   }
 }
+
+export const setOpenModalPayment = (bool) => {
+  return {
+    type: 'OPEN_MODAL_PAYMENT',
+    bool
+  }
+}
+
+export const setSelectedPayment = (value) => {
+  return {
+    type: 'SET_SELECTED_PAYMENT',
+    value
+  }
+}
+
+export const setChangeCardHolderName = (value) => {
+  return {
+    type: 'CHANGE_NAME_HOLDER',
+    value
+  }
+}
+
+export const setChangeNumber = (value) => {
+  return {
+    type: 'CHANGE_NUMBER',
+    value
+  }
+}
+
+export const setChangeCVV = (value) => {
+  return {
+    type: 'CHANGE_CVV',
+    value
+  }
+}
+
+export const setChangeAddressLine1 = (value) => {
+  return {
+    type: 'CHANGE_ADDRESS_LINE_1',
+    value
+  }
+}
+
+export const setChangeAddressLine2 = (value) => {
+  return {
+    type: 'CHANGE_ADDRESS_LINE_2',
+    value
+  }
+}
+
+export const setChangeAddressLine3 = (value) => {
+  return {
+    type: 'CHANGE_ADDRESS_LINE_3',
+    value
+  }
+}
+
+export const setChangeCity = (value) => {
+  return {
+    type: 'CHANGE_CITY',
+    value
+  }
+}
+
+export const setChangeCountry = (value) => {
+  return {
+    type: 'CHANGE_COUNTRY',
+    value
+  }
+}
+
+export const setChangePostcode = (value) => {
+  return {
+    type: 'CHANGE_POSTCODE',
+    value
+  }
+}
+
+export const setChangeExpiredMonth = (value) => {
+  return {
+    type: 'CHANGE_EXPIRED_MONTH',
+    value
+  }
+}
+
+export const setChangeExpiredYear = (value) => {
+  return {
+    type: 'CHANGE_EXPIRED_YEAR',
+    value
+  }
+}
+
+export const setChangeEmail = (value) => {
+  return {
+    type: 'CHANGE_EMAIL',
+    value
+  }
+}
+
+export const createTokenSuccess = (value) => {
+  return {
+    type: 'CREATE_TOKEN_CARD',
+    value
+  }
+}
+
+export const setOrders = (data) => {
+  return {
+    type: 'SET_ORDER',
+    data
+  }
+}

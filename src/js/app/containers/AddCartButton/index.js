@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import AddCartButton from './../../components/Header/Items/App/AddCartButton'
 
-import { addShoppingCart, addedCart, update } from './../../actions/actions'
+import { addShoppingCart, addedCart, update, setOrders, error } from './../../actions/actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     addCart: state.addCart,
     addReturn: state.addReturn,
     shoppingCart: state.shoppingCart,
+    orders: state.orders
   }
 }
 
@@ -22,9 +23,27 @@ const mapDispatchToProps = dispatch => {
     addShoppingCart: (item) => {
       dispatch(addShoppingCart(item))
     },
-    update: (value) =>{
+    update: (value) => {
       dispatch(update(value))
     },
+    setOrder: (url, body) => {
+      fetch(url, body)
+      .then((response) => {
+        return response
+      })
+      .then((response) => response.json())
+      .then((data) => dispatch(setOrders(data.result)))
+      .catch(() => dispatch(error(true)))
+    },
+    setTrip: (url, body) => {
+      fetch(url, body)
+      .then((response) => {
+        return response
+      })
+      .then((response) => response.json())
+      .then((data) => dispatch(setOrders(data.result)))
+      .catch(() => dispatch(error(true)))
+    }
   }
 }
 

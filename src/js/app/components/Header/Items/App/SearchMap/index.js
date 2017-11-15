@@ -45,7 +45,7 @@ export default class SearchMap extends Component{
   render(){
     return(
       <Modal
-       animationType="slide"
+       animationType="none"
        transparent={false}
        visible={this.props.openModalMap}
        onRequestClose={() => this.props.setOpenModalMap(!this.props.openModalMap)}

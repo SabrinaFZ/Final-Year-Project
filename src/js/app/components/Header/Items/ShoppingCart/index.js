@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 
 import InfoModalContainer from './../../../../containers/InfoModal'
+import SelectPaymentMethodContainer from './../../../../containers/SelectPaymentMethod'
 
 import common from './../../../../../../styles'
 
@@ -14,6 +15,7 @@ export default class ShoppingCart extends Component {
     this.handleOnPressDelete = this.handleOnPressDelete.bind(this)
     this.handleOnPressInfoOutward = this.handleOnPressInfoOutward.bind(this)
     this.handleOnPressInfoReturn = this.handleOnPressInfoReturn.bind(this)
+    this.handleOnPressPay = this.handleOnPressPay.bind(this)
   }
 
   static propTypes = {
@@ -24,9 +26,11 @@ export default class ShoppingCart extends Component {
     openModalInfoReturn: PropTypes.bool.isRequired,
     openModalInfoOutwardId: PropTypes.number.isRequired,
     openModalInfoReturnId: PropTypes.number.isRequired,
+    openModalPayment: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
     setOpenModalInfoOutward: PropTypes.func.isRequired,
-    setOpenModalInfoReturn: PropTypes.func.isRequired
+    setOpenModalInfoReturn: PropTypes.func.isRequired,
+    setOpenModalPayment: PropTypes.func.isRequired,
   }
 
   handleOnPressDelete(index){
@@ -47,10 +51,22 @@ export default class ShoppingCart extends Component {
     this.forceUpdate()
   }
 
+  handleOnPressPay(){
+    this.props.setOpenModalPayment(true)
+  }
+
   render(){
     let shoppingCart = null
-    var modalInfo = null
+    let modalInfo = null
+    let payment = null
+    let total = 0
     if(this.props.shoppingCart.length != 0){
+      payment =
+      <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
+        <TouchableOpacity style={[common.buttonNext]} onPress={() => this.handleOnPressPay()} activeOpacity={0.8} >
+          <Text style={common.textButtonNext}> PAY </Text>
+        </TouchableOpacity>
+      </View>
       if(this.props.openModalInfoOutward){
         modalInfo = <InfoModalContainer links={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.links} routeTrains={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.legs}/>
       }
@@ -59,7 +75,9 @@ export default class ShoppingCart extends Component {
       }
       shoppingCart = this.props.shoppingCart.map((item, index) => {
         let returnInfo = null
+        total = total + item.outward.cheapest/1000
         if(item.hasReturn){
+          total = total + item.return.cheapest/1000
           returnInfo =
           <View>
             <View style={[common.alignItems, common.marginTop20]}>
@@ -69,7 +87,7 @@ export default class ShoppingCart extends Component {
               <Text style={common.textNormal}> {item.return.destination_station_name} </Text>
               <Text style={common.textBold}> {item.return.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {item.return.changes} </Text>
-              <Text style={[common.textPink]}> {((item.return.cheapest)/1000).toFixed(2)} £ </Text>
+              <Text style={[common.textPink]}> {((item.return.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoReturn(index)}>
                 <Text style={[common.textCenter, common.textButton]}> INFO </Text>
@@ -85,24 +103,18 @@ export default class ShoppingCart extends Component {
               <Text style={common.textNormal}> {item.outward.destination_station_name} </Text>
               <Text style={common.textBold}> {item.outward.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {item.outward.changes} </Text>
-              <Text style={[common.textPink]}> {((item.outward.cheapest)/1000).toFixed(2)} £ </Text>
+              <Text style={[common.textPink]}> {((item.outward.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoOutward(index)}>
                 <Text style={[common.textCenter, common.textButton]}> INFO </Text>
             </TouchableOpacity>
             {returnInfo}
-            <View style={[common.marginTop10, common.row, common.spaceBetween]}>
+            <View style={[common.marginTop10, common.center]}>
               <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressDelete(index)}>
                 <View style={common.row}>
                   <Icon name='delete' type='MaterialIcons' color='#585858' />
                   <Text style={[common.padding10, common.textBold]}> DELETE </Text>
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
-                  <View style={common.row}>
-                    <Text style={[common.padding10, common.textBold]}> PAY </Text>
-                    <Icon name='credit-card' type='FontAwesome' color='#585858' />
-                  </View>
               </TouchableOpacity>
             </View>
           </View>
@@ -118,6 +130,8 @@ export default class ShoppingCart extends Component {
       <ScrollView contentContainerStyle={common.padding40}>
         {shoppingCart}
         {modalInfo}
+        {payment}
+        <SelectPaymentMethodContainer total={total}/>
       </ScrollView>
     )
   }

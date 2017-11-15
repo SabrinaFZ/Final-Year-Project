@@ -79,7 +79,7 @@ export default class SelectTicketTrainReturn extends Component {
     this.props.journeyPlan.result.return.forEach((item) => {
       returnJourney.push(item.journey)
       returnSingleFares.push(item.fares.singles)
-      returnCheapestFares.push(item.fares.cheapest.totalPrice)
+      returnCheapestFares.push(item.fares.cheapest)
     })
 
     returnSingleFares.map((value, index) =>{
@@ -179,7 +179,7 @@ export default class SelectTicketTrainReturn extends Component {
               <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
               <Text style={common.textBold}> {returnItem.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {returnItem.changes} </Text>
-              <Text style={common.title}> {((returnItem.cheapest)/1000).toFixed(2)} £ </Text>
+              <Text style={common.title}> {((returnItem.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>

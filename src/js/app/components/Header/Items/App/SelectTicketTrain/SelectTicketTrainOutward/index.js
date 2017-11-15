@@ -81,7 +81,7 @@ export default class SelectTicketTrainOutward extends Component {
     this.props.journeyPlan.result.outward.forEach((item) => {
       outwardJourney.push(item.journey)
       outwardSingleFares.push(item.fares.singles)
-      outwardCheapestFares.push(item.fares.cheapest.totalPrice)
+      outwardCheapestFares.push(item.fares.cheapest)
     })
 
     outwardSingleFares.map((value, index) =>{
@@ -200,7 +200,7 @@ export default class SelectTicketTrainOutward extends Component {
               <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
               <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
-              <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest)/1000).toFixed(2)} £ </Text>
+              <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>

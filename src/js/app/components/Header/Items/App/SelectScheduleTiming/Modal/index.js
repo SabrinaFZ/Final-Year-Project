@@ -77,7 +77,7 @@ export default class ModalScheduleTiming extends Component {
 
     return(
       <Modal
-       animationType="slide"
+       animationType="none"
        transparent={false}
        visible={this.props.showModal}
        onRequestClose={this.handleRequestClose.bind(this)}

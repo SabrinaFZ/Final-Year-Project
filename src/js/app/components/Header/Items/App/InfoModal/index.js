@@ -110,7 +110,7 @@ export default class InfoModal extends Component {
      return(
        <View>
          <Modal
-           animationType='slide'
+           animationType='none'
            transparent={false}
            visible={this.props.openModalInfoOutward}
            onRequestClose={() => this.handleOnRequestClose()}
@@ -162,7 +162,7 @@ export default class InfoModal extends Component {
      return(
        <View>
          <Modal
-           animationType='slide'
+           animationType='none'
            transparent={false}
            visible={this.props.openModalInfoReturn}
            onRequestClose={() => this.handleOnRequestClose()}

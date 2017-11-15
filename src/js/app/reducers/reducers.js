@@ -46,6 +46,24 @@ const initialState = {
   openModalInfoOutwardId: 0,
   openModalInfoReturn: false,
   openModalInfoReturnId: 0,
+  openModalPayment: false,
+  selectedPayment: '',
+  card: {
+    nameholder: '',
+    number:0,
+    cvv: 0,
+    address_line1: '',
+    address_line2: '',
+    address_line3: '',
+    city: '',
+    country: '',
+    postcode: '',
+    expired_month: '',
+    expired_year: '',
+    email: '',
+    token: ''
+  },
+  orders: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -211,6 +229,261 @@ const reducer = (state = initialState, action) => {
     case 'OPEN_MODAL_INFO_RETURN_ID': {
       return Object.assign({}, state, { openModalInfoReturnId: action.value })
     }
+    case 'OPEN_MODAL_PAYMENT': {
+      return Object.assign({}, state, { openModalPayment: action.bool})
+    }
+    case 'SET_SELECTED_PAYMENT': {
+      return Object.assign({}, state, { selectedPayment: action.value})
+    }
+    case 'CHANGE_NAME_HOLDER': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: action.value,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_NUMBER': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: action.value,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_CVV': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: action.value,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_ADDRESS_LINE_1': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: action.value,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_ADDRESS_LINE_2': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: action.value,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_ADDRESS_LINE_3': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: action.value,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_CITY': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: action.value,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_COUNTRY': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: action.value,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_POSTCODE': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: action.value,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_EXPIRED_MONTH': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: action.value,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_EXPIRED_YEAR': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: action.value,
+          email: state.card.email,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CHANGE_EMAIL': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: action.value,
+          token: state.card.token
+        }
+      })
+    }
+    case 'CREATE_TOKEN_CARD': {
+      return Object.assign({}, state, {
+        card: {
+          nameholder: state.card.nameholder,
+          number: state.card.number,
+          cvv: state.card.cvv,
+          address_line1: state.card.address_line1,
+          address_line2: state.card.address_line2,
+          address_line3: state.card.address_line3,
+          city: state.card.city,
+          country: state.card.country,
+          postcode: state.card.postcode,
+          expired_month: state.card.expired_month,
+          expired_year: state.card.expired_year,
+          email: state.card.email,
+          token: action.value
+        }
+      })
+    }
+    case 'SET_ORDER': { return Object.assign({}, state, { orders: action.data }) }
+
     case 'RESET_ALL': {
       return Object.assign({}, state, {
         listOrigin: [],

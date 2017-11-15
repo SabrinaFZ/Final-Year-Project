@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import ShoppingCart from './../../components/Header/Items/ShoppingCart'
 
-import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId } from './../../actions/actions'
+import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +12,8 @@ const mapStateToProps = state => {
     openModalInfoOutward: state.openModalInfoOutward,
     openModalInfoReturn: state.openModalInfoReturn,
     openModalInfoOutwardId: state.openModalInfoOutwardId,
-    openModalInfoReturnId: state.openModalInfoReturnId
+    openModalInfoReturnId: state.openModalInfoReturnId,
+    openModalPayment: state.openModalPayment,
   }
 }
 
@@ -32,6 +33,9 @@ const mapDispatchToProps = dispatch => {
     },
     setOpenModalInfoReturnId: (value) => {
       dispatch(setOpenModalInfoReturnId(value))
+    },
+    setOpenModalPayment: (bool) => {
+      dispatch(setOpenModalPayment(bool))
     }
   }
 }

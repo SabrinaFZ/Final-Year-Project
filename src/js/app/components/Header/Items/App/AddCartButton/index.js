@@ -14,6 +14,7 @@ export default class AddCartButton extends Component{
     super(props)
 
     this.handleOnPress = this.handleOnPress.bind(this)
+    this.postOrders = this.postOrders.bind(this)
   }
 
   static propTypes = {
@@ -22,9 +23,12 @@ export default class AddCartButton extends Component{
     selectedReturn: PropTypes.object.isRequired,
     addCart: PropTypes.bool.isRequired,
     addReturn: PropTypes.bool.isRequired,
+    orders: PropTypes.object.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     setAddedCart: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
+    setOrder: PropTypes.func.isRequired,
+    setTrip: PropTypes.func.isRequired,
   }
 
   handleOnPress(){
@@ -42,8 +46,143 @@ export default class AddCartButton extends Component{
       this.props.addShoppingCart(item)
       this.forceUpdate()
     }
+    if(this.props.shoppingCart.length == 0 && Object.keys(this.props.orders).length == 0){
+      this.postOrders()
+    } else {
+      this.postTrips()
+    }
     this.props.navigation.navigate('ShoppingCart')
   }
+
+  async postOrders(){
+    if(!this.props.addReturn){
+      await this.props.setOrder('https://api-southern.stage.otrl.io/orders', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic Og==',
+          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+        },
+        body: JSON.stringify({
+          trip: {
+            fares: {
+              outwardSingle: this.props.selectedOutward.cheapest.outwardSingle,
+              returnSingle: null,
+              return: null
+            },
+            outwardJourney: {
+              reserve: false,
+              reservationPreferences: null,
+            },
+            returnJourney: {
+              reserve: false
+            },
+              itso: false
+            },
+            channel: 'mobile',
+            referrer: null,
+            campaign: null
+          })
+        })
+    } else {
+      await this.props.setOrder('https://api-southern.stage.otrl.io/orders', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic Og==',
+          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+        },
+        body: JSON.stringify({
+          trip: {
+            fares: {
+              outwardSingle: null,
+              returnSingle: null,
+              return: this.props.selectedReturn.cheapest.outwardSingle
+            },
+            outwardJourney: {
+              reserve: false,
+              reservationPreferences: null,
+            },
+            returnJourney: {
+              reserve: false,
+              reservationPreferences: null
+            },
+              itso: false
+            },
+            channel: 'mobile',
+            referrer: null,
+            campaign: null
+          })
+        })
+    }
+
+  }
+
+  async postTrips(){
+    if(!this.props.addReturn){
+      await this.props.setTrip(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}/trips`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic Og==',
+          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+          'x-customer-device': this.props.orders.deviceToken
+        },
+        body: JSON.stringify({
+          fares: {
+            outwardSingle: this.props.selectedOutward.cheapest.outwardSingle,
+            returnSingle: null,
+            return: null
+          },
+          outwardJourney: {
+            reserve: false,
+            reservationPreferences: null,
+          },
+          returnJourney: {
+            reserve: false
+          },
+          itso: false,
+          channel: 'mobile',
+          referrer: null,
+          campaign: null
+        })
+      })
+    } else {
+      await this.props.setTrip(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}/trips`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic Og==',
+          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+          'x-customer-device': this.props.orders.deviceToken
+        },
+        body: JSON.stringify({
+          fares: {
+            outwardSingle: null,
+            returnSingle: null,
+            return: this.props.selectedReturn.cheapest.outwardSingle
+          },
+          outwardJourney: {
+            reserve: false,
+            reservationPreferences: null
+          },
+          returnJourney: {
+            reserve: false,
+            reservationPreferences: null
+          },
+          itso: false,
+          channel: 'mobile',
+          referrer: null,
+          campaign: null
+        })
+      })
+    }
+
+    }
 
   render(){
     return(

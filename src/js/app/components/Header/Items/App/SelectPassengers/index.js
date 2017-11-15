@@ -31,7 +31,7 @@ export default class SelectPassengers extends Component {
     if(this.props.openPassengers){
       return(
         <Modal
-         animationType="slide"
+         animationType="none"
          transparent={false}
          visible={this.props.openPassengers}
          onRequestClose={this.handleRequestClose.bind(this)}
