@@ -29,11 +29,13 @@ export default class AddCartButton extends Component{
     deletedJourney: PropTypes.bool.isRequired,
     orders: PropTypes.object.isRequired,
     isAnotherTrip: PropTypes.bool.isRequired,
+    isDeletedTrip: PropTypes.bool.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     setAddedCart: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     setOrder: PropTypes.func.isRequired,
     setTrip: PropTypes.func.isRequired,
+    setDeletedTrip: PropTypes.func.isRequired
   }
 
   componentWillReceiveProps(newProps){
@@ -70,8 +72,11 @@ export default class AddCartButton extends Component{
       this.props.addShoppingCart(item)
       this.props.setAddedCart(!this.props.addCart)
     } else {
-      this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
-      this.props.update(this.props.shoppingCart)
+      if(!this.props.isDeletedTrip){
+        this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
+        this.props.update(this.props.shoppingCart)
+      }
+      this.props.setDeletedTrip(false)
       this.props.addShoppingCart(item)
     }
 

@@ -66,7 +66,8 @@ const initialState = {
   orders: {},
   deletedJourney: false,
   deletedJourneyShoppingCart: false,
-  isAnotherTrip: false
+  isAnotherTrip: false,
+  isDeletedTrip: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -499,6 +500,9 @@ const reducer = (state = initialState, action) => {
     }
     case 'SET_ANOTHER_TRIP': {
       return Object.assign({}, state, { isAnotherTrip: action.bool })
+    }
+    case 'IS_DELETED_TRIP': {
+      return Object.assign({}, state, { isDeletedTrip: action.bool })
     }
     case 'RESET_ALL': {
       return Object.assign({}, state, {

@@ -503,3 +503,10 @@ export const isAnotherTrip = (bool) => {
     bool
   }
 }
+
+export const isDeletedTrip = (bool) => {
+  return {
+    type: 'IS_DELETED_TRIP',
+    bool
+  }
+}

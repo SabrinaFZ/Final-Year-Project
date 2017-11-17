@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import ShoppingCart from './../../components/Header/Items/ShoppingCart'
 
-import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart } from './../../actions/actions'
+import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart, isDeletedTrip } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => {
       fetch(url, body)
       .then((response) => {
         dispatch(deletedJourneyShoppingCart(true))
+        dispatch(isDeletedTrip(true))
         return response
       })
       .catch(() => dispatch(error(true)))

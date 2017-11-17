@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import AddCartButton from './../../components/Header/Items/App/AddCartButton'
 
-import { addShoppingCart, addedCart, update, setOrders, error, deletedJourney, isAnotherTrip } from './../../actions/actions'
+import { addShoppingCart, addedCart, update, setOrders, error, deletedJourney, isAnotherTrip, isDeletedTrip } from './../../actions/actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => {
     shoppingCart: state.shoppingCart,
     orders: state.orders,
     deletedJourney: state.deletedJourney,
-    isAnotherTrip: state.isAnotherTrip
+    isAnotherTrip: state.isAnotherTrip,
+    isDeletedTrip: state.isDeletedTrip
   }
 }
 
@@ -73,6 +74,9 @@ const mapDispatchToProps = dispatch => {
         dispatch(setOrders(data.result))
       })
       .catch(() => dispatch(error(true)))
+    },
+    setDeletedTrip: (bool) => {
+      dispatch(isDeletedTrip(bool))
     }
   }
 }
