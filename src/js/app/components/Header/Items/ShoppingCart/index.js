@@ -27,14 +27,45 @@ export default class ShoppingCart extends Component {
     openModalInfoOutwardId: PropTypes.number.isRequired,
     openModalInfoReturnId: PropTypes.number.isRequired,
     openModalPayment: PropTypes.bool.isRequired,
+    orders: PropTypes.object.isRequired,
+    deletedJourneyShoppingCart: PropTypes.bool.isRequired,
     update: PropTypes.func.isRequired,
     setOpenModalInfoOutward: PropTypes.func.isRequired,
     setOpenModalInfoReturn: PropTypes.func.isRequired,
     setOpenModalPayment: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
+  }
+
+  componentWillReceiveProps(newProps){
+    if(Object.keys(newProps.orders).length != 0 && Object.keys(this.props.orders).length != 0){
+      if(newProps.deletedJourneyShoppingCart){
+        this.props.get(`https://api-southern.stage.otrl.io/orders/${newProps.orders.id}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic Og==',
+            'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+            'x-customer-device': newProps.orders.deviceToken
+          }
+        })
+      }
+    }
   }
 
   handleOnPressDelete(index){
     this.props.shoppingCart.splice(index,1)
+    let link = this.props.orders.trips[index]
+    this.props.delete(`https://api-southern.stage.otrl.io`+link, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic Og==',
+        'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+        'x-customer-device': this.props.orders.deviceToken
+      }
+    })
     this.props.update(this.props.shoppingCart)
     this.forceUpdate()
   }

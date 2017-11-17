@@ -63,7 +63,10 @@ const initialState = {
     email: '',
     token: ''
   },
-  orders: {}
+  orders: {},
+  deletedJourney: false,
+  deletedJourneyShoppingCart: false,
+  isAnotherTrip: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -482,8 +485,21 @@ const reducer = (state = initialState, action) => {
         }
       })
     }
-    case 'SET_ORDER': { return Object.assign({}, state, { orders: action.data }) }
-
+    case 'SET_ORDER': {
+      return Object.assign({}, state, { orders: action.data })
+    }
+    case 'RESET_ORDER': {
+      return Object.assign({}, state, { orders: {} })
+    }
+    case 'DELETED_JOURNEY': {
+      return Object.assign({}, state, { deletedJourney: action.bool })
+    }
+    case 'DELETED_JOURNEY_SHOPPING_CART': {
+      return Object.assign({}, state, { deletedJourneyShoppingCart: action.bool })
+    }
+    case 'SET_ANOTHER_TRIP': {
+      return Object.assign({}, state, { isAnotherTrip: action.bool })
+    }
     case 'RESET_ALL': {
       return Object.assign({}, state, {
         listOrigin: [],

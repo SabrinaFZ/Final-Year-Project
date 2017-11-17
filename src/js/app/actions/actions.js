@@ -476,3 +476,30 @@ export const setOrders = (data) => {
     data
   }
 }
+
+export const resetOrder = () => {
+  return {
+    type: 'RESET_ORDER',
+  }
+}
+
+export const deletedJourney = (bool) => {
+  return {
+    type: 'DELETED_JOURNEY',
+    bool
+  }
+}
+
+export const deletedJourneyShoppingCart = (bool) => {
+  return {
+    type: 'DELETED_JOURNEY_SHOPPING_CART',
+    bool
+  }
+}
+
+export const isAnotherTrip = (bool) => {
+  return {
+    type: 'SET_ANOTHER_TRIP',
+    bool
+  }
+}

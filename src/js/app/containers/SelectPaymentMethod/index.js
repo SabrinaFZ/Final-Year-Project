@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectPaymentMethod from './../../components/Header/Items/App/SelectPaymentMethod'
 
-import { setOpenModalPayment, setSelectedPayment, setChangeCVV, setChangeCity, setChangeEmail, setChangeNumber, setChangeCountry, setChangePostcode, setChangeExpiredYear, setChangeAddressLine1, setChangeAddressLine2, setChangeAddressLine3, setChangeExpiredMonth, setChangeCardHolderName, error, createTokenSuccess } from './../../actions/actions'
+import { setOpenModalPayment, setSelectedPayment, setChangeCVV, setChangeCity, setChangeEmail, setChangeNumber, setChangeCountry, setChangePostcode, setChangeExpiredYear, setChangeAddressLine1, setChangeAddressLine2, setChangeAddressLine3, setChangeExpiredMonth, setChangeCardHolderName, error, createTokenSuccess, update, resetOrder } from './../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -70,15 +70,22 @@ const mapDispatchToProps = dispatch => {
     auth: (url, body) => {
       fetch(url, body)
         .then((response) => {
-          console.log(response)
           return response
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if(data.status == 'success'){
+            let shoppingCart = []
+            dispatch(setOpenModalPayment(false))
+            dispatch(update(shoppingCart))
+            dispatch(resetOrder())
+          }
         })
         .catch(() => dispatch(error(true)))
     },
     setDelivery: (url, body) => {
       fetch(url, body)
         .then((response) => {
-          console.log(response)
           return response
         })
         .catch(() => dispatch(error(true)))

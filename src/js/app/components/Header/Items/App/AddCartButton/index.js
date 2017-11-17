@@ -15,6 +15,9 @@ export default class AddCartButton extends Component{
 
     this.handleOnPress = this.handleOnPress.bind(this)
     this.postOrders = this.postOrders.bind(this)
+    this.state = {
+      flag: false
+    }
   }
 
   static propTypes = {
@@ -23,12 +26,38 @@ export default class AddCartButton extends Component{
     selectedReturn: PropTypes.object.isRequired,
     addCart: PropTypes.bool.isRequired,
     addReturn: PropTypes.bool.isRequired,
+    deletedJourney: PropTypes.bool.isRequired,
     orders: PropTypes.object.isRequired,
+    isAnotherTrip: PropTypes.bool.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     setAddedCart: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     setOrder: PropTypes.func.isRequired,
     setTrip: PropTypes.func.isRequired,
+  }
+
+  componentWillReceiveProps(newProps){
+    console.log(newProps.isAnotherTrip)
+    console.log(this.props.orders)
+    if(newProps.deletedJourney){
+      console.log('1')
+      if(!newProps.isAnotherTrip){
+        this.props.get(`https://api-southern.stage.otrl.io/orders/${newProps.orders.id}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic Og==',
+            'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+            'x-customer-device': newProps.orders.deviceToken
+          }
+        })
+      }
+      else if(newProps.orders.trips != this.props.orders.trips){
+        console.log('2')
+        this.postTrips()
+      }
+    }
   }
 
   handleOnPress(){
@@ -44,12 +73,37 @@ export default class AddCartButton extends Component{
       this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
       this.props.update(this.props.shoppingCart)
       this.props.addShoppingCart(item)
-      this.forceUpdate()
     }
-    if(this.props.shoppingCart.length == 0 && Object.keys(this.props.orders).length == 0){
+
+    if(Object.keys(this.props.orders).length == 0){
       this.postOrders()
     } else {
-      this.postTrips()
+      let link = null
+      console.log(this.props.orders.trips.length)
+      console.log(this.props.shoppingCart.length)
+      if(this.props.orders.trips.length === this.props.shoppingCart.length + 1){
+        if(this.props.orders.trips.length != 0){
+          console.log('aqui1')
+          link = this.props.orders.trips[this.props.orders.trips.length-1]
+        } else {
+          console.log('aqui2')
+          link = this.props.orders.trips[0]
+        }
+        this.props.delete(`https://api-southern.stage.otrl.io`+link, {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic Og==',
+            'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
+            'x-customer-device': this.props.orders.deviceToken
+          }
+        })
+      }
+      else{
+        console.log('aqui3')
+        this.postTrips()
+      }
     }
     this.props.navigation.navigate('ShoppingCart')
   }
@@ -145,7 +199,7 @@ export default class AddCartButton extends Component{
             reserve: false
           },
           itso: false,
-          channel: 'mobile',
+          channel: 'web',
           referrer: null,
           campaign: null
         })

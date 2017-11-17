@@ -22,6 +22,8 @@ export default class SelectPaymentMethod extends Component {
     this.onChangePostcode = this.onChangePostcode.bind(this)
     this.onVerifyEmail = this.onVerifyEmail.bind(this)
     this.goPay = this.goPay.bind(this)
+    this.setDelivery = this.setDelivery.bind(this)
+    this.auth = this.auth.bind(this)
 
   }
 
@@ -52,6 +54,12 @@ export default class SelectPaymentMethod extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (nextProps.openModalPayment !== this.props.openModalPayment)
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.card.token != this.props.card.token){
+      this.auth(newProps.card.token)
+    }
   }
 
   handleOnPressPaypal(){
@@ -134,19 +142,24 @@ export default class SelectPaymentMethod extends Component {
   }
 
   async goPay(){
-    await this.props.createToken('https://api.mite.pay360.com/cardlock/createToken',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'publishableId': 'v1iS2F41STe68HNml0EolA',
-        'pan': this.props.card.number,
-        'cvv': this.props.cvv
+      await this.props.createToken('https://api.mite.pay360.com/cardlock/createToken',{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'publishableId': 'w_f5DyNFQsanNMHb4QP1dQ',
+          'pan': this.props.card.number,
+          'cvv': this.props.cvv
+        })
       })
-    })
+      this.setDelivery()
+      this.forceUpdate()
+  }
 
+  async setDelivery(){
+    console.log('paso1')
     await this.props.setDelivery(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}`, {
       method: 'PUT',
       headers: {
@@ -167,7 +180,11 @@ export default class SelectPaymentMethod extends Component {
           }
         })
       })
+  }
 
+  async auth(token){
+    console.log('token'+ token)
+    console.log('paso2')
     await this.props.auth(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}/auth`, {
       method: 'POST',
       headers: {
@@ -184,7 +201,7 @@ export default class SelectPaymentMethod extends Component {
           "id":"card",
           "type":"paypoint-card",
           "amount": this.props.orders.totalPrice,
-          "token": this.props.card.token,
+          "token": token,
           "cardHolderName": this.props.card.nameholder,
           "expiryDate": `${this.props.card.expired_month}/${this.props.card.expired_year}`,
           "email": this.props.card.email,

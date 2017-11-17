@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import AddCartButton from './../../components/Header/Items/App/AddCartButton'
 
-import { addShoppingCart, addedCart, update, setOrders, error } from './../../actions/actions'
+import { addShoppingCart, addedCart, update, setOrders, error, deletedJourney, isAnotherTrip } from './../../actions/actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
     addCart: state.addCart,
     addReturn: state.addReturn,
     shoppingCart: state.shoppingCart,
-    orders: state.orders
+    orders: state.orders,
+    deletedJourney: state.deletedJourney,
+    isAnotherTrip: state.isAnotherTrip
   }
 }
 
@@ -32,7 +34,11 @@ const mapDispatchToProps = dispatch => {
         return response
       })
       .then((response) => response.json())
-      .then((data) => dispatch(setOrders(data.result)))
+      .then((data) => {
+        dispatch(isAnotherTrip(true))
+        dispatch(setOrders(data.result))
+        dispatch(isAnotherTrip(false))
+      })
       .catch(() => dispatch(error(true)))
     },
     setTrip: (url, body) => {
@@ -41,7 +47,31 @@ const mapDispatchToProps = dispatch => {
         return response
       })
       .then((response) => response.json())
-      .then((data) => dispatch(setOrders(data.result)))
+      .then((data) => {
+        dispatch(deletedJourney(false))
+        dispatch(isAnotherTrip(false))
+        dispatch(setOrders(data.result))
+      })
+      .catch(() => dispatch(error(true)))
+    },
+    delete: (url, body) => {
+      fetch(url, body)
+      .then((response) => {
+        dispatch(deletedJourney(true))
+        return response
+      })
+      .catch(() => dispatch(error(true)))
+    },
+    get: (url, body) => {
+      fetch(url, body)
+      .then((response) => {
+        return response
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(isAnotherTrip(true))
+        dispatch(setOrders(data.result))
+      })
       .catch(() => dispatch(error(true)))
     }
   }
