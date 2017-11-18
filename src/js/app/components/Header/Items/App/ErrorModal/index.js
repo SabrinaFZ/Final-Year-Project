@@ -45,21 +45,6 @@ export default class ErrorModal extends Component {
     return(
       <View>
         { this.showAlert() }
-        {/* <Modal
-          animationType='none'
-          transparent={false}
-          visible={this.props.error}
-          onRequestClose={() => this.props.navigation.goBack()}
-          >
-          <View style={common.container}>
-            <ScrollView contentContainerStyle={common.padding40}>
-              <View style={[common.box, common.backgroundColorWhite, common.padding40]}>
-                <Icon name='error' type='MaterialIcons' color='#e9418b' size={50}/>
-                <Text style={[common.marginTop10, common.textNormal, common.textCenter]}>{this.props.message}</Text>
-              </View>
-            </ScrollView>
-          </View>
-       </Modal> */}
       </View>
     )
   }

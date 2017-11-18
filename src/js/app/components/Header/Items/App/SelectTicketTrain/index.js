@@ -124,7 +124,7 @@ export default class SelectTicketTrain extends Component {
 
     if(this.props.error && !this.props.loadingTrains){
       return(
-        <ErrorModalContainer navigation={this.props.navigation} message='There must be a problem with your request. Please check the information and seach again'/>
+        <ErrorModalContainer navigation={this.props.navigation} message='There must be a problem with your request. Please check the information and try again'/>
       )
     }
 
