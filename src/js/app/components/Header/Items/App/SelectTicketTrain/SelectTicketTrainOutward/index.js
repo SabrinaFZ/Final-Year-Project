@@ -191,7 +191,7 @@ export default class SelectTicketTrainOutward extends Component {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
             <View style={[common.marginTop20, common.separator]}>
-              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
+              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO OUTWARD </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressOutward(index)}>
