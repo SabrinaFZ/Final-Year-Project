@@ -118,20 +118,21 @@ export default class SelectTicketTrain extends Component {
   }
 
   render(){
-    if(!this.props.loadingTrains && this.props.error==false){
-      if(!this.props.addReturn){
-        return (
-          <SelectTicketTrainOutwardContainer navigation={this.props.navigation}/>
-        )
-      } else {
-        return (
-          <SelectTicketTrainReturnContainer navigation={this.props.navigation}/>
-        )
+    if(!this.props.loadingTrains ){
+      if(!this.props.error){
+        if(!this.props.addReturn && this.props.journeyPlan.result.outward.length != 0){
+          return (
+            <SelectTicketTrainOutwardContainer navigation={this.props.navigation}/>
+          )
+        } else if(this.props.journeyPlan.result.return.length != 0) {
+          return (
+            <SelectTicketTrainReturnContainer navigation={this.props.navigation}/>
+          )
+        }
       }
-
     }
 
-    if(this.props.error && !this.props.loadingTrains){
+    if(this.props.error && !this.props.loadingTrains ) {
       return(
         <ErrorModalContainer navigation={this.props.navigation} message='There must be a problem with your request. Please check the information and try again'/>
       )

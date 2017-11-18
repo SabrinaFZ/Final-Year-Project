@@ -18,6 +18,7 @@ export default class SelectTicketTrainReturn extends Component {
     this.handleOnPressReturn =  this.handleOnPressReturn.bind(this)
     this.handleOnPressSelectReturn = this.handleOnPressSelectReturn.bind(this)
     this.handleOnPressInfo = this.handleOnPressInfo.bind(this)
+    this.handleOnPressInfoOutward = this.handleOnPressInfoOutward.bind(this)
     this.handleOnPressSelectFare = this.handleOnPressSelectFare.bind(this)
     this.goNext = this.goNext.bind(this)
   }
