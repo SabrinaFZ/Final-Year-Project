@@ -9,6 +9,8 @@ import ErrorModalContainer from './../../../../../containers/ErrorModal'
 
 import SelectTicketTrainOutwardContainer from './../../../../../containers/SelectTicketTrain/SelectTicketTrainOutward'
 
+import SelectTicketTrainReturnContainer from './../../../../../containers/SelectTicketTrain/SelectTicketTrainReturn'
+
 import common from './../../../../../../../styles'
 
 export default class SelectTicketTrain extends Component {
@@ -117,9 +119,16 @@ export default class SelectTicketTrain extends Component {
 
   render(){
     if(!this.props.loadingTrains && this.props.error==false){
-      return (
-        <SelectTicketTrainOutwardContainer navigation={this.props.navigation}/>
-      )
+      if(!this.props.addReturn){
+        return (
+          <SelectTicketTrainOutwardContainer navigation={this.props.navigation}/>
+        )
+      } else {
+        return (
+          <SelectTicketTrainReturnContainer navigation={this.props.navigation}/>
+        )
+      }
+
     }
 
     if(this.props.error && !this.props.loadingTrains){

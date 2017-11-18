@@ -7,6 +7,8 @@ import { addShoppingCart, addedCart, openModalInfoOutward, openModalInfoReturn} 
 const mapStateToProps = (state) => {
   return {
     addReturn: state.addReturn,
+    selectedOutward: state.selectedOutward,
+    selectedReturn: state.selectedReturn
   }
 }
 

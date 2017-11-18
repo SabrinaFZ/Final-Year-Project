@@ -5,6 +5,7 @@ import SelectOriginDestination from './SelectOriginDestination'
 import SelectOriginDestinationContainer from './../../../../containers/SelectOriginDestination'
 import SelectTicketTrainContainer from './../../../../containers/SelectTicketTrain'
 import SelectTicketTrainReturnContainer from './../../../../containers/SelectTicketTrain/SelectTicketTrainReturn'
+import SelectTicketTrainOutwardContainer from './../../../../containers/SelectTicketTrain/SelectTicketTrainOutward'
 import DetailsTicketsContainer from './../../../../containers/DetailsTickets'
 import MapContainer from './../../../../containers/Map'
 
@@ -14,6 +15,9 @@ const routeConfiguration = {
   },
   SelectTicketTrain: {
     screen: SelectTicketTrainContainer
+  },
+  SelectTicketTrainOutward: {
+    screen: SelectTicketTrainOutwardContainer,
   },
   SelectTicketTrainReturn: {
     screen: SelectTicketTrainReturnContainer,

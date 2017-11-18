@@ -238,8 +238,8 @@ export default class AddCartButton extends Component{
 
   render(){
     return(
-      <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
-        <TouchableOpacity activeOpacity={0.8} style={common.buttonNext} onPress={() => this.handleOnPress()}>
+      <View style={common.buttonNext} >
+        <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPress()}>
           <Text style={common.textButtonNext}> ADD TO CART </Text>
         </TouchableOpacity>
       </View>

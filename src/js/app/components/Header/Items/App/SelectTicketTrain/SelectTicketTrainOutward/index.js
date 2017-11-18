@@ -139,22 +139,12 @@ export default class SelectTicketTrainOutward extends Component {
   }
 
   goNext(){
-    if(this.props.addReturn){
-      this.props.setOutwardReturn('Return')
-      this.props.navigation.dispatch(
-        NavigationActions.navigate({
-          routeName: 'SelectTicketTrain',
-          action: NavigationActions.navigate({ routeName: 'SelectTicketTrainReturn' }),
-        }),
-      )
-    }else{
-      this.props.navigation.dispatch(
-        NavigationActions.navigate({
-          routeName: 'SelectTicketTrain',
-          action: NavigationActions.navigate({ routeName: 'DetailsTickets' }),
-        }),
-      )
-    }
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({
+        routeName: 'SelectTicketTrain',
+        action: NavigationActions.navigate({ routeName: 'DetailsTickets' }),
+      }),
+    )
   }
 
   render(){
@@ -190,6 +180,7 @@ export default class SelectTicketTrainOutward extends Component {
         <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
             <View style={[common.alignItems]}>
+              <Text style={common.title}>OUTWARD</Text>
               <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
               <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>

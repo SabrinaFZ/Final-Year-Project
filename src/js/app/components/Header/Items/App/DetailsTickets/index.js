@@ -20,19 +20,28 @@ export default class DetailsTickets extends Component{
 
   static propTypes = {
     addReturn: PropTypes.bool.isRequired,
+    selectedOutward: PropTypes.object.isRequired,
+    selectedReturn: PropTypes.object.isRequired
   }
 
   render(){
     let returnTicketInfo = null
+    let total = this.props.selectedOutward.links[this.props.selectedOutward.selectedFare].totalPrice
     if(this.props.addReturn){
       returnTicketInfo = <DetailsTicketsReturnContainer />
+      total = this.props.selectedReturn.links[this.props.selectedReturn.selectedFare].totalPrice
     }
     return(
       <ScrollView contentContainerStyle={[common.padding40]}>
         <Text style={[common.textCenter, common.title]}> YOUR TICKETS </Text>
         <DetailsTicketsOutwardContainer />
         {returnTicketInfo}
-        <AddCartButtonContainer navigation={this.props.navigation} />
+        <View style={[common.row, common.spaceBetween, common.marginTop50, common.marginBottom40]}>
+          <View style={common.buttonActive}>
+            <Text style={common.textButton}>Total: {(total/1000).toFixed(2)} £</Text>
+          </View>
+          <AddCartButtonContainer navigation={this.props.navigation} />
+        </View>
       </ScrollView>
     )
   }
