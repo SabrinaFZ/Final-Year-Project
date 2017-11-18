@@ -61,10 +61,18 @@ const mapDispatchToProps = dispatch => {
     createToken: (url, body) => {
       fetch(url, body)
         .then((response) => {
+          console.log(response)
           return response
         })
         .then((response) => response.json())
-        .then((data) => dispatch(createTokenSuccess(data.token)))
+        .then((data) => {
+          if(data.message == 'OK'){
+            dispatch(createTokenSuccess(data.token))
+          }
+          else {
+            dispatch(error(true))
+          }
+        })
         .catch(() => dispatch(error(true)))
     },
     auth: (url, body) => {
@@ -79,6 +87,8 @@ const mapDispatchToProps = dispatch => {
             dispatch(setOpenModalPayment(false))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
+          } else {
+            dispatch(error(true))
           }
         })
         .catch(() => dispatch(error(true)))

@@ -11,8 +11,17 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    setError: (bool) => {
+      dispatch(error(bool))
+    }
+  }
+}
+
 const ErrorModalContainer = connect(
   mapStateToProps,
+  mapDispatchToProps
 )(ErrorModal)
 
 export default ErrorModalContainer
