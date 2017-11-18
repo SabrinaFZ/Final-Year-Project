@@ -39,10 +39,7 @@ export default class AddCartButton extends Component{
   }
 
   componentWillReceiveProps(newProps){
-    console.log(newProps.isAnotherTrip)
-    console.log(this.props.orders)
     if(newProps.deletedJourney){
-      console.log('1')
       if(!newProps.isAnotherTrip){
         this.props.get(`https://api-southern.stage.otrl.io/orders/${newProps.orders.id}`, {
           method: 'GET',
@@ -56,7 +53,6 @@ export default class AddCartButton extends Component{
         })
       }
       else if(newProps.orders.trips != this.props.orders.trips){
-        console.log('2')
         this.postTrips()
       }
     }
@@ -88,10 +84,8 @@ export default class AddCartButton extends Component{
       console.log(this.props.shoppingCart.length)
       if(this.props.orders.trips.length === this.props.shoppingCart.length + 1){
         if(this.props.orders.trips.length != 0){
-          console.log('aqui1')
           link = this.props.orders.trips[this.props.orders.trips.length-1]
         } else {
-          console.log('aqui2')
           link = this.props.orders.trips[0]
         }
         this.props.delete(`https://api-southern.stage.otrl.io`+link, {
@@ -106,7 +100,6 @@ export default class AddCartButton extends Component{
         })
       }
       else{
-        console.log('aqui3')
         this.postTrips()
       }
     }
@@ -126,7 +119,7 @@ export default class AddCartButton extends Component{
         body: JSON.stringify({
           trip: {
             fares: {
-              outwardSingle: this.props.selectedOutward.cheapest.outwardSingle,
+              outwardSingle: this.props.selectedOutward.selectedFare,
               returnSingle: null,
               return: null
             },
@@ -158,7 +151,7 @@ export default class AddCartButton extends Component{
             fares: {
               outwardSingle: null,
               returnSingle: null,
-              return: this.props.selectedReturn.cheapest.outwardSingle
+              return: this.props.selectedReturn.selectedFare
             },
             outwardJourney: {
               reserve: false,
@@ -192,7 +185,7 @@ export default class AddCartButton extends Component{
         },
         body: JSON.stringify({
           fares: {
-            outwardSingle: this.props.selectedOutward.cheapest.outwardSingle,
+            outwardSingle: this.props.selectedOutward.selectedFare,
             returnSingle: null,
             return: null
           },
@@ -223,7 +216,7 @@ export default class AddCartButton extends Component{
           fares: {
             outwardSingle: null,
             returnSingle: null,
-            return: this.props.selectedReturn.cheapest.outwardSingle
+            return: this.props.selectedReturn.selectedFare
           },
           outwardJourney: {
             reserve: false,

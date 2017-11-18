@@ -18,6 +18,8 @@ export default class SelectTicketTrainOutward extends Component {
     this.handleOnPressOutward =  this.handleOnPressOutward.bind(this)
     this.handleOnPressSelectOutward = this.handleOnPressSelectOutward.bind(this)
     this.handleOnPressInfo = this.handleOnPressInfo.bind(this)
+    this.handleOnPressSelectFare = this.handleOnPressSelectFare.bind(this)
+    this.goNext = this.goNext.bind(this)
   }
 
   static propTypes = {
@@ -81,25 +83,7 @@ export default class SelectTicketTrainOutward extends Component {
     this.props.journeyPlan.result.outward.forEach((item) => {
       outwardJourney.push(item.journey)
       outwardSingleFares.push(item.fares.singles)
-      outwardCheapestFares.push(item.fares.cheapest)
-    })
-
-    outwardSingleFares.map((value, index) =>{
-      let aux = []
-      value.map((fares, i) => {
-        let item = this.props.journeyPlan.links[fares]
-        aux.push(item)
-      })
-      outwardSinglePrice.push(aux)
-    })
-
-    outwardReturnFares.map((value, index) =>{
-      let aux = []
-      value.map((fares, i) => {
-        let item = this.props.journeyPlan.links[fares]
-        aux.push(item)
-      })
-      outwardReturnPrice.push(aux)
+      outwardCheapestFares.push(item.fares.cheapest.outwardSingle)
     })
 
     outwardJourney.map((value, index) => {
@@ -115,8 +99,9 @@ export default class SelectTicketTrainOutward extends Component {
         changes: item.changes,
         legs: item.legs,
         status: item.status,
-        fares: outwardSinglePrice[index],
+        fares: outwardSingleFares[index],
         cheapest: outwardCheapestFares[index],
+        selectedFare: outwardCheapestFares[index],
         links: this.props.journeyPlan.links
       }
       journeyOutwardInfo.push(info)
@@ -138,6 +123,22 @@ export default class SelectTicketTrainOutward extends Component {
 
   handleOnPressSelectOutward(item){
     this.props.selectedOutward(item)
+    this.goNext()
+  }
+
+  handleOnPressInfo(index){
+    this.props.setOpenModalInfoOutwardId(index)
+    this.props.setOpenModalInfoOutward(true)
+    this.forceUpdate()
+  }
+
+  handleOnPressSelectFare(item, fare){
+    item.selectedFare = fare
+    this.props.selectedOutward(item)
+    this.goNext()
+  }
+
+  goNext(){
     if(this.props.addReturn){
       this.props.setOutwardReturn('Return')
       this.props.navigation.dispatch(
@@ -154,12 +155,6 @@ export default class SelectTicketTrainOutward extends Component {
         }),
       )
     }
-  }
-
-  handleOnPressInfo(index){
-    this.props.setOpenModalInfoOutwardId(index)
-    this.props.setOpenModalInfoOutward(true)
-    this.forceUpdate()
   }
 
   render(){
@@ -180,9 +175,9 @@ export default class SelectTicketTrainOutward extends Component {
         faresOutward = outwardItem.fares.map((fare,i) => {
           return (
             <View key={i} style={common.paddingTopBottom20}>
-              <TouchableOpacity style={[common.backgroundColor, common.alignItems]}>
-                <Text style={common.textBold}>{this.getTicketType(fare.ticketType)}</Text>
-                <Text style={common.textNormal}>{((fare.totalPrice)/1000).toFixed(2)} £ </Text>
+              <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.alignItems]} onPress={()=>  this.handleOnPressSelectFare(outwardItem, fare)}>
+                <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
+                <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
               </TouchableOpacity>
             </View>
           )
@@ -200,7 +195,7 @@ export default class SelectTicketTrainOutward extends Component {
               <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
               <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
-              <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((outwardItem.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
+              <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.journeyPlan.links[outwardItem.selectedFare].totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>

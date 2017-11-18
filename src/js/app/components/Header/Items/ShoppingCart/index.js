@@ -108,11 +108,11 @@ export default class ShoppingCart extends Component {
       shoppingCart = this.props.shoppingCart.map((item, index) => {
         let returnInfo = null
         let totalItem = 0
-        total = total + item.outward.cheapest.totalPrice/1000
-        totalItem = item.outward.cheapest.totalPrice/1000
+        total = total + item.outward.links[item.outward.selectedFare].totalPrice/1000
+        totalItem = item.outward.links[item.outward.selectedFare].totalPrice/1000
         if(item.hasReturn){
-          total = total + item.return.cheapest.totalPrice/1000
-          totalItem = totalItem + item.return.cheapest.totalPrice/1000
+          total = total + item.return.links[item.return.selectedFare].totalPrice/1000
+          totalItem = item.return.links[item.return.selectedFare].totalPrice/1000
           returnInfo =
           <View>
             <View style={[common.alignItems, common.marginTop20]}>
@@ -122,7 +122,6 @@ export default class ShoppingCart extends Component {
               <Text style={common.textNormal}> {item.return.destination_station_name} </Text>
               <Text style={common.textBold}> {item.return.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {item.return.changes} </Text>
-              <Text style={[common.textPink]}> {((item.return.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoReturn(index)}>
                 <Text style={[common.textCenter, common.textButton]}> INFO </Text>
@@ -138,7 +137,6 @@ export default class ShoppingCart extends Component {
               <Text style={common.textNormal}> {item.outward.destination_station_name} </Text>
               <Text style={common.textBold}> {item.outward.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {item.outward.changes} </Text>
-              <Text style={[common.textPink]}> {((item.outward.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoOutward(index)}>
                 <Text style={[common.textCenter, common.textButton]}> INFO </Text>
@@ -147,7 +145,7 @@ export default class ShoppingCart extends Component {
             <View style={[common.row, common.spaceBetween]}>
               <View style={[common.marginTop10]}>
                   <View>
-                    <Text style={[common.padding10, common.textBold]}> Total: {totalItem} £</Text>
+                    <Text style={[common.padding10, common.textBold]}> Total: {totalItem.toFixed(2)} £</Text>
                   </View>
               </View>
               <View style={[common.marginTop10]}>
@@ -172,7 +170,7 @@ export default class ShoppingCart extends Component {
     if(this.props.shoppingCart.length != 0){
       totalInfo =
       <View style={common.buttonActive}>
-        <Text style={common.textButton}>Total: {total} £</Text>
+        <Text style={common.textButton}>Total: {(this.props.orders.totalPrice/1000)} £</Text>
       </View>
     }
 

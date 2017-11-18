@@ -18,6 +18,8 @@ export default class SelectTicketTrainReturn extends Component {
     this.handleOnPressReturn =  this.handleOnPressReturn.bind(this)
     this.handleOnPressSelectReturn = this.handleOnPressSelectReturn.bind(this)
     this.handleOnPressInfo = this.handleOnPressInfo.bind(this)
+    this.handleOnPressSelectFare = this.handleOnPressSelectFare.bind(this)
+    this.goNext = this.goNext.bind(this)
   }
 
   static propTypes = {
@@ -79,16 +81,7 @@ export default class SelectTicketTrainReturn extends Component {
     this.props.journeyPlan.result.return.forEach((item) => {
       returnJourney.push(item.journey)
       returnSingleFares.push(item.fares.singles)
-      returnCheapestFares.push(item.fares.cheapest)
-    })
-
-    returnSingleFares.map((value, index) =>{
-      let aux = []
-      value.map((fares, i) => {
-        let item = this.props.journeyPlan.links[fares]
-        aux.push(item)
-      })
-      returnSinglePrice.push(aux)
+      returnCheapestFares.push(item.fares.cheapest.outwardSingle)
     })
 
     returnJourney.map((value, index) => {
@@ -104,8 +97,9 @@ export default class SelectTicketTrainReturn extends Component {
         changes: item.changes,
         legs: item.legs,
         status: item.status,
-        fares: returnSinglePrice[index],
+        fares: returnSingleFares[index],
         cheapest: returnCheapestFares[index],
+        selectedFare: returnCheapestFares[index],
         links: this.props.journeyPlan.links
       }
       journeyReturnInfo.push(info)
@@ -127,6 +121,22 @@ export default class SelectTicketTrainReturn extends Component {
 
   handleOnPressSelectReturn(item){
     this.props.selectedReturn(item)
+    this.goNext()
+  }
+
+  handleOnPressInfo(index){
+    this.props.setOpenModalInfoReturnId(index)
+    this.props.setOpenModalInfoReturn(true)
+    this.forceUpdate()
+  }
+
+  handleOnPressSelectFare(item, fare){
+    item.selectedFare = fare
+    this.props.selectedReturn(item)
+    this.goNext()
+  }
+
+  goNext(){
     this.props.navigation.dispatch(
       NavigationActions.navigate({
         routeName: 'SelectTicketTrain',
@@ -135,11 +145,6 @@ export default class SelectTicketTrainReturn extends Component {
     )
   }
 
-  handleOnPressInfo(index){
-    this.props.setOpenModalInfoReturnId(index)
-    this.props.setOpenModalInfoReturn(true)
-    this.forceUpdate()
-  }
 
   render(){
       //Return an object for outward and journey
@@ -159,9 +164,9 @@ export default class SelectTicketTrainReturn extends Component {
         faresReturn = returnItem.fares.map((fare,i) => {
           return (
             <View key={i} style={common.paddingTopBottom20}>
-              <TouchableOpacity style={[common.backgroundColor, common.alignItems]}>
-                <Text style={common.textBold}>{this.getTicketType(fare.ticketType)}</Text>
-                <Text style={common.textNormal}>{((fare.totalPrice)/1000).toFixed(2)} £ </Text>
+              <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.alignItems]} onPress={()=>  this.handleOnPressSelectFare(returnItem, fare)}>
+                <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
+                <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
               </TouchableOpacity>
             </View>
           )
@@ -179,7 +184,7 @@ export default class SelectTicketTrainReturn extends Component {
               <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
               <Text style={common.textBold}> {returnItem.destination_time.slice(-8, -3)} </Text>
               <Text style={common.textNormal}> Changes: {returnItem.changes} </Text>
-              <Text style={common.title}> {((returnItem.cheapest.totalPrice)/1000).toFixed(2)} £ </Text>
+              <Text style={common.title}> {((this.props.journeyPlan.links[returnItem.selectedFare].totalPrice)/1000).toFixed(2)} £ </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
