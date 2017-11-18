@@ -91,6 +91,7 @@ export default class ShoppingCart extends Component {
     let modalInfo = null
     let payment = null
     let total = 0
+    let totalInfo = null
     if(this.props.shoppingCart.length != 0){
       payment =
       <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
@@ -106,9 +107,12 @@ export default class ShoppingCart extends Component {
       }
       shoppingCart = this.props.shoppingCart.map((item, index) => {
         let returnInfo = null
-        total = total + item.outward.cheapest/1000
+        let totalItem = 0
+        total = total + item.outward.cheapest.totalPrice/1000
+        totalItem = item.outward.cheapest.totalPrice/1000
         if(item.hasReturn){
-          total = total + item.return.cheapest/1000
+          total = total + item.return.cheapest.totalPrice/1000
+          totalItem = totalItem + item.return.cheapest.totalPrice/1000
           returnInfo =
           <View>
             <View style={[common.alignItems, common.marginTop20]}>
@@ -140,13 +144,20 @@ export default class ShoppingCart extends Component {
                 <Text style={[common.textCenter, common.textButton]}> INFO </Text>
             </TouchableOpacity>
             {returnInfo}
-            <View style={[common.marginTop10, common.center]}>
-              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressDelete(index)}>
-                <View style={common.row}>
-                  <Icon name='delete' type='MaterialIcons' color='#585858' />
-                  <Text style={[common.padding10, common.textBold]}> DELETE </Text>
-                </View>
-              </TouchableOpacity>
+            <View style={[common.row, common.spaceBetween]}>
+              <View style={[common.marginTop10]}>
+                  <View>
+                    <Text style={[common.padding10, common.textBold]}> Total: {totalItem} £</Text>
+                  </View>
+              </View>
+              <View style={[common.marginTop10]}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressDelete(index)}>
+                  <View style={common.row}>
+                    <Icon name='delete' type='MaterialIcons' color='#585858' />
+                    <Text style={[common.padding10, common.textBold]}> DELETE </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         )
@@ -157,12 +168,21 @@ export default class ShoppingCart extends Component {
         <Text style={[common.textCenter, common.textPink]}>No tickets!</Text>
       </View>
     }
+
+    if(this.props.shoppingCart.length != 0){
+      totalInfo =
+      <View style={common.buttonActive}>
+        <Text style={common.textButton}>Total: {total} £</Text>
+      </View>
+    }
+
     return(
       <ScrollView contentContainerStyle={common.padding40}>
+        {totalInfo}
         {shoppingCart}
         {modalInfo}
         {payment}
-        <SelectPaymentMethodContainer total={total}/>
+        <SelectPaymentMethodContainer />
       </ScrollView>
     )
   }
