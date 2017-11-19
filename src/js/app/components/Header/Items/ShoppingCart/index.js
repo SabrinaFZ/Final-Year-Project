@@ -53,6 +53,14 @@ export default class ShoppingCart extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps){
+    if(nextProps.orders.totalPrice ==  this.props.orders.totalPrice){
+      return false
+    } else {
+      return true
+    }
+  }
+
   handleOnPressDelete(index){
     this.props.shoppingCart.splice(index,1)
     let link = this.props.orders.trips[index]
