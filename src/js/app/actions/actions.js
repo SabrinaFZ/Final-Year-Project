@@ -510,3 +510,24 @@ export const isDeletedTrip = (bool) => {
     bool
   }
 }
+
+export const setDateTimePickerVisible = (bool) => {
+  return {
+    type: 'SET_OPEN_DATETIME',
+    bool
+  }
+}
+
+export const setDateTimePickerVisibleFrom = (bool) => {
+  return {
+    type: 'SET_OPEN_DATETIME_FROM',
+    bool
+  }
+}
+
+export const setDateTimePickerVisibleTo = (bool) => {
+  return {
+    type: 'SET_OPEN_DATETIME_TO',
+    bool
+  }
+}

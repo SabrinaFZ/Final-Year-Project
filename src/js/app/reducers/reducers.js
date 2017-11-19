@@ -68,6 +68,9 @@ const initialState = {
   deletedJourneyShoppingCart: false,
   isAnotherTrip: false,
   isDeletedTrip: false,
+  isDateTimePickerVisible: false,
+  isDateTimePickerVisibleFrom: false,
+  isDateTimePickerVisibleTo: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -503,6 +506,15 @@ const reducer = (state = initialState, action) => {
     }
     case 'IS_DELETED_TRIP': {
       return Object.assign({}, state, { isDeletedTrip: action.bool })
+    }
+    case 'SET_OPEN_DATETIME':{
+      return Object.assign({}, state, { isDateTimePickerVisible: action.bool })
+    }
+    case 'SET_OPEN_DATETIME_FROM':{
+      return Object.assign({}, state, { isDateTimePickerVisibleFrom: action.bool })
+    }
+    case 'SET_OPEN_DATETIME_TO':{
+      return Object.assign({}, state, { isDateTimePickerVisibleTo: action.bool })
     }
     case 'RESET_ALL': {
       return Object.assign({}, state, {
