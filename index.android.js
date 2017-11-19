@@ -21,15 +21,4 @@ export default class TrabajoFinDeGrado extends Component {
   }
 }
 
-// const TrabajoFinDeGrado = DrawerNavigator({
-//     DrawerItem1: {
-//         screen: Header,
-//         navigationOptions: {
-//             drawer: {
-//                 label: 'Drawer 1',
-//             },
-//         },
-//     },
-// });
-
 AppRegistry.registerComponent('TrabajoFinDeGrado', () => TrabajoFinDeGrado);
