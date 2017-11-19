@@ -37,8 +37,8 @@ export default class DetailsTickets extends Component{
         <DetailsTicketsOutwardContainer />
         {returnTicketInfo}
         <View style={[common.row, common.spaceBetween, common.marginTop50, common.marginBottom40]}>
-          <View style={common.buttonActive}>
-            <Text style={common.textButton}>Total: {(total/1000).toFixed(2)} £</Text>
+          <View style={[common.buttonActive, common.center]}>
+            <Text style={common.textButton}>TOTAL: {(total/1000).toFixed(2)} £</Text>
           </View>
           <AddCartButtonContainer navigation={this.props.navigation} />
         </View>

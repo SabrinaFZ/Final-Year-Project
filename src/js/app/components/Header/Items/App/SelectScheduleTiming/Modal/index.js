@@ -64,7 +64,7 @@ export default class ModalScheduleTiming extends Component {
       var addCancelReturn =
         <View style={[common.center, common.row, common.marginTop50]}>
            <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={this.handleCancelReturn.bind(this)}/>
-           <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> Cancel Return </Text>
+           <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
         </View>
     }
 

@@ -55,9 +55,9 @@ export default class SelectPaymentMethod extends Component {
             >
             <View style={common.container}>
               <ScrollView contentContainerStyle={common.padding40}>
-              <Text style={[common.marginTop10, common.textNormal, common.textCenter]}>SELECT YOUR PAYMENT METHOD</Text>
+              <Text style={[common.marginTop10, common.textBold, common.textCenter]}>SELECT YOUR PAYMENT METHOD</Text>
               <TouchableOpacity style={[common.marginTop50, common.buttonActiveLarge]} onPress={() => this.handleOnPressPaypal()} activeOpacity={0.8}>
-                <View style={[common.row, common.center, common.padding5]}>
+                <View style={[common.row, common.center, common.padding5, common.spaceBetween]}>
                   <Text style={common.textButton}> PAYPAL </Text>
                   <Icon name='cc-paypal' type='FontAwesome' color='#fff' size={30}/>
                 </View>

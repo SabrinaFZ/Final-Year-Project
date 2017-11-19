@@ -152,11 +152,11 @@ export default class SelectTicketTrainOutward extends Component {
     var modalInfo = null
     var trains = this.getTrains()
     var header =
-      <View>
-        <Text style={common.textLarge}>OUTWARD</Text>
+      <View style={common.center}>
+        <Text style={common.textLarge}>SELECT YOUR TICKET</Text>
         <View style={[common.marginTop20, common.padding10, common.backgroundColorPink, common.box]}>
-          <Text style={common.textWhiteMedium}>{this.props.originSelected} - {this.props.destinationSelected}</Text>
-          <Text style={common.textWhiteMedium}>Date: {this.props.outward.rangeStart.toJSON().slice(0, 10)}</Text>
+          <Text style={common.textWhiteSmall}>{this.props.originSelected} - {this.props.destinationSelected}</Text>
+          <Text style={common.textWhiteSmall}>Date: {this.props.outward.rangeStart.toJSON().slice(0, 10)}</Text>
         </View>
       </View>
     var info_station = trains.map((outwardItem, index) => {
@@ -165,7 +165,7 @@ export default class SelectTicketTrainOutward extends Component {
         faresOutward = outwardItem.fares.map((fare,i) => {
           return (
             <View key={i} style={common.paddingTopBottom20}>
-              <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.alignItems]} onPress={()=>  this.handleOnPressSelectFare(outwardItem, fare)}>
+              <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.center, common.paddingLeftRight20]} onPress={()=>  this.handleOnPressSelectFare(outwardItem, fare)}>
                 <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
                 <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
               </TouchableOpacity>

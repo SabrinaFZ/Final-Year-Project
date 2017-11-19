@@ -79,7 +79,6 @@ export default class SelectTicketTrainReturn extends Component {
 
   componentWillUpdate(nextProps, nextState){
     if(nextProps.openMoreTicketsReturnId != this.props.openMoreTicketsReturnId){
-      console.log('aqui')
       this.props.setOpenMoreTicketsReturn(true)
     }
   }
@@ -214,11 +213,11 @@ export default class SelectTicketTrainReturn extends Component {
     var trainsOutward = this.getTrainsOutward()
     var modalInfo = null
     var header =
-      <View>
-        <Text style={common.textLarge}>RETURN</Text>
+      <View style={common.center}>
+        <Text style={common.textLarge}>SELECT YOUR TICKET</Text>
         <View style={[common.marginTop20, common.padding10, common.backgroundColorPink, common.box]}>
-          <Text style={common.textWhiteMedium}>{this.props.originSelected} - {this.props.destinationSelected}</Text>
-          <Text style={common.textWhiteMedium}>Date: {this.props.outward.rangeStart.toJSON().slice(0, 10)} - {this.props.returnBack.rangeStart.toJSON().slice(0, 10)}</Text>
+          <Text style={common.textWhiteSmall}>{this.props.originSelected} - {this.props.destinationSelected}</Text>
+          <Text style={common.textWhiteSmall}>Date: {this.props.outward.rangeStart.toJSON().slice(0, 10)} / {this.props.returnBack.rangeStart.toJSON().slice(0, 10)}</Text>
         </View>
       </View>
 
@@ -240,7 +239,7 @@ export default class SelectTicketTrainReturn extends Component {
               faresReturn = returnItem.fares.map((fare,i) => {
                 return (
                   <View key={i} style={common.paddingTopBottom20}>
-                    <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.alignItems]} onPress={()=> this.handleOnPressSelectFare(returnItem, outwardItem, fare)}>
+                    <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.paddingLeftRight20, common.alignItems]} onPress={()=> this.handleOnPressSelectFare(returnItem, outwardItem, fare)}>
                       <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
                       <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
                     </TouchableOpacity>

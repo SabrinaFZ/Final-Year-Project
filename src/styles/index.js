@@ -105,7 +105,7 @@ const common = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#e9418b',
-    width: '40%',
+    width: '50%',
     borderRadius: 5,
   },
 
@@ -140,6 +140,12 @@ const common = StyleSheet.create({
   textWhiteMedium:{
     color: '#F2F2F2',
     fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  textWhiteSmall:{
+    color: '#F2F2F2',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 

@@ -95,7 +95,7 @@ export default class ShoppingCart extends Component {
     if(this.props.shoppingCart.length != 0){
       payment =
       <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
-        <TouchableOpacity style={[common.buttonNext]} onPress={() => this.handleOnPressPay()} activeOpacity={0.8} >
+        <TouchableOpacity style={common.buttonNext} onPress={() => this.handleOnPressPay()} activeOpacity={0.8} >
           <Text style={common.textButtonNext}> PAY </Text>
         </TouchableOpacity>
       </View>
@@ -145,14 +145,14 @@ export default class ShoppingCart extends Component {
             <View style={[common.row, common.spaceBetween]}>
               <View style={[common.marginTop10]}>
                   <View>
-                    <Text style={[common.padding10, common.textBold]}> Total: {totalItem.toFixed(2)} £</Text>
+                    <Text style={[common.padding5, common.textBold]}> {totalItem.toFixed(2)} £</Text>
                   </View>
               </View>
               <View style={[common.marginTop10]}>
                 <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressDelete(index)}>
                   <View style={common.row}>
+                    <Text style={[common.padding5, common.textBold]}> DELETE </Text>
                     <Icon name='delete' type='MaterialIcons' color='#585858' />
-                    <Text style={[common.padding10, common.textBold]}> DELETE </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -170,7 +170,7 @@ export default class ShoppingCart extends Component {
     if(this.props.shoppingCart.length != 0){
       totalInfo =
       <View style={common.buttonActive}>
-        <Text style={common.textButton}>Total: {(this.props.orders.totalPrice/1000)} £</Text>
+        <Text style={common.textButton}>TOTAL: {(this.props.orders.totalPrice/1000)} £</Text>
       </View>
     }
 

@@ -56,18 +56,18 @@ export default class ModalDepartureTiming extends Component {
   render(){
     return(
       <View>
-        <Text style={[common.textMedium, common.marginTop20]}>{'From'}</Text>
+        <Text style={[common.textMedium, common.marginTop20]}>{'FROM'}</Text>
         <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(this.props.rangeStart).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this.renderDepartureTimePicker('from')}>
+           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this.renderDepartureTimePicker('FROM')}>
              <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
            </TouchableOpacity>
         </View>
 
-        <Text style={[common.textMedium, common.marginTop20]}>{'To'}</Text>
+        <Text style={[common.textMedium, common.marginTop20]}>{'TO'}</Text>
         <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(this.props.rangeEnd).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this.renderDepartureTimePicker('to')}>
+           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this.renderDepartureTimePicker('TO')}>
              <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
            </TouchableOpacity>
         </View>

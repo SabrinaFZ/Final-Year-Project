@@ -54,7 +54,7 @@ export default class ModalDepartureSchedule extends Component {
   render(){
     return(
       <View>
-        <Text style={[common.textBold, common.marginTop50]}>{'Departure'}</Text>
+        <Text style={[common.textBold, common.marginTop50]}>{'DEPARTURE'}</Text>
         <View style={[common.center, common.spaceBetween, common.row]}>
            <Text>{moment(this.props.rangeStart).format('L')}</Text>
            <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={this.renderDepartureDatePicker.bind(this)}>

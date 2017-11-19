@@ -110,11 +110,13 @@ export default class PayButton extends Component {
 
   render(){
     return(
-      <TouchableOpacity style={[common.marginTop50, common.buttonActiveLarge]} onPress={() => this.goPay()} activeOpacity={0.8}>
-        <View style={[common.center, common.padding5]}>
-          <Text style={common.textButton}> PAY </Text>
-        </View>
-      </TouchableOpacity>
+      <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
+        <TouchableOpacity style={common.buttonNext} onPress={() => this.goPay()} activeOpacity={0.8}>
+          <View style={[common.center, common.padding5]}>
+            <Text style={common.textButtonNext}> PAY </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
