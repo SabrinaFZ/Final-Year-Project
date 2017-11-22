@@ -39,11 +39,6 @@ export default class ModalDepartureSchedule extends Component {
   }
 
   render(){
-    let minDate = new Date()
-    let open = false
-    if(this.props.type == 'RETURN'){
-      minDate = this.props.rangeStart
-    }
     return(
       <View>
         <Text style={[common.textBold, common.marginTop50]}>{'DEPARTURE'}</Text>
@@ -58,7 +53,7 @@ export default class ModalDepartureSchedule extends Component {
             isVisible={this.props.isDateTimePickerVisible}
             onConfirm={this._handleDatePicked}
             onCancel={this._hideDateTimePicker}
-            minimumDate={minDate}
+            minimumDate={this.props.rangeStart}
           />
         </View>
       </View>

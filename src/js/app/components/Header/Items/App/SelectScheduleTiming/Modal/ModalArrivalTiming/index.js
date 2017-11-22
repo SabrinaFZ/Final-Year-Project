@@ -37,7 +37,7 @@ export default class ModalArrivalTiming extends Component {
   }
 
   _handleDatePicked = (time) => {
-    if(this.state.isDateTimePickerVisibleFrom){
+    if(this.props.isDateTimePickerVisibleFrom){
       var range = this.props.rangeStart
       var rangeType = 'from'
     } else {
@@ -54,6 +54,11 @@ export default class ModalArrivalTiming extends Component {
   }
 
   render(){
+    if(this.props.isDateTimePickerVisibleFrom){
+      var range = this.props.rangeStart
+    } else {
+      var range = this.props.rangeEnd
+    }
     return(
       <View>
         <Text style={[common.textMedium, common.marginTop20]}>{'FROM'}</Text>
@@ -76,6 +81,7 @@ export default class ModalArrivalTiming extends Component {
             onConfirm={this._handleDatePicked}
             onCancel={() => this._hideDateTimePicker()}
             mode='time'
+            date={range}
           />
         </View>
      </View>

@@ -56,6 +56,11 @@ export default class ModalDepartureTiming extends Component {
   }
 
   render(){
+    if(this.props.isDateTimePickerVisibleFrom){
+      var range = this.props.rangeStart
+    } else {
+      var range = this.props.rangeEnd
+    }
     return(
       <View>
         <Text style={[common.textMedium, common.marginTop20]}>{'FROM'}</Text>
@@ -78,6 +83,7 @@ export default class ModalDepartureTiming extends Component {
             onConfirm={this._handleDatePicked}
             onCancel={() => this._hideDateTimePicker()}
             mode='time'
+            date={range}
           />
         </View>
      </View>
