@@ -76,6 +76,12 @@ export default class SelectOriginDestination extends Component {
     if(this.props.listDestination.length == 0 || prevProps.listDestination !== this.props.listDestination){
       this.setResultDestination()
     }
+    if(this.props.originSelected !== '' && prevProps.originSelected !== this.props.originSelected){
+      this.setResultDestination()
+    }
+    if(this.props.destinationSelected !== '' && prevProps.destinationSelected !== this.props.destinationSelected){
+      this.setResultOrigin()
+    }
   }
 
 
@@ -122,10 +128,14 @@ export default class SelectOriginDestination extends Component {
   }
 
   setResultOrigin(){
+    console.log('aqui')
+    console.log('dest'+this.props.destinationSelected)
     var originOptions = []
     if((this.props.listOrigin).length != 0){
       this.props.listOrigin.forEach((item) => {
-        originOptions.push(item.name)
+        if(item.name != this.props.destinationSelected){
+          originOptions.push(item.name)
+        }
       })
       originOptions.sort()
       this.props.setResultOrigin(originOptions)
@@ -136,7 +146,9 @@ export default class SelectOriginDestination extends Component {
     var destinationOptions = []
     if((this.props.listDestination).length != 0){
       this.props.listDestination.forEach((item) => {
-        destinationOptions.push(item.name)
+        if(item.name != this.props.originSelected){
+          destinationOptions.push(item.name)
+        }
       })
       destinationOptions.sort()
       this.props.setResultDestination(destinationOptions)
