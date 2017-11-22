@@ -36,16 +36,18 @@ export default class SelectPassengers extends Component {
          visible={this.props.openPassengers}
          onRequestClose={this.handleRequestClose.bind(this)}
          >
-        <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
-          <ScrollView>
+        <View style={common.container}>
+          <ScrollView contentContainerStyle={common.padding40}>
             <Text style={[common.title, common.center, common.row, common.textCenter]}> {'PASSENGERS'} </Text>
-            {/* ADULTS */}
-            <Text style={[common.textBold, common.marginTop20]}>{ 'Adults' }</Text>
-            <SelectAdultsContainer />
 
-            {/* CHILDREN */}
-            <Text style={[common.textBold, common.marginTop20]}>{ 'Children' }</Text>
-            <SelectChildrenContainer />
+            <View style={common.marginTop50}>
+              {/* ADULTS */}
+              <Text style={[common.textBold, common.marginTop20]}>{ 'Adults' }</Text>
+              <SelectAdultsContainer />
+              {/* CHILDREN */}
+              <Text style={[common.textBold, common.marginTop20]}>{ 'Children' }</Text>
+              <SelectChildrenContainer />
+            </View>
           </ScrollView>
         </View>
       </Modal>

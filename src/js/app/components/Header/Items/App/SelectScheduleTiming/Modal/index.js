@@ -82,8 +82,8 @@ export default class ModalScheduleTiming extends Component {
        visible={this.props.showModal}
        onRequestClose={this.handleRequestClose.bind(this)}
        >
-      <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
-        <ScrollView>
+      <View style={common.container}>
+        <ScrollView contentContainerStyle={common.padding40}>
           {/* TITLE */}
           <Text style={[common.title, common.center, common.row, common.textCenter]}>{this.props.title}</Text>
 
