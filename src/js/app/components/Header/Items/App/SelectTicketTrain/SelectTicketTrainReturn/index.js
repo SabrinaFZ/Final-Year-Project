@@ -273,22 +273,24 @@ export default class SelectTicketTrainReturn extends Component {
                   <Text style={common.title}> {((this.props.journeyPlan.links[returnItem.selectedFare].totalPrice)/1000).toFixed(2)} £ </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)}>
-                <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO OUTWARD </Text>
+              <View style={[common.marginTop20, common.row, common.spaceBetween, common.separator, common.paddingLeftRight20]}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)} style={[common.padding10,common.center]}>
+                  <Text style={common.textBold}> INFO </Text>
+                  <Text style={common.textBold}> OUTWARD </Text>
+                </TouchableOpacity>
+                <View style={common.separatorRight}>
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
-                <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO RETURN </Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index, index1)}>
-                <View style={[common.marginTop20, common.separator]}>
-                  <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> MORE TICKETS </Text>
-                </View>
-              </TouchableOpacity>
-              {faresReturn}
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)} style={[common.padding10,common.alignItems]}>
+                  <Text style={common.textBold}> INFO </Text>
+                  <Text style={common.textBold}> RETURN </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={common.separator}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index, index1)} style={[common.paddingTop20, common.alignItems]}>
+                  <Text style={common.textBold}> MORE TICKETS </Text>
+                </TouchableOpacity>
+                {faresReturn}
+              </View>
             </View>
           })
         }

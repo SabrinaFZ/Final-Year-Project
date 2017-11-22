@@ -215,6 +215,10 @@ const common = StyleSheet.create({
     padding: 10,
   },
 
+  padding20:{
+    padding: 20,
+  },
+
   padding40:{
     padding: 40,
   },
@@ -277,6 +281,12 @@ const common = StyleSheet.create({
     borderStyle: 'dashed',
     borderTopWidth: 1,
     borderTopColor: '#e9418b'
+  },
+
+  separatorRight:{
+    borderStyle: 'dashed',
+    borderRightWidth: 1,
+    borderRightColor: '#e9418b'
   },
 
   error:{
