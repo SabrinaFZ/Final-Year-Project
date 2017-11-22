@@ -61,7 +61,6 @@ export default class SearchMap extends Component{
             fetchDetails={true}
             renderDescription={row => row.description}
             onPress={(data, details = null) => {
-              console.log(data, details)
               this.props.setLatitude(details.geometry.location.lat)
               this.props.setLongitude(details.geometry.location.lng)
               this.getStations(details.geometry.location.lat, details.geometry.location.lng)
