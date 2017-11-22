@@ -274,13 +274,13 @@ export default class SelectTicketTrainReturn extends Component {
                 </View>
               </TouchableOpacity>
               <View style={[common.marginTop20, common.row, common.spaceBetween, common.separator, common.paddingLeftRight20]}>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)} style={[common.padding10,common.center]}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)} style={[common.paddingTopBottom20,, common.alignItems]}>
                   <Text style={common.textBold}> INFO </Text>
                   <Text style={common.textBold}> OUTWARD </Text>
                 </TouchableOpacity>
                 <View style={common.separatorRight}>
                 </View>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)} style={[common.padding10,common.alignItems]}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)} style={[common.paddingTopBottom20, common.alignItems]}>
                   <Text style={common.textBold}> INFO </Text>
                   <Text style={common.textBold}> RETURN </Text>
                 </TouchableOpacity>
