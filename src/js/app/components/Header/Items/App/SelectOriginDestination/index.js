@@ -127,6 +127,7 @@ export default class SelectOriginDestination extends Component {
       this.props.listOrigin.forEach((item) => {
         originOptions.push(item.name)
       })
+      originOptions.sort()
       this.props.setResultOrigin(originOptions)
     }
   }
@@ -137,6 +138,7 @@ export default class SelectOriginDestination extends Component {
       this.props.listDestination.forEach((item) => {
         destinationOptions.push(item.name)
       })
+      destinationOptions.sort()
       this.props.setResultDestination(destinationOptions)
     }
   }
@@ -144,19 +146,6 @@ export default class SelectOriginDestination extends Component {
   goMap(type){
     this.props.setOpenModalMap(!this.props.openModalMap)
     this.props.setSelectedMap(type)
-    // RNGooglePlaces.openAutocompleteModal({
-    //   type: 'geocode',
-  	//   country: 'GB',
-    // })
-    // .then((place) => {
-		//     console.log(place)
-    //     this.props.setLatitude(place.latitude)
-    //     this.props.setLongitude(place.longitude)
-    //     this.getOriginStations(place.latitude, place.longitude)
-    //     this.props.navigation.navigate('Map')
-    //     //this.props.setOrigin(place.name)
-    // })
-    // .catch(error => console.log(error.message));
   }
 
   handleValueOriginChange(itemValue, itemIndex){
