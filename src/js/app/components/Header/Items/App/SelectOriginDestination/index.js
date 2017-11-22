@@ -128,8 +128,6 @@ export default class SelectOriginDestination extends Component {
   }
 
   setResultOrigin(){
-    console.log('aqui')
-    console.log('dest'+this.props.destinationSelected)
     var originOptions = []
     if((this.props.listOrigin).length != 0){
       this.props.listOrigin.forEach((item) => {
