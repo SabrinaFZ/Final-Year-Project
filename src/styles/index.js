@@ -59,6 +59,12 @@ const common = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  textSmall:{
+    color: '#585858',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+
   textLarge:{
     color: '#585858',
     fontSize: 24,

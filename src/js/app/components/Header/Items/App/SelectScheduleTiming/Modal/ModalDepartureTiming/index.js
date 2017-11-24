@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { ScrollView, TimePickerAndroid, DatePickerAndroid, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import moment from 'moment'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
@@ -10,83 +10,158 @@ export default class ModalDepartureTiming extends Component {
   constructor(props){
     super(props)
 
+    this.state = {
+      changeTime: false
+    }
   }
 
   static propTypes = {
     rangeStart: PropTypes.object.isRequired,
     rangeEnd: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
-    isDateTimePickerVisibleFrom: PropTypes.bool.isRequired,
-    isDateTimePickerVisibleTo: PropTypes.bool.isRequired,
-    onChangeDepartureTime: PropTypes.func.isRequired,
-    setDateTimePickerVisibleFrom: PropTypes.func.isRequired,
-    setDateTimePickerVisibleTo: PropTypes.func.isRequired
+    onChangeDepartureTime: PropTypes.func.isRequired
   }
 
-  _showDateTimePicker(rangeType){
-    if(rangeType == 'from'){
-      this.props.setDateTimePickerVisibleFrom(true)
-    } else {
-      this.props.setDateTimePickerVisibleTo(true)
+  handleDatePicked = (time) => {
+    this.setState({changeTime: false})
+    let rangeFrom = this.props.rangeStart
+    let rangeTo = this.props.rangeStart
+
+    const year = rangeFrom.getFullYear()
+    const month = rangeFrom.getMonth()
+    const day = rangeFrom.getDate()
+    let hourFrom = rangeFrom.getHours()
+    let hourTo = rangeTo.getHours()
+    let minute = rangeFrom.getMinutes()
+    if(time == 'morning'){
+      hourFrom = 9
+      hourTo = 11
+      minute = 0
     }
-  }
-
-  _hideDateTimePicker(){
-    this.props.setDateTimePickerVisibleFrom(false)
-    this.props.setDateTimePickerVisibleTo(false)
-  }
-
-
-  _handleDatePicked = (time) => {
-    console.log('A date has been picked: ', time)
-    if(this.props.isDateTimePickerVisibleFrom){
-      var range = this.props.rangeStart
-      var rangeType = 'from'
-    } else {
-      var range = this.props.rangeEnd
-      var rangeType = 'to'
+    if(time == 'afternoon'){
+      hourFrom = 11
+      hourTo = 19
+      minute = 0
     }
-    const year = range.getFullYear()
-    const month = range.getMonth()
-    const day = range.getDate()
-    const hour = time.getHours()
-    const minute = time.getMinutes()
-    this.props.onChangeDepartureTime(new Date(year, month, day, hour, minute), this.props.type, rangeType)
-    this._hideDateTimePicker()
+    if(time == 'night'){
+      hourFrom = 19
+      hourTo = 0
+      minute = 0
+    }
+    this.props.onChangeDepartureTime(new Date(year, month, day, hourFrom, minute), this.props.type, 'from')
+    if(time !== 'night'){
+      this.props.onChangeDepartureTime(new Date(year, month, day, hourTo, minute), this.props.type, 'to')
+    } else{
+      let date = new Date(year, month, day, hourTo, minute)
+      let tomorrow = new Date(date.setDate(date.getDate() + 1))
+      this.props.onChangeDepartureTime(tomorrow, this.props.type, 'to')
+    }
   }
 
   render(){
-    if(this.props.isDateTimePickerVisibleFrom){
-      var range = this.props.rangeStart
-    } else {
-      var range = this.props.rangeEnd
-    }
-    return(
+    let morningButton =
+      <View style={common.center}>
+        <TouchableOpacity style={[common.marginTop20, common.buttonActiveLarge]} activeOpacity={0.8} onPress={() => this.handleDatePicked('morning')}>
+          <View style={[common.row, common.padding10, common.center]}>
+            <Icon name='weather-sunny' type='MaterialCommunityIcons' color='#fff' size={30} style={{marginRight: 20}}/>
+            <Text style={common.textWhiteSmall}>Morning</Text>
+          </View>
+        </TouchableOpacity>
+        <Text style={common.textSmall}>From 9:00 to 11:00 </Text>
+      </View>
+
+    let afternoonButton =
+    <View style={common.center}>
+      <TouchableOpacity style={[common.marginTop20, common.buttonActiveLarge]} activeOpacity={0.8} onPress={() => this.handleDatePicked('afternoon')}>
+        <View style={[common.row, common.padding10, common.center]}>
+          <Icon name='weather-sunset' type='MaterialCommunityIcons' color='#fff' size={30} style={{marginRight: 20}}/>
+          <Text style={common.textWhiteSmall}>Afternoon</Text>
+        </View>
+      </TouchableOpacity>
+      <Text style={common.textSmall}>From 11:00 to 19:00 </Text>
+    </View>
+
+    let nightButton =
+    <View style={common.center}>
+      <TouchableOpacity style={[common.marginTop20, common.buttonActiveLarge]} activeOpacity={0.8} onPress={() => this.handleDatePicked('night')}>
+        <View style={[common.row, common.padding10, common.center]}>
+          <Icon name='weather-night' type='MaterialCommunityIcons' color='#fff' size={30} style={{marginRight: 20}}/>
+          <Text style={common.textWhiteSmall}>Night</Text>
+        </View>
+      </TouchableOpacity>
+      <Text style={common.textSmall}>From 19:00 to 0:00 </Text>
+    </View>
+
+    let options =
       <View>
-        <Text style={[common.textMedium, common.marginTop20]}>{'FROM'}</Text>
-        <View style={[common.center, common.spaceBetween, common.row]}>
-           <Text>{moment(this.props.rangeStart).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this._showDateTimePicker('from')}>
-             <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
-           </TouchableOpacity>
+        {morningButton}
+        {afternoonButton}
+        {nightButton}
+      </View>
+
+    if(this.props.rangeStart.getHours() == 9 && this.props.rangeEnd.getHours() == 11){
+      return (
+        <View>
+          { !this.state.changeTime ?
+            <View>
+              {morningButton}
+              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+                <Text style={common.textMedium}>CHANGE TIME</Text>
+              </TouchableOpacity>
+            </View>
+          :
+            <View>
+              {options}
+            </View>
+          }
         </View>
-        <Text style={[common.textMedium, common.marginTop20]}>{'TO'}</Text>
-        <View style={[common.center, common.spaceBetween, common.row]}>
-           <Text>{moment(this.props.rangeEnd).format('HH:mm')}</Text>
-           <TouchableOpacity style={common.buttonActive} activeOpacity={0.8} onPress={() => this._showDateTimePicker('to')}>
-             <Icon name='clock' type='entypo' color='#fff' iconStyle={common.padding10}/>
-           </TouchableOpacity>
+      )
+    }
+
+    else if(this.props.rangeStart.getHours() == 11 && this.props.rangeEnd.getHours() == 19){
+      return(
+        <View>
+          { !this.state.changeTime ?
+            <View>
+              {afternoonButton}
+              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+                <Text style={common.textMedium}>CHANGE TIME</Text>
+              </TouchableOpacity>
+            </View>
+          :
+            <View>
+              {options}
+            </View>
+          }
         </View>
-        <View style={{ flex: 1 }}>
-          <DateTimePicker
-            isVisible={(this.props.isDateTimePickerVisibleFrom || this.props.isDateTimePickerVisibleTo)}
-            onConfirm={this._handleDatePicked}
-            onCancel={() => this._hideDateTimePicker()}
-            mode='time'
-            date={range}
-          />
+      )
+    }
+
+    else if(this.props.rangeStart.getHours() == 19 && this.props.rangeEnd.getHours() == 0){
+      return(
+        <View>
+          { !this.state.changeTime ?
+            <View>
+              {nightButton}
+              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+                <Text style={common.textMedium}>CHANGE TIME</Text>
+              </TouchableOpacity>
+            </View>
+          :
+            <View>
+              {options}
+            </View>
+          }
         </View>
-     </View>
-    )
+      )
+    }
+
+    else {
+      return(
+        <View>
+          {options}
+        </View>
+      )
+    }
   }
 }
