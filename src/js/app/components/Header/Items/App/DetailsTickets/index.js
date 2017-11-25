@@ -32,7 +32,7 @@ export default class DetailsTickets extends Component{
       total = this.props.selectedReturn.links[this.props.selectedReturn.selectedFare].totalPrice
     }
     return(
-      <ScrollView contentContainerStyle={[common.padding40]}>
+      <ScrollView contentContainerStyle={[common.padding20]}>
         <Text style={[common.textCenter, common.title]}> YOUR TICKETS </Text>
         <DetailsTicketsOutwardContainer />
         {returnTicketInfo}

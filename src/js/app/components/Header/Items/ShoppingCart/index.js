@@ -183,7 +183,7 @@ export default class ShoppingCart extends Component {
     }
 
     return(
-      <ScrollView contentContainerStyle={common.padding40}>
+      <ScrollView contentContainerStyle={common.padding20}>
         {totalInfo}
         {shoppingCart}
         {modalInfo}

@@ -1,3 +1,5 @@
+const date = new Date()
+
 const initialState = {
   isVisible: false,
   listOrigin: [],
@@ -16,13 +18,13 @@ const initialState = {
   addReturn: false,
   showModal: false,
   outward: {
-    rangeStart: new Date(),
-    rangeEnd: new Date(),
+    rangeStart: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 9, 0, 0),
+    rangeEnd: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 0, 0),
     arriveDepart: '',
   },
   returnBack: {
-    rangeStart: new Date(),
-    rangeEnd: new Date(),
+    rangeStart: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 9, 0, 0),
+    rangeEnd: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 0, 0),
     arriveDepart: '',
   },
   openPassengersModal: false,

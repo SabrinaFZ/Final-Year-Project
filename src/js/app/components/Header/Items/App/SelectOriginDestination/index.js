@@ -26,6 +26,7 @@ export default class SelectOriginDestination extends Component {
     this.setResultDestination = this.setResultDestination.bind(this)
     this.handleValueOriginChange = this.handleValueOriginChange.bind(this)
     this.handleValueDestinationChange = this.handleValueDestinationChange.bind(this)
+    this.onClearTextOrigin = this.onClearTextOrigin.bind(this)
   }
 
   static propTypes = {
@@ -84,9 +85,19 @@ export default class SelectOriginDestination extends Component {
     }
   }
 
+  onClearTextOrigin(){
+    this.props.resetListOrigin()
+    this.props.setOrigin('')
+  }
+
+  onClearTextDestination() {
+    this.props.resetListDestination()
+    this.props.setDestination('')
+  }
 
   onChangeOriginText(text){
     this.props.resetListOrigin()
+    this.props.setOrigin('')
     if(text != ''  && text.length >= 3){
       this.props.isLoadingOrigin(true)
       this.searchOrigin(text)
@@ -96,6 +107,7 @@ export default class SelectOriginDestination extends Component {
 
   onChangeDestinationText(text){
     this.props.resetListDestination()
+    this.props.setDestination('')
     if(text != ''  && text.length >= 3){
       this.props.isLoadingDestination(true)
       this.searchDestination(text)
@@ -158,44 +170,49 @@ export default class SelectOriginDestination extends Component {
     this.props.setSelectedMap(type)
   }
 
-  handleValueOriginChange(itemValue, itemIndex){
-    if(itemIndex != 0){
-      this.props.setOrigin(itemValue)
-    }
+  handleValueOriginChange(itemValue){
+    this.props.setOrigin(itemValue)
   }
 
-  handleValueDestinationChange(itemValue, itemIndex){
-    if(itemIndex != 0){
-      this.props.setDestination(itemValue)
-    }
+  handleValueDestinationChange(itemValue){
+    this.props.setDestination(itemValue)
   }
 
 
-  render(){
+  render(){ 
     if((this.props.resultOrigin).length != 0){
-      var originOptions = (this.props.resultOrigin).map( (value, index) => {
-        return <Picker.Item key={index} value={value} label={value} />
-      })
-      var pickerOrigin =
-        <Picker
-          selectedValue={this.props.originSelected}
-          onValueChange={(itemValue, itemIndex) => this.handleValueOriginChange(itemValue, itemIndex)}>
-          <Picker.Item value='Select an Origin' label='Select an Origin' />
-          {originOptions}
-        </Picker>
+      var auxOrigin = null
+
+      if(this.props.originSelected == ''){
+        auxOrigin =
+          (this.props.resultOrigin).map((value, index) => {
+            return (
+              <TouchableOpacity activeOpacity={0.8} key={index} style={common.paddingTopBottom10} onPress={() => this.handleValueOriginChange(value)}>
+                <Text style={common.textNormal}> {value} </Text>
+              </TouchableOpacity>
+            )
+          })
+      } else {
+        auxOrigin = null
+      }
+    
     }
     if((this.props.resultDestination).length != 0){
-      var destinationOptions = (this.props.resultDestination).map( (value, index) => {
-        return <Picker.Item key={index} value={value} label={value} />
-      })
-      var pickerDestination =
-        <Picker
-          selectedValue={this.props.destinationSelected}
-          onValueChange={(itemValue, itemIndex) => this.handleValueDestinationChange(itemValue, itemIndex)}>
-          <Picker.Item value='Select a Destination' label='Select a Destination' />
-          {destinationOptions}
-        </Picker>
-      }
+      var auxDestination = null
+
+      if (this.props.destinationSelected == '') {
+        auxDestination =
+          (this.props.resultDestination).map((value, index) => {
+            return (
+              <TouchableOpacity activeOpacity={0.8} key={index} style={common.paddingTopBottom10} onPress={() => this.handleValueDestinationChange(value)}>
+                <Text style={common.textNormal}> {value} </Text>
+              </TouchableOpacity>
+            )
+          })
+      } else {
+        auxDestination = null
+      } 
+    }
     if(this.props.loadingOrigin){
       var spinnerOrigin = <Spinner style={common.spinner} type='Circle' isVisible={this.props.isVisible} size={30} />
     }
@@ -206,7 +223,7 @@ export default class SelectOriginDestination extends Component {
 
     return(
       <ScrollView>
-        <View style={[common.container, common.start, common.padding40]}>
+        <View style={[common.container, common.start, common.padding20, common.paddingTop40]}>
           <Text style={common.textBold}>{ 'Origin' }</Text>
           <View style={common.marginTop20}>
             <TouchableOpacity
@@ -224,10 +241,12 @@ export default class SelectOriginDestination extends Component {
             <TextInput
               onChangeText={(text) => this.onChangeOriginText(text)}
               placeholder='Enter Origin...'
+              defaultValue={this.props.originSelected}
               underlineColorAndroid='#e9418b'
               clearTextOnFocus={true}
+              onFocus={() => this.onClearTextOrigin()}
             />
-            {pickerOrigin}
+            {auxOrigin}
             {spinnerOrigin}
           </View>
 
@@ -247,10 +266,12 @@ export default class SelectOriginDestination extends Component {
             <TextInput
               onChangeText={(text) => this.onChangeDestinationText(text)}
               placeholder='Enter Destination...'
+              defaultValue={this.props.destinationSelected}
               underlineColorAndroid='#e9418b'
               clearTextOnFocus={true}
+              onFocus={() => this.onClearTextDestination()}
             />
-            {pickerDestination}
+            {auxDestination}
             {spinnerDestination}
           </View>
           <SelectScheduleTimingContainer />

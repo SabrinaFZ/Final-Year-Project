@@ -63,8 +63,8 @@ export default class ModalScheduleTiming extends Component {
       var textDateTimeTo = this.props.returnBack.rangeEnd
       var addCancelReturn =
         <View style={[common.center, common.row, common.marginTop50]}>
-           <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={this.handleCancelReturn.bind(this)}/>
-           <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
+          <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={this.handleCancelReturn.bind(this)}/>
+          <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
         </View>
     }
 
@@ -77,11 +77,11 @@ export default class ModalScheduleTiming extends Component {
 
     return(
       <Modal
-       animationType="none"
-       transparent={false}
-       visible={this.props.showModal}
-       onRequestClose={this.handleRequestClose.bind(this)}
-       >
+        animationType="none"
+        transparent={false}
+        visible={this.props.showModal}
+        onRequestClose={this.handleRequestClose.bind(this)}
+      >
       <View style={common.container}>
         <ScrollView contentContainerStyle={common.padding40}>
           {/* TITLE */}
@@ -106,7 +106,7 @@ export default class ModalScheduleTiming extends Component {
 
         </ScrollView>
       </View>
-     </Modal>
+    </Modal>
     )
   }
 

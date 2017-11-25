@@ -32,14 +32,14 @@ export default class SelectChildren extends Component {
   render(){
     return(
       <View style={[common.row, common.justifyContent, common.spaceBetween, common.marginTop20]}>
-        <TouchableOpacity onPress={this.addChildren.bind(this)}>
-          <Icon name='add' type='MaterialIcons' iconStyle={common.padding10}/>
+        <TouchableOpacity onPress={this.minusChildren.bind(this)}>
+          <Text style={[common.padding10, common.textLarge]}> - </Text>
         </TouchableOpacity>
         <View style={[common.center, common.padding10]}>
           <Text style={common.textBold}> {this.props.childrenNumber} </Text>
         </View>
-        <TouchableOpacity onPress={this.minusChildren.bind(this)}>
-          <Text style={[common.padding10, common.textLarge]}> - </Text>
+        <TouchableOpacity onPress={this.addChildren.bind(this)}>
+          <Icon name='add' type='MaterialIcons' iconStyle={common.padding10}/>
         </TouchableOpacity>
       </View>
     )

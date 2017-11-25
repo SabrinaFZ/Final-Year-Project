@@ -8,6 +8,8 @@ const mapStateToProps = state => {
     openOutward: state.openOutward,
     openReturn: state.openReturn,
     addReturn: state.addReturn,
+    outward: state.outward,
+    return: state.returnBack
   }
 }
 

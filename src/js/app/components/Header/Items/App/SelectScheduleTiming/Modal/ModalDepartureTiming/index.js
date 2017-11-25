@@ -105,7 +105,7 @@ export default class ModalDepartureTiming extends Component {
           { !this.state.changeTime ?
             <View>
               {morningButton}
-              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+              <TouchableOpacity style={[common.marginTop20, common.center, common.box, common.padding10]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
                 <Text style={common.textMedium}>CHANGE TIME</Text>
               </TouchableOpacity>
             </View>
@@ -124,7 +124,7 @@ export default class ModalDepartureTiming extends Component {
           { !this.state.changeTime ?
             <View>
               {afternoonButton}
-              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+              <TouchableOpacity style={[common.marginTop20, common.center, common.box, common.padding10]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
                 <Text style={common.textMedium}>CHANGE TIME</Text>
               </TouchableOpacity>
             </View>
@@ -143,7 +143,7 @@ export default class ModalDepartureTiming extends Component {
           { !this.state.changeTime ?
             <View>
               {nightButton}
-              <TouchableOpacity style={[common.marginTop20, common.center]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
+              <TouchableOpacity style={[common.marginTop20, common.center, common.box, common.padding10]} activeOpacity={0.8} onPress={() => this.setState({changeTime: true})}>
                 <Text style={common.textMedium}>CHANGE TIME</Text>
               </TouchableOpacity>
             </View>

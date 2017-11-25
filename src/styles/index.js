@@ -44,7 +44,7 @@ const common = StyleSheet.create({
 
   textNormal:{
     color: '#444e55',
-    fontSize: 20,
+    fontSize: 16,
   },
 
   textBold:{
@@ -151,7 +151,7 @@ const common = StyleSheet.create({
 
   textWhiteSmall:{
     color: '#F2F2F2',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
   },
 
@@ -242,6 +242,11 @@ const common = StyleSheet.create({
   paddingTopBottom20:{
     paddingTop: 20,
     paddingBottom: 20,
+  },
+
+  paddingTopBottom10: {
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 
   paddingTop20:{

@@ -299,7 +299,7 @@ export default class SelectTicketTrainReturn extends Component {
     })
 
     return(
-      <ScrollView contentContainerStyle={[common.padding40]}>
+      <ScrollView contentContainerStyle={[common.padding20]}>
         {header}
         {info_station}
         {modalInfo}
