@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import ShoppingCart from './../../components/Header/Items/ShoppingCart'
 
-import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart, isDeletedTrip } from './../../actions/actions'
+import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -15,7 +15,6 @@ const mapStateToProps = state => {
     openModalInfoReturnId: state.openModalInfoReturnId,
     openModalPayment: state.openModalPayment,
     orders: state.orders,
-    deletedJourneyShoppingCart: state.deletedJourneyShoppingCart
   }
 }
 
@@ -39,27 +38,9 @@ const mapDispatchToProps = dispatch => {
     setOpenModalPayment: (bool) => {
       dispatch(setOpenModalPayment(bool))
     },
-    delete: (url, body) => {
-      fetch(url, body)
-      .then((response) => {
-        dispatch(deletedJourneyShoppingCart(true))
-        dispatch(isDeletedTrip(true))
-        return response
-      })
-      .catch(() => dispatch(error(true)))
+    setOrder: (data) => {
+      dispatch(setOrders(data))
     },
-    get: (url, body) => {
-      fetch(url, body)
-      .then((response) => {
-        return response
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setOrders(data.result))
-        dispatch(deletedJourneyShoppingCart(false))
-      })
-      .catch(() => dispatch(error(true)))
-    }
   }
 }
 

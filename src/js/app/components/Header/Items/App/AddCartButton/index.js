@@ -15,9 +15,7 @@ export default class AddCartButton extends Component{
 
     this.handleOnPress = this.handleOnPress.bind(this)
     this.postOrders = this.postOrders.bind(this)
-    this.state = {
-      flag: false
-    }
+    this.updateTrips = this.updateTrips.bind(this)
   }
 
   static propTypes = {
@@ -26,10 +24,9 @@ export default class AddCartButton extends Component{
     selectedReturn: PropTypes.object.isRequired,
     addCart: PropTypes.bool.isRequired,
     addReturn: PropTypes.bool.isRequired,
-    deletedJourney: PropTypes.bool.isRequired,
     orders: PropTypes.object.isRequired,
-    isAnotherTrip: PropTypes.bool.isRequired,
     isDeletedTrip: PropTypes.bool.isRequired,
+    total: PropTypes.number.isRequired,
     addShoppingCart: PropTypes.func.isRequired,
     setAddedCart: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
@@ -37,27 +34,7 @@ export default class AddCartButton extends Component{
     setTrip: PropTypes.func.isRequired,
     setDeletedTrip: PropTypes.func.isRequired
   }
-
-  componentWillReceiveProps(newProps){
-    if(newProps.deletedJourney){
-      if(!newProps.isAnotherTrip){
-        this.props.get(`https://api-southern.stage.otrl.io/orders/${newProps.orders.id}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic Og==',
-            'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-            'x-customer-device': newProps.orders.deviceToken
-          }
-        })
-      }
-      else if(newProps.orders.trips != this.props.orders.trips){
-        this.postTrips()
-      }
-    }
-  }
-
+  
   handleOnPress(){
     let item = {
       outward: this.props.selectedOutward,
@@ -68,36 +45,22 @@ export default class AddCartButton extends Component{
       this.props.addShoppingCart(item)
       this.props.setAddedCart(!this.props.addCart)
     } else {
-      if(!this.props.isDeletedTrip){
-        this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
-        this.props.update(this.props.shoppingCart)
-      }
-      this.props.setDeletedTrip(false)
+      this.props.shoppingCart.splice(this.props.shoppingCart.length-1,1)
+      this.props.update(this.props.shoppingCart)
       this.props.addShoppingCart(item)
     }
 
     if(Object.keys(this.props.orders).length == 0){
       this.postOrders()
     } else {
-      let link = null
-      console.log(this.props.orders.trips.length)
-      console.log(this.props.shoppingCart.length)
+      let index = 0
+      //if we don't delete in shopping cart, just update the next element on the array
       if(this.props.orders.trips.length === this.props.shoppingCart.length + 1){
         if(this.props.orders.trips.length != 0){
-          link = this.props.orders.trips[this.props.orders.trips.length-1]
-        } else {
-          link = this.props.orders.trips[0]
-        }
-        this.props.delete(`https://api-southern.stage.otrl.io`+link, {
-          method: 'DELETE',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic Og==',
-            'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-            'x-customer-device': this.props.orders.deviceToken
-          }
-        })
+          index = this.props.orders.trips.length-1
+        } 
+        this.props.orders.trips.splice(index, 1)
+        this.updateTrips(this.props.orders.trips)
       }
       else{
         this.postTrips()
@@ -106,135 +69,50 @@ export default class AddCartButton extends Component{
     this.props.navigation.navigate('ShoppingCart')
   }
 
-  async postOrders(){
-    if(!this.props.addReturn){
-      await this.props.setOrder('https://api-southern.stage.otrl.io/orders', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic Og==',
-          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-        },
-        body: JSON.stringify({
-          trip: {
-            fares: {
-              outwardSingle: this.props.selectedOutward.selectedFare,
-              returnSingle: null,
-              return: null
-            },
-            outwardJourney: {
-              reserve: false,
-              reservationPreferences: null,
-            },
-            returnJourney: {
-              reserve: false
-            },
-              itso: false
-            },
-            channel: 'mobile',
-            referrer: null,
-            campaign: null
-          })
-        })
-    } else {
-      await this.props.setOrder('https://api-southern.stage.otrl.io/orders', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic Og==',
-          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-        },
-        body: JSON.stringify({
-          trip: {
-            fares: {
-              outwardSingle: null,
-              returnSingle: null,
-              return: this.props.selectedReturn.selectedFare
-            },
-            outwardJourney: {
-              reserve: false,
-              reservationPreferences: null,
-            },
-            returnJourney: {
-              reserve: false,
-              reservationPreferences: null
-            },
-              itso: false
-            },
-            channel: 'mobile',
-            referrer: null,
-            campaign: null
-          })
-        })
+  postOrders(){
+    let order = {
+      id: Math.floor((Math.random() * 100) + 1),
+      trips:[
+        {
+          outward: this.props.selectedOutward,
+          return: this.props.selectedReturn
+        }
+      ],
+      status: 'NOT_PAID'
     }
-
+    this.props.setOrder(order)
   }
 
-  async postTrips(){
-    if(!this.props.addReturn){
-      await this.props.setTrip(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}/trips`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic Og==',
-          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-          'x-customer-device': this.props.orders.deviceToken
-        },
-        body: JSON.stringify({
-          fares: {
-            outwardSingle: this.props.selectedOutward.selectedFare,
-            returnSingle: null,
-            return: null
-          },
-          outwardJourney: {
-            reserve: false,
-            reservationPreferences: null,
-          },
-          returnJourney: {
-            reserve: false
-          },
-          itso: false,
-          channel: 'web',
-          referrer: null,
-          campaign: null
-        })
-      })
-    } else {
-      await this.props.setTrip(`https://api-southern.stage.otrl.io/orders/${this.props.orders.id}/trips`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic Og==',
-          'x-access-token': '86512cad76131783f5dae4346ddc3fb39f6f7c0f74b3039bff70ca4015ade034',
-          'x-customer-device': this.props.orders.deviceToken
-        },
-        body: JSON.stringify({
-          fares: {
-            outwardSingle: null,
-            returnSingle: null,
-            return: this.props.selectedReturn.selectedFare
-          },
-          outwardJourney: {
-            reserve: false,
-            reservationPreferences: null
-          },
-          returnJourney: {
-            reserve: false,
-            reservationPreferences: null
-          },
-          itso: false,
-          channel: 'mobile',
-          referrer: null,
-          campaign: null
-        })
-      })
+  postTrips(){
+    let newTrip = {
+      outward: this.props.selectedOutward,
+      return: this.props.selectedReturn
     }
+    let aux = []
+    aux = this.props.orders.trips.concat(newTrip)
+    let trip = {
+      id: Math.floor((Math.random() * 100) + 1),
+      trips: aux,
+      status: 'NOT_PAID'
+    }
+    this.props.setOrder(trip)
+  }
 
+  updateTrips(trips) {
+    let newTrip = {
+      outward: this.props.selectedOutward,
+      return: this.props.selectedReturn
     }
+    let aux = []
+    aux = trips.concat(newTrip)
+    let trip = {
+      id: Math.floor((Math.random() * 100) + 1),
+      trips: aux,
+      status: 'NOT_PAID'
+    }
+    console.log(trip)
+    this.props.setOrder(trip)
+  }
 
   render(){
     return(

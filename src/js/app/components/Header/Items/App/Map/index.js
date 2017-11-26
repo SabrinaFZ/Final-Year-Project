@@ -110,13 +110,13 @@ export default class Map extends Component{
               <View style={common.padding10}>
                 {this.props.originSelected !== marker.name ?
                 <View>
-                   <Text style={[common.textBold, common.textCenter]}>
+                  <Text style={[common.textBold, common.textCenter]}>
                   {marker.name}
                   </Text>
                 </View>
                 :
                 <View>
-                   <Text style={[common.textBold, common.textCenter]}>
+                  <Text style={[common.textBold, common.textCenter]}>
                   Selected Origin
                     </Text>
                     <Text style={[common.input, common.textCenter]}>
@@ -153,13 +153,13 @@ export default class Map extends Component{
                 <View style={common.padding10}>
                   {this.props.destinationSelected !== marker.name ?
                 <View>
-                   <Text style={[common.textBold, common.textCenter]}>
+                  <Text style={[common.textBold, common.textCenter]}>
                   {marker.name}
                   </Text>
                 </View>
                 :
                 <View>
-                   <Text style={[common.textBold, common.textCenter]}>
+                  <Text style={[common.textBold, common.textCenter]}>
                   Selected Destination
                     </Text>
                     <Text style={[common.input, common.textCenter]}>

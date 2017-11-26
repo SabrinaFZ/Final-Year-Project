@@ -72,13 +72,13 @@ export default class SelectScheduleTiming extends Component {
         <Text style={common.textWhiteSmall}>{moment(this.props.return.rangeStart).format('DD/MM/YYYY')}</Text>
       </TouchableOpacity>
     }
-
+    
     return(
       <View>
         {this.props.addReturn ?
           <View style={[common.end, common.row, common.marginTop10]}>
-             <Icon name='cancel' type='materialIcons' color='#e9418b' onPress={this.handleCancelReturn.bind(this)} size={14}/>
-             <Text style={common.textSmall} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
+            <Icon name='cancel' type='materialIcons' color='#e9418b' onPress={this.handleCancelReturn.bind(this)} size={14}/>
+            <Text style={common.textSmall} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
           </View>
         : null
         }

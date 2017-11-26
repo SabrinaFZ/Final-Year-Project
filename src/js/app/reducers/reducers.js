@@ -93,7 +93,6 @@ const initialState = {
     expired_month: "",
     expired_year: "",
     email: "",
-    token: ""
   },
   orders: {},
   deletedJourney: false,
