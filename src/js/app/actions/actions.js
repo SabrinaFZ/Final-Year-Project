@@ -309,16 +309,30 @@ export const update = (value) => {
   }
 }
 
-export const setLatitude = (value) => {
+export const setLatitudeOrigin = (value) => {
   return {
-    type: 'SET_LATITUDE',
+    type: 'SET_LATITUDE_ORIGIN',
     value
   }
 }
 
-export const setLongitude = (value) => {
+export const setLongitudeOrigin = (value) => {
   return {
-    type: 'SET_LONGITUDE',
+    type: 'SET_LONGITUDE_ORIGIN',
+    value
+  }
+}
+
+export const setLatitudeDestination = (value) => {
+  return {
+    type: 'SET_LATITUDE_DESTINATION',
+    value
+  }
+}
+
+export const setLongitudeDestination = (value) => {
+  return {
+    type: 'SET_LONGITUDE_DESTINATION',
     value
   }
 }

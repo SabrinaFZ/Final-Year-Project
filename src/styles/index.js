@@ -44,7 +44,7 @@ const common = StyleSheet.create({
 
   textNormal:{
     color: '#444e55',
-    fontSize: 16,
+    fontSize: 18,
   },
 
   textBold:{
@@ -156,9 +156,7 @@ const common = StyleSheet.create({
   },
 
   input: {
-    width: '90%',
-    textAlign: 'left',
-    fontSize: 14,
+    fontSize: 16,
   },
 
   searchBar:{

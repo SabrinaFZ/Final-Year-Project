@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SelectOriginDestination from './../../components/Header/Items/App/SelectOriginDestination'
-import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll, openModalMap, selectedMap } from './../../actions/actions'
+import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll, openModalMap, selectedMap, setLatitudeOrigin, setLatitudeDestination, setLongitudeDestination, setLongitudeOrigin } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -75,6 +75,24 @@ const mapDispatchToProps = dispatch => {
     },
     setSelectedMap: (value) => {
       dispatch(selectedMap(value))
+    },
+    setLatitudeOrigin: (value) => {
+      dispatch(setLatitudeOrigin(value))
+    },
+    setLongitudeOrigin: (value) => {
+      dispatch(setLongitudeOrigin(value))
+    },
+    setLatitudeDestination: (value) => {
+      dispatch(setLatitudeDestination(value))
+    },
+    setLongitudeDestination: (value) => {
+      dispatch(setLongitudeDestination(value))
+    },
+    setListOrigin: (data) => {
+      dispatch(getOriginSuccess(data))
+    },
+    setListDestination: (data) => {
+      dispatch(getDestinationSuccess(data))
     }
   }
 }

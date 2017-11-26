@@ -27,6 +27,7 @@ export default class SelectOriginDestination extends Component {
     this.handleValueOriginChange = this.handleValueOriginChange.bind(this)
     this.handleValueDestinationChange = this.handleValueDestinationChange.bind(this)
     this.onClearTextOrigin = this.onClearTextOrigin.bind(this)
+    this.onClearTextDestination = this.onClearTextDestination.bind(this)
   }
 
   static propTypes = {
@@ -54,6 +55,12 @@ export default class SelectOriginDestination extends Component {
     resetAll: PropTypes.func.isRequired,
     setOpenModalMap: PropTypes.func.isRequired,
     setSelectedMap: PropTypes.func.isRequired,
+    setLatitudeOrigin: PropTypes.func.isRequired,
+    setLongitudeOrigin: PropTypes.func.isRequired,
+    setLatitudeDestination: PropTypes.func.isRequired,
+    setLongitudeDestination: PropTypes.func.isRequired,
+    setListOrigin: PropTypes.func.isRequired,
+    setListDestination: PropTypes.func.isRequired
   }
 
   componentWillMount(){
@@ -143,7 +150,7 @@ export default class SelectOriginDestination extends Component {
     var originOptions = []
     if((this.props.listOrigin).length != 0){
       this.props.listOrigin.forEach((item) => {
-        if(item.name != this.props.destinationSelected){
+        if(item.name != this.props.destinationSelected && !item.name.includes('Travelcard')){
           originOptions.push(item.name)
         }
       })
@@ -156,8 +163,8 @@ export default class SelectOriginDestination extends Component {
     var destinationOptions = []
     if((this.props.listDestination).length != 0){
       this.props.listDestination.forEach((item) => {
-        if(item.name != this.props.originSelected){
-          destinationOptions.push(item.name)
+        if (item.name != this.props.originSelected && !item.name.includes("Travelcard")) {
+          destinationOptions.push(item.name);
         }
       })
       destinationOptions.sort()
@@ -166,16 +173,38 @@ export default class SelectOriginDestination extends Component {
   }
 
   goMap(type){
-    this.props.setOpenModalMap(!this.props.openModalMap)
     this.props.setSelectedMap(type)
+    this.props.navigation.navigate('Map')
   }
 
   handleValueOriginChange(itemValue){
     this.props.setOrigin(itemValue)
+    let origin = []
+    if (this.props.listOrigin.length != 0) {
+      this.props.listOrigin.forEach(item => {
+        if (item.name == itemValue) {
+          this.props.setLatitudeOrigin(item.latitude)
+          this.props.setLongitudeOrigin(item.longitude)
+          origin.push(item)
+          this.props.setListOrigin(origin)
+        }
+      })
+    }
   }
 
   handleValueDestinationChange(itemValue){
     this.props.setDestination(itemValue)
+    let destination = []
+    if (this.props.listDestination.length != 0) {
+      this.props.listDestination.forEach(item => {
+        if (item.name == itemValue) {
+          this.props.setLatitudeDestination(item.latitude)
+          this.props.setLongitudeDestination(item.longitude)
+          destination.push(item)
+          this.props.setListDestination(destination)
+        }
+      })
+    }
   }
 
 
@@ -188,7 +217,7 @@ export default class SelectOriginDestination extends Component {
           (this.props.resultOrigin).map((value, index) => {
             return (
               <TouchableOpacity activeOpacity={0.8} key={index} style={common.paddingTopBottom10} onPress={() => this.handleValueOriginChange(value)}>
-                <Text style={common.textNormal}> {value} </Text>
+                <Text style={common.input}> {value} </Text>
               </TouchableOpacity>
             )
           })
@@ -205,7 +234,7 @@ export default class SelectOriginDestination extends Component {
           (this.props.resultDestination).map((value, index) => {
             return (
               <TouchableOpacity activeOpacity={0.8} key={index} style={common.paddingTopBottom10} onPress={() => this.handleValueDestinationChange(value)}>
-                <Text style={common.textNormal}> {value} </Text>
+                <Text style={common.input}> {value} </Text>
               </TouchableOpacity>
             )
           })
@@ -277,7 +306,6 @@ export default class SelectOriginDestination extends Component {
           <SelectScheduleTimingContainer />
           <SelectPassengersContainer />
           <FindTrainsButtonContainer navigation={this.props.navigation} />
-          <SearchMapContainer navigation={this.props.navigation} text={this.props.selectedMap}/>
         </View>
       </ScrollView>
     )

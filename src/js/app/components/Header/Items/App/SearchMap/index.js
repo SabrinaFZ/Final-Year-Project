@@ -13,8 +13,10 @@ export default class SearchMap extends Component{
     openModalMap: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     setOpenModalMap: PropTypes.func.isRequired,
-    setLatitude: PropTypes.func.isRequired,
-    setLongitude: PropTypes.func.isRequired,
+    setLatitudeOrigin: PropTypes.func.isRequired,
+    setLongitudeOrigin: PropTypes.func.isRequired,
+    setLatitudeDestination: PropTypes.func.isRequired,
+    setLongitudeDestination: PropTypes.func.isRequired,
     getOriginStations: PropTypes.func.isRequired,
     getDestinationStations: PropTypes.func.isRequired
   }
@@ -45,15 +47,16 @@ export default class SearchMap extends Component{
   render(){
     return(
       <Modal
-       animationType="none"
-       transparent={false}
-       visible={this.props.openModalMap}
-       onRequestClose={() => this.props.setOpenModalMap(!this.props.openModalMap)}
-       >
+      animationType="none"
+      transparent={false}
+      visible={this.props.openModalMap}
+      onRequestClose={() => this.props.setOpenModalMap(!this.props.openModalMap)}
+      >
       <View style={[common.container, common.justifyContent, common.padding40, common.paddingLeftRight40]}>
         <ScrollView>
+          <Text style={common.input}>Select an area </Text>
           <GooglePlacesAutocomplete
-            placeholder='Search Origin'
+            placeholder='Enter area name...'
             minLength={2}
             autoFocus={false}
             returnKeyType={'search'}
@@ -61,11 +64,15 @@ export default class SearchMap extends Component{
             fetchDetails={true}
             renderDescription={row => row.description}
             onPress={(data, details = null) => {
-              this.props.setLatitude(details.geometry.location.lat)
-              this.props.setLongitude(details.geometry.location.lng)
+              if(this.props.text == 'origin'){
+                this.props.setLatitudeOrigin(details.geometry.location.lat)
+                this.props.setLongitudeOrigin(details.geometry.location.lng)
+              }else{
+                this.props.setLatitudeDestination(details.geometry.location.lat);
+                this.props.setLongitudeDestination(details.geometry.location.lng);
+              }
               this.getStations(details.geometry.location.lat, details.geometry.location.lng)
               this.props.setOpenModalMap(!this.props.openModalMap)
-              this.props.navigation.navigate('Map')
             }}
             getDefaultValue={() => ''}
             query={{
@@ -78,7 +85,8 @@ export default class SearchMap extends Component{
               textInputContainer: {
                 width: '100%',
                 backgroundColor: '#fff',
-                borderRadius: 5
+                borderRadius: 5,
+                marginTop: 10
               },
               description: {
                 fontSize: 16,

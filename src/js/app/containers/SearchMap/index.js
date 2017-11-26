@@ -1,12 +1,23 @@
 import { connect } from 'react-redux'
 
 import SearchMap from './../../components/Header/Items/App/SearchMap'
-import { getOriginSuccess, getOriginError, getDestinationSuccess, getDestinationError, setLatitude, setLongitude, openModalMap } from './../../actions/actions'
+import {
+  getOriginSuccess,
+  getOriginError,
+  getDestinationSuccess,
+  getDestinationError,
+  setLatitudeOrigin,
+  setLongitudeOrigin,
+  setLatitudeDestination,
+  setLongitudeDestination,
+  openModalMap
+} from "./../../actions/actions";
 
 const mapStateToProps = (state, ownProps) => {
   return {
+
     openModalMap: state.openModalMap,
-    text: ownProps.text
+    text: state.selectedMap
   }
 }
 
@@ -34,11 +45,17 @@ const mapDispatchToProps = dispatch =>{
         })
         .catch(() => dispatch(getDestinationError(true)))
     },
-    setLatitude: (value) => {
-      dispatch(setLatitude(value))
+    setLatitudeOrigin: (value) => {
+      dispatch(setLatitudeOrigin(value))
     },
-    setLongitude: (value) => {
-      dispatch(setLongitude(value))
+    setLongitudeOrigin: (value) => {
+      dispatch(setLongitudeOrigin(value))
+    },
+    setLatitudeDestination: (value) => {
+      dispatch(setLatitudeDestination(value))
+    },
+    setLongitudeDestination: (value) => {
+      dispatch(setLongitudeDestination(value))
     },
     setOpenModalMap: (bool) => {
       dispatch(openModalMap(bool))
