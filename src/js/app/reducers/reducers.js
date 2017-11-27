@@ -95,11 +95,13 @@ const initialState = {
     email: "",
   },
   orders: {},
+  pastOrders: [],
   deletedJourney: false,
   deletedJourneyShoppingCart: false,
   isAnotherTrip: false,
   isDeletedTrip: false,
-  isDateTimePickerVisible: false
+  isDateTimePickerVisible: false,
+  isPayment: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -647,7 +649,9 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { orders: action.data });
     }
     case "RESET_ORDER": {
-      return Object.assign({}, state, { orders: {} });
+      return Object.assign({}, state, { 
+        pastOrders: state.pastOrders.concat(state.orders), orders: {} 
+      });
     }
     case "DELETED_JOURNEY": {
       return Object.assign({}, state, { deletedJourney: action.bool });
@@ -667,6 +671,9 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isDateTimePickerVisible: action.bool
       });
+    }
+    case "IS_PAYMENT": {
+      return Object.assign({}, state, { isPayment: action.bool });
     }
     case "RESET_ALL": {
       return Object.assign({}, state, {

@@ -545,3 +545,10 @@ export const setDateTimePickerVisibleTo = (bool) => {
     bool
   }
 }
+
+export const isPayment = (bool) => {
+  return {
+    type: 'IS_PAYMENT',
+    bool
+  }
+}

@@ -2,34 +2,18 @@ import { connect } from 'react-redux'
 
 import PayButton from './../../components/Header/Items/App/PayButton'
 
-import { setOpenModalPayment, error, createTokenSuccess, update, resetOrder } from './../../actions/actions'
+import { setOpenModalPayment, error, createTokenSuccess, update, resetOrder, isPayment } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
     card: state.card,
-    orders: state.orders
+    orders: state.orders,
+    isPayment: state.isPayment
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    createToken: (url, body) => {
-      fetch(url, body)
-        .then((response) => {
-          console.log(response)
-          return response
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          if(data.message == 'OK'){
-            dispatch(createTokenSuccess(data.token))
-          }
-          else {
-            dispatch(error(true))
-          }
-        })
-        .catch(() => dispatch(error(true)))
-    },
     auth: (url, body) => {
       fetch(url, body)
         .then((response) => {
@@ -42,18 +26,19 @@ const mapDispatchToProps = dispatch => {
             dispatch(setOpenModalPayment(false))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
+            dispatch(isPayment(false))
           } else {
             dispatch(error(true))
+            dispatch(isPayment(false))
           }
         })
-        .catch(() => dispatch(error(true)))
-    },
-    setDelivery: (url, body) => {
-      fetch(url, body)
-        .then((response) => {
-          return response
+        .catch(() => {
+          dispatch(error(true))
+          dispatch(isPayment(false))
         })
-        .catch(() => dispatch(error(true)))
+    },
+    setPayment: (bool) => {
+      dispatch(isPayment(bool))
     }
   }
 }

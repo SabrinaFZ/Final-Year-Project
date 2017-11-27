@@ -40,6 +40,7 @@ export default class Map extends Component{
       this.props.setDestination(station.name)
       this.props.setDestinationStations(station)
     }
+    this.forceUpdate()
   }
 
   shouldComponentUpdate(nextProps, nextState){

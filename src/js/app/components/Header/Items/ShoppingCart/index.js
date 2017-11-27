@@ -164,7 +164,7 @@ export default class ShoppingCart extends Component {
         {shoppingCart}
         {modalInfo}
         {payment}
-        <SelectPaymentMethodContainer />
+        <SelectPaymentMethodContainer total={total.toFixed(2)}/>
       </ScrollView>
     )
   }

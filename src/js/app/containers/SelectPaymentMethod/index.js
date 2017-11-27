@@ -2,12 +2,12 @@ import { connect } from 'react-redux'
 
 import SelectPaymentMethod from './../../components/Header/Items/App/SelectPaymentMethod'
 
-import { setOpenModalPayment, setSelectedPayment } from './../../actions/actions'
+import { setOpenModalPayment } from './../../actions/actions'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     openModalPayment: state.openModalPayment,
-    selectedPayment: state.selectedPayment,
+    total: ownProps.total
   }
 }
 
@@ -15,9 +15,6 @@ const mapDispatchToProps = dispatch => {
   return {
     setOpenModalPayment: (bool) => {
       dispatch(setOpenModalPayment(bool))
-    },
-    setSelectedPayment: (value) => {
-      dispatch(setSelectedPayment(value))
     }
   }
 }
