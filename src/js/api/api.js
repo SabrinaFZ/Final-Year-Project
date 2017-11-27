@@ -45,72 +45,72 @@ router.post('/payment', (req, res, next) => {
   let number = req.body.number
   let cvv = req.body.cvv
   
-  if (cardHolderName === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Please enter a cardholdername'
-      })
-  }
-  else if (expiryDate === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid Expiry Date'
-      })
-  }
-  else if (cvv.toString().length < 3) {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid CVV'
-      })
-  }
-  else if (number.toString().length < 12) {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid credit card number'
-      })
-  }
-  else if (address.postcode === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid postcode'
-      })
-  }
-  else if (address.country === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid country'
-      })
-  }
-  else if (address.line_1 === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid address line 1'
-      })
-  }
-  else if (email === '') {
-    res.status(500)
-      .json({
-        status: 'error',
-        message: 'Invalid email'
-      })
-  } else {
-    let payload = {
-      id: id,
-      amount: amount
-    }
+  // if (cardHolderName === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Please enter a cardholdername'
+  //     })
+  // }
+  // else if (expiryDate === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid Expiry Date'
+  //     })
+  // }
+  // else if (cvv.toString().length < 3) {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid CVV'
+  //     })
+  // }
+  // else if (number.toString().length < 12) {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid credit card number'
+  //     })
+  // }
+  // else if (address.postcode === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid postcode'
+  //     })
+  // }
+  // else if (address.country === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid country'
+  //     })
+  // }
+  // else if (address.line_1 === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid address line 1'
+  //     })
+  // }
+  // else if (email === '') {
+  //   res.status(500)
+  //     .json({
+  //       status: 'error',
+  //       message: 'Invalid email'
+  //     })
+  // } else {
+  //   let payload = {
+  //     id: id,
+  //     amount: amount
+  //   }
     res.status(200)
       .json({
         status: 'success',
-        message: payload,
+        message: 'hola',
       });
-  }
+  // }
 
 })
 
