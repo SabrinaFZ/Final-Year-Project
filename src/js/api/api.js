@@ -36,7 +36,6 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/payment', (req, res, next) => {
-  console.log('1')
   let id = req.body.id
   let amount = req.body.amount
   let cardHolderName = req.body.cardHolderName
