@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => {
         .then((data) => {
           if(data.status == 'success'){
             let shoppingCart = []
+            dispatch(isPayment(true))
             dispatch(setOpenModalPayment(false))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
@@ -36,9 +37,6 @@ const mapDispatchToProps = dispatch => {
           dispatch(error(true))
           dispatch(isPayment(false))
         })
-    },
-    setPayment: (bool) => {
-      dispatch(isPayment(bool))
     }
   }
 }

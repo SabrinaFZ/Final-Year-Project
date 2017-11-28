@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
-import Spinner from 'react-native-spinkit'
 
 import common from './../../../../../../../styles'
 
@@ -16,16 +15,10 @@ export default class PayButton extends Component {
     orders: PropTypes.object.isRequired,
     total: PropTypes.string.isRequired,
     isPayment: PropTypes.bool.isRequired,
-    auth: PropTypes.func.isRequired,
-    setPayment: PropTypes.func.isRequired,
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.openModalPayment !== this.props.openModalPayment)
+    auth: PropTypes.func.isRequired
   }
 
   async goPay(){
-    this.props.setPayment(true)
     await this.props.auth('https://sabrina-tfg.herokuapp.com/api/payment', {
       method: 'POST',
       headers: {
@@ -60,9 +53,7 @@ export default class PayButton extends Component {
             <Text style={common.textButtonNext}> PAY </Text>
           </View>
         </TouchableOpacity>
-      :
-      <Spinner style={common.spinner} type='Circle' isVisible={this.props.isPayment} size={30} />
-    }
+        : null }
       </View>
     )
   }

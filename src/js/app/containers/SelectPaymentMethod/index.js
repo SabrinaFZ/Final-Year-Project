@@ -7,6 +7,7 @@ import { setOpenModalPayment } from './../../actions/actions'
 const mapStateToProps = (state, ownProps) => {
   return {
     openModalPayment: state.openModalPayment,
+    isPayment: state.isPayment,
     total: ownProps.total
   }
 }
