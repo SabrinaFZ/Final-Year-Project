@@ -552,3 +552,11 @@ export const isPayment = (bool) => {
     bool
   }
 }
+
+
+export const isPaymentSuccess = (bool) => {
+  return {
+    type: 'IS_PAYMENT_SUCCESS',
+    bool
+  }
+}

@@ -101,7 +101,8 @@ const initialState = {
   isAnotherTrip: false,
   isDeletedTrip: false,
   isDateTimePickerVisible: false,
-  isPayment: false
+  isPayment: false,
+  isPaymentSuccess: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -674,6 +675,9 @@ const reducer = (state = initialState, action) => {
     }
     case "IS_PAYMENT": {
       return Object.assign({}, state, { isPayment: action.bool });
+    }
+    case "IS_PAYMENT_SUCCESS": {
+      return Object.assign({}, state, { isPaymentSuccess: action.bool });
     }
     case "RESET_ALL": {
       return Object.assign({}, state, {

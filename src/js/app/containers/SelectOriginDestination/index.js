@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SelectOriginDestination from './../../components/Header/Items/App/SelectOriginDestination'
-import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll, openModalMap, selectedMap, setLatitudeOrigin, setLatitudeDestination, setLongitudeDestination, setLongitudeOrigin } from './../../actions/actions'
+import { setOrigin, setDestination, getOriginSuccess, error, getOriginError, getDestinationError, resetListOrigin, getDestinationSuccess, resetListDestination, setResultOrigin, setResultDestination, isLoadingOrigin, isLoadingDestination, resetAll, openModalMap, selectedMap, setLatitudeOrigin, setLatitudeDestination, setLongitudeDestination, setLongitudeOrigin} from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
     loadingDestination: state.loadingDestination,
     addCart: state.addCart,
     openModalMap: state.openModalMap,
-    selectedMap: state.selectedMap
+    selectedMap: state.selectedMap,
   }
 }
 

@@ -31,11 +31,11 @@ export default class SelectPassengers extends Component {
     if(this.props.openPassengers){
       return(
         <Modal
-         animationType="none"
-         transparent={false}
-         visible={this.props.openPassengers}
-         onRequestClose={this.handleRequestClose.bind(this)}
-         >
+        animationType="none"
+        transparent={false}
+        visible={this.props.openPassengers}
+        onRequestClose={this.handleRequestClose.bind(this)}
+        >
         <View style={common.container}>
           <ScrollView contentContainerStyle={common.padding40}>
             <Text style={[common.title, common.center, common.row, common.textCenter]}> {'PASSENGERS'} </Text>

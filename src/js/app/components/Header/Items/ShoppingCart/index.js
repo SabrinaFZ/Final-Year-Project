@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, BackHandler } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, BackHandler, Alert } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 
@@ -15,7 +15,6 @@ export default class ShoppingCart extends Component {
     this.handleOnPressDelete = this.handleOnPressDelete.bind(this)
     this.handleOnPressInfoOutward = this.handleOnPressInfoOutward.bind(this)
     this.handleOnPressInfoReturn = this.handleOnPressInfoReturn.bind(this)
-    this.handleOnPressPay = this.handleOnPressPay.bind(this)
   }
 
   static propTypes = {
@@ -27,12 +26,28 @@ export default class ShoppingCart extends Component {
     openModalInfoOutwardId: PropTypes.number.isRequired,
     openModalInfoReturnId: PropTypes.number.isRequired,
     openModalPayment: PropTypes.bool.isRequired,
+    isPayment: PropTypes.bool.isRequired,
+    isPaymentSuccess: PropTypes.bool.isRequired,
     orders: PropTypes.object.isRequired,
     setOrder: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     setOpenModalInfoOutward: PropTypes.func.isRequired,
     setOpenModalInfoReturn: PropTypes.func.isRequired,
-    setOpenModalPayment: PropTypes.func.isRequired
+    setOpenModalPayment: PropTypes.func.isRequired,
+    setPaymentSuccess: PropTypes.func.isRequired
+  }
+
+  componentDidUpdate(){
+    if (this.props.isPaymentSuccess && !this.props.isPayment) {
+      Alert.alert(
+        'SUCCESS!',
+        'Your payment has succeed, you can buy more tickets if you want',
+        [
+          { text: 'OK', onPress: () => this.props.setPaymentSuccess(false) },
+        ],
+        { cancelable: false }
+      )
+    }
   }
 
   handleOnPressDelete(index){
@@ -55,10 +70,6 @@ export default class ShoppingCart extends Component {
     this.forceUpdate()
   }
 
-  handleOnPressPay(){
-    this.props.setOpenModalPayment(true)
-  }
-
   updateTrips(trips) {
     let aux = []
     aux = trips
@@ -73,16 +84,10 @@ export default class ShoppingCart extends Component {
   render(){
     let shoppingCart = null
     let modalInfo = null
-    let payment = null
     let total = 0
     let totalInfo = null
+    let payment = <SelectPaymentMethodContainer total={total.toFixed(2)} />
     if(this.props.shoppingCart.length != 0){
-      payment =
-      <View style={[common.row, common.end,  common.marginTop50, common.marginBottom40]}>
-        <TouchableOpacity style={common.buttonNext} onPress={() => this.handleOnPressPay()} activeOpacity={0.8} >
-          <Text style={common.textButtonNext}> PAY </Text>
-        </TouchableOpacity>
-      </View>
       if(this.props.openModalInfoOutward){
         modalInfo = <InfoModalContainer links={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.links} routeTrains={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.legs}/>
       }
@@ -144,12 +149,13 @@ export default class ShoppingCart extends Component {
           </View>
         )
       })
-    } else {
+    } else if(this.props.shoppingCart.length == 0 && !this.props.isPayment) {
       shoppingCart =
       <View>
         <Text style={[common.textCenter, common.textPink]}>No tickets!</Text>
       </View>
-    }
+      payment = null
+    } 
 
     if(this.props.shoppingCart.length != 0){
       totalInfo =
@@ -164,7 +170,6 @@ export default class ShoppingCart extends Component {
         {shoppingCart}
         {modalInfo}
         {payment}
-        <SelectPaymentMethodContainer total={total.toFixed(2)}/>
       </ScrollView>
     )
   }

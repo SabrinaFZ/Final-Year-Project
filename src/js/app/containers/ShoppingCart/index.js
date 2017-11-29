@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import ShoppingCart from './../../components/Header/Items/ShoppingCart'
 
-import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart } from './../../actions/actions'
+import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart, isPaymentSuccess } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
@@ -15,6 +15,8 @@ const mapStateToProps = state => {
     openModalInfoReturnId: state.openModalInfoReturnId,
     openModalPayment: state.openModalPayment,
     orders: state.orders,
+    isPayment: state.isPayment,
+    isPaymentSuccess: state.isPaymentSuccess
   }
 }
 
@@ -41,6 +43,9 @@ const mapDispatchToProps = dispatch => {
     setOrder: (data) => {
       dispatch(setOrders(data))
     },
+    setPaymentSuccess: (bool) => {
+      dispatch(isPaymentSuccess(bool))
+    }
   }
 }
 

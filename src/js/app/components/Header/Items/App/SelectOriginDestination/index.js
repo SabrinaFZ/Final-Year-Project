@@ -1,6 +1,6 @@
 'use strict'
 import React, { PropTypes, Component } from 'react'
-import { ScrollView, TextInput, Picker, View, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, TextInput, Picker, View, Text, TouchableOpacity, Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 import moment from 'moment'
 import Spinner from 'react-native-spinkit'
@@ -60,7 +60,7 @@ export default class SelectOriginDestination extends Component {
     setLatitudeDestination: PropTypes.func.isRequired,
     setLongitudeDestination: PropTypes.func.isRequired,
     setListOrigin: PropTypes.func.isRequired,
-    setListDestination: PropTypes.func.isRequired
+    setListDestination: PropTypes.func.isRequired,
   }
 
   componentWillMount(){
@@ -72,8 +72,8 @@ export default class SelectOriginDestination extends Component {
   componentDidMount(){
     if(this.props.addCart){
       this.props.resetAll()
-
     }
+    
   }
 
 
