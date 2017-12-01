@@ -39,13 +39,15 @@ export default class ShoppingCart extends Component {
 
   componentDidUpdate(){
     if (this.props.isPaymentSuccess && !this.props.isPayment) {
-      Alert.alert(
-        'SUCCESS!',
-        'Your payment has succeed, you can buy more tickets if you want',
-        [
-          { text: 'OK', onPress: () => this.props.setPaymentSuccess(false) },
-        ],
-        { cancelable: false }
+      this.props.navigation.dispatch(
+        NavigationActions.reset({
+          key: 'ShoppingCart',
+          index: 1,
+          actions: [
+            NavigationActions.navigate({ routeName: 'DrawerScreen' }),
+            NavigationActions.navigate({ routeName: 'ShoppingCart' })
+          ]
+        })
       )
     }
   }

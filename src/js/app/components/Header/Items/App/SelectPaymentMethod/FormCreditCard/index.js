@@ -39,11 +39,11 @@ export default class FormCreditCard extends Component {
     setChangeCardHolderName: PropTypes.func.isRequired,
   }
 
-  componentWillMount(){
-    this.props.setChangeCountry(0)
-    this.props.setChangeExpiredMonth(0)
-    this.props.setChangeExpiredYear(0)
-  }
+  // componentDidMount(){
+  //   this.props.setChangeCountry(0)
+  //   this.props.setChangeExpiredMonth(0)
+  //   this.props.setChangeExpiredYear(0)
+  // }
 
   onChangeCardHolderName(text){
     this.props.setChangeCardHolderName(text)

@@ -24,9 +24,9 @@ const mapDispatchToProps = dispatch => {
           if(data.status == 'success'){
             let shoppingCart = []
             dispatch(isPayment(true))
-            dispatch(isPaymentSuccess(true))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
+            dispatch(isPaymentSuccess(true))
           } else {
             dispatch(error(true))
             dispatch(isPayment(false))

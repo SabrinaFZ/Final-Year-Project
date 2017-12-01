@@ -14,6 +14,7 @@ export default class SelectPaymentMethod extends Component {
     super(props)
 
     this.handleOnRequestClose = this.handleOnRequestClose.bind(this)
+    this.openPaymentModal = this.openPaymentModal.bind(this)
     this.renderOpenModalPayment = this.renderOpenModalPayment.bind(this)
 
   }
@@ -27,8 +28,12 @@ export default class SelectPaymentMethod extends Component {
     setPayment: PropTypes.func.isRequired
   }
 
+  openPaymentModal() {
+    this.props.setOpenModalPayment(true)
+  }
+
   handleOnRequestClose(){
-    this.props.setOpenModalPayment(!this.props.openModalPayment)
+    this.props.setOpenModalPayment(false)
   }
   
   componentDidUpdate(){
@@ -36,14 +41,6 @@ export default class SelectPaymentMethod extends Component {
       setTimeout(() => {
         this.props.setPayment(false)
         this.handleOnRequestClose()
-        NavigationActions.reset({
-          key: 'CustomHeader',
-          index: 1,
-          actions: [
-            NavigationActions.navigate({ routeName: 'ShoppingCart' }),
-            NavigationActions.navigate({ routeName: 'DrawerScreen' }),
-          ]
-        })
       }, 5000)
     }
   }
@@ -52,7 +49,7 @@ export default class SelectPaymentMethod extends Component {
     if(this.props.openModalPayment){
       return (
         <Modal
-          animationType='none'
+          animationType="none"
           transparent={false}
           visible={this.props.openModalPayment}
           onRequestClose={() => this.handleOnRequestClose()}
@@ -79,7 +76,7 @@ export default class SelectPaymentMethod extends Component {
   render(){
     return(
       <View style={[common.row, common.end, common.marginTop50, common.marginBottom40]}>
-        <TouchableOpacity style={common.buttonNext} onPress={() => this.handleOnRequestClose()} activeOpacity={0.8} >
+        <TouchableOpacity style={common.buttonNext} onPress={() => this.openPaymentModal()} activeOpacity={0.8} >
           <Text style={common.textButtonNext}> PAY </Text>
         </TouchableOpacity>
         { this.renderOpenModalPayment() }
