@@ -21,7 +21,7 @@ export default class PayButton extends Component {
   }
 
   async goPay(){
-    await this.props.auth('http://10.0.2.2:8080/api/payment', {
+    await this.props.auth('http://https://sabrina-tfg.herokuapp.com/api/payment', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

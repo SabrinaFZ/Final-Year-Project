@@ -116,6 +116,8 @@ router.post('/payment', (req, res, next) => {
       return (
         `
         <p>
+          Outward:
+          <br>
           <strong>Origin: ${item.outward.origin_station_name}</strong>
           <br>
           <strong>Destination: ${item.outward.destination_station_name}</strong>
@@ -123,6 +125,17 @@ router.post('/payment', (req, res, next) => {
           <strong>Leaving At: ${item.outward.origin_time}</strong>
           <br>
           <strong>Arriving At: ${item.outward.destination_time}</strong>
+        </p>
+        <p>
+        Return:
+          <br>
+          <strong>Origin: ${item.return.origin_station_name}</strong>
+          <br>
+          <strong>Destination: ${item.return.destination_station_name}</strong>
+          <br>
+          <strong>Leaving At: ${item.return.origin_time}</strong>
+          <br>
+          <strong>Arriving At: ${item.return.destination_time}</strong>
         </p>
       `
       )

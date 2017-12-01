@@ -41,7 +41,7 @@ export default class SelectPaymentMethod extends Component {
       setTimeout(() => {
         this.handleOnRequestClose()
         this.props.setPayment(false)
-      }, 3000)
+      }, 1000)
     }
   }
 
