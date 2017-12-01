@@ -16,7 +16,6 @@ export default class SelectPaymentMethod extends Component {
     this.handleOnRequestClose = this.handleOnRequestClose.bind(this)
     this.openPaymentModal = this.openPaymentModal.bind(this)
     this.renderOpenModalPayment = this.renderOpenModalPayment.bind(this)
-
   }
 
   static propTypes = {
@@ -25,7 +24,8 @@ export default class SelectPaymentMethod extends Component {
     total: PropTypes.string.isRequired,
     shoppingCart: PropTypes.arrayOf(PropTypes.object.isRequired),
     setOpenModalPayment: PropTypes.func.isRequired,
-    setPayment: PropTypes.func.isRequired
+    setPayment: PropTypes.func.isRequired,
+    isEmailSent: PropTypes.func.isRequired
   }
 
   openPaymentModal() {
@@ -36,12 +36,12 @@ export default class SelectPaymentMethod extends Component {
     this.props.setOpenModalPayment(false)
   }
   
-  componentDidUpdate(){
-    if (this.props.shoppingCart.length == 0){
+  componentWillReceiveProps(newProps){
+    if (newProps.shoppingCart.length == 0){
       setTimeout(() => {
-        this.props.setPayment(false)
         this.handleOnRequestClose()
-      }, 5000)
+        this.props.setPayment(false)
+      }, 3000)
     }
   }
 

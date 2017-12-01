@@ -29,6 +29,7 @@ export default class ShoppingCart extends Component {
     isPayment: PropTypes.bool.isRequired,
     isPaymentSuccess: PropTypes.bool.isRequired,
     orders: PropTypes.object.isRequired,
+    emailSent: PropTypes.bool.isRequired,
     setOrder: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     setOpenModalInfoOutward: PropTypes.func.isRequired,
@@ -37,27 +38,31 @@ export default class ShoppingCart extends Component {
     setPaymentSuccess: PropTypes.func.isRequired
   }
 
-  componentDidUpdate(){
-    if (this.props.isPaymentSuccess && !this.props.isPayment) {
-      this.props.navigation.dispatch(
-        NavigationActions.reset({
-          key: 'ShoppingCart',
-          index: 1,
-          actions: [
-            NavigationActions.navigate({ routeName: 'DrawerScreen' }),
-            NavigationActions.navigate({ routeName: 'ShoppingCart' })
-          ]
-        })
-      )
-      Alert.alert(
-        'SUCCESS!',
-        'Your payment has succeed, you can buy more tickets if you want',
+  componentWillReceiveProps(newProps){
+    if (newProps.isPayment !== this.props.isPayment){
+      if (newProps.isPaymentSuccess && !newProps.isPayment && newProps.emailSent) {
+        this.props.navigation.dispatch(
+          NavigationActions.reset({
+            key: 'ShoppingCart',
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'ShoppingCart' })
+            ]
+          })
+        )
+        // if (newProps.isPayment !== this.props.isPayment) {
+        Alert.alert(
+          'SUCCESS!',
+          'An email with your booking information was sent, if you have any problems, please contact us',
           [
             { text: 'OK', onPress: () => this.props.setPaymentSuccess(false) },
           ],
-        { cancelable: false }
-      )
+          { cancelable: false }
+        )
+        // } 
+      }
     }
+    
   }
 
   handleOnPressDelete(index){

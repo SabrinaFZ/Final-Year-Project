@@ -2,13 +2,14 @@ import { connect } from 'react-redux'
 
 import PayButton from './../../components/Header/Items/App/PayButton'
 
-import { setOpenModalPayment, error, createTokenSuccess, update, resetOrder, isPayment, isPaymentSuccess } from './../../actions/actions'
+import { isEmailSent, setOpenModalPayment, error, createTokenSuccess, update, resetOrder, isPayment, isPaymentSuccess } from './../../actions/actions'
 
 const mapStateToProps = state => {
   return {
     card: state.card,
     orders: state.orders,
-    isPayment: state.isPayment
+    isPayment: state.isPayment,
+    isPaymentSuccess: state.isPaymentSuccess
   }
 }
 
@@ -23,16 +24,20 @@ const mapDispatchToProps = dispatch => {
         .then((data) => {
           if(data.status == 'success'){
             let shoppingCart = []
+            dispatch(isEmailSent(false))
             dispatch(isPayment(true))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
             dispatch(isPaymentSuccess(true))
+            dispatch(isEmailSent(true))
           } else {
+            dispatch(isEmailSent(false))
             dispatch(error(true))
             dispatch(isPayment(false))
           }
         })
         .catch(() => {
+          dispatch(isEmailSent(false))
           dispatch(error(true))
           dispatch(isPayment(false))
         })

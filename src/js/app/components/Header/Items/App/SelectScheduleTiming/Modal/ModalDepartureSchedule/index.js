@@ -39,7 +39,6 @@ export default class ModalDepartureSchedule extends Component {
   }
 
   render(){
-    console.log(this.props.rangeStart)
     return(
       <View>
         <Text style={[common.textBold, common.marginTop50]}>{'DEPARTURE'}</Text>

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectPaymentMethod from './../../components/Header/Items/App/SelectPaymentMethod'
 
-import { setOpenModalPayment, isPayment } from './../../actions/actions'
+import { setOpenModalPayment, isPayment, isEmailSent } from './../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,6 +20,9 @@ const mapDispatchToProps = dispatch => {
     },
     setPayment: (bool) => {
       dispatch(isPayment(bool))
+    },
+    isEmailSent: (bool) => {
+      dispatch(isEmailSent(bool))
     }
   }
 }

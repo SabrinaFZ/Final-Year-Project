@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development node ./src/js/app/app.js dev"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -34,6 +35,8 @@
     "react-native-google-places-autocomplete": "^1.3.6",
     "react-native-keyboard-aware-scroll-view": "^0.3.0",
     "react-native-list-popover": "^1.0.5",
+    "react-native-mail": "^3.0.5",
+    "react-native-mail-compose": "0.0.6",
     "react-native-maps": "^0.17.1",
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-native-modal-dropdown": "^0.5.0",
@@ -47,6 +50,7 @@
     "redux-logger": "^3.0.6",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "sendgrid": "^5.2.3",
     "soap": "^0.22.0",
     "watchman": "^0.1.8"
   },

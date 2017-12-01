@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
 
+
 import common from './../../../../../../../styles'
 
 export default class PayButton extends Component {
@@ -15,11 +16,12 @@ export default class PayButton extends Component {
     orders: PropTypes.object.isRequired,
     total: PropTypes.string.isRequired,
     isPayment: PropTypes.bool.isRequired,
+    isPaymentSuccess: PropTypes.bool.isRequired,
     auth: PropTypes.func.isRequired
   }
 
   async goPay(){
-    await this.props.auth('https://sabrina-tfg.herokuapp.com/api/payment', {
+    await this.props.auth('http://10.0.2.2:8080/api/payment', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -40,7 +42,8 @@ export default class PayButton extends Component {
           "town": this.props.card.city,
           "postCode": this.props.card.postcode,
           "country": this.props.card.country
-        }
+        },
+        "orders": this.props.orders
       })
     })
   }

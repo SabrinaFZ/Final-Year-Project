@@ -5,6 +5,9 @@ var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs')
 var request = require('request-promise');
 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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')
+
 var db = null
 pgp.pg.defaults.ssl = true;
 
@@ -16,23 +19,23 @@ if(process.env.NODE_ENV == 'development') {
   db = pgp("postgresql://sabrina:sabrina@127.0.0.1:5432/sabrina")
 }
 
-router.get('/', (req, res, next) => {
-  db.connect()
-  .then(function (obj) {
-    res.status(200)
+router.post('/email', (req, res, next) => {
+  let email = req.body.email
+  let order = req.body.order
+  try{
+    
+    return res.status(200)
       .json({
         status: 'success',
-        message: 'Success, release connection!',
+        message: 'Email sent',
       });
-    console.log("Success, release connection!")
-  })
-  .catch(function (error) {
-    res.status(500)
+  } catch(err){
+    return res.status(500)
       .json({
         status: 'error',
-        error: error.message,
+        message: 'Email not sent'
       })
-  });
+  }
 })
 
 router.post('/payment', (req, res, next) => {
@@ -44,6 +47,7 @@ router.post('/payment', (req, res, next) => {
   let address = req.body.address
   let number = req.body.number
   let cvv = req.body.cvv
+  let order = req.body.orders
   
   if (cardHolderName === '') {
     return res.status(500)
@@ -105,6 +109,33 @@ router.post('/payment', (req, res, next) => {
       id: id,
       amount: amount
     }
+    var text = order.trips.map((item, index) => {
+      return `Origin: ${item.outward.origin_station_name}, Destination: ${item.outward.destination_station_name}, Leaving At: ${item.outward.origin_time}, Arriving At: ${item.outward.destination_time}`
+    })
+    var html = order.trips.map((item, index) => {
+      return (
+        `
+        <p>
+          <strong>Origin: ${item.outward.origin_station_name}</strong>
+          <br>
+          <strong>Destination: ${item.outward.destination_station_name}</strong>
+          <br>
+          <strong>Leaving At: ${item.outward.origin_time}</strong>
+          <br>
+          <strong>Arriving At: ${item.outward.destination_time}</strong>
+        </p>
+      `
+      )
+    })
+    const msg = {
+      to: `${email}`,
+      from: 'test@example.com',
+      subject: `Your booking confirmation: ID${order.id} `,
+      text: `${text}`,
+      html: `<p>Here is your order:</p> ${html} <p>Have a nice trip,<br>Regards</p>`
+    }
+    sgMail.send(msg)
+
     return res.status(200)
       .json({
         status: 'success',

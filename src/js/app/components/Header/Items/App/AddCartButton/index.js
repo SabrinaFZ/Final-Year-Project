@@ -110,7 +110,7 @@ export default class AddCartButton extends Component{
       trips: aux,
       status: 'NOT_PAID'
     }
-    console.log(trip)
+  
     this.props.setOrder(trip)
   }
 

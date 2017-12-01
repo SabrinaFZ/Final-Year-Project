@@ -91,7 +91,6 @@ export default class Map extends Component{
     }else{
       latitude = this.props.latitudeDestination,
       longitude = this.props.longitudeDestination
-      console.log(latitude, longitude);
     }
     if (this.props.selectedMap == "origin") {
       markers = this.props.listOrigin.map((marker, index) => (

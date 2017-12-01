@@ -74,7 +74,6 @@ export default class InfoModal extends Component {
   }
 
   render(){
-    console.log(this.props.routeTrains)
     let array = []
     this.props.routeTrains.map((marker, index) => {
       array.push(
@@ -90,7 +89,7 @@ export default class InfoModal extends Component {
     })
     const width = Dimensions.get('window').width - 80
     const navigationView = (
-     <ScrollView>
+    <ScrollView>
       <View style={common.alignItems}>
         {this.props.routeTrains.map((marker, index) => {
           return (

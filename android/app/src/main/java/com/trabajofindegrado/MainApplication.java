@@ -3,6 +3,8 @@ package com.trabajofindegrado;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.mailcompose.RNMailComposePackage;
+import com.chirag.RNMail.RNMail;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNMailComposePackage(),
+            new RNMail(),
             new RNGooglePlacesPackage(),
             new MapsPackage(),
             new VectorIconsPackage(),

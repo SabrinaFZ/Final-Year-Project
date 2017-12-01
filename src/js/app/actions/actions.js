@@ -560,3 +560,10 @@ export const isPaymentSuccess = (bool) => {
     bool
   }
 }
+
+export const isEmailSent = (bool) => {
+  return {
+    type: 'EMAIL_SENT',
+    bool
+  }
+}

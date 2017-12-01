@@ -16,7 +16,8 @@ const mapStateToProps = state => {
     openModalPayment: state.openModalPayment,
     orders: state.orders,
     isPayment: state.isPayment,
-    isPaymentSuccess: state.isPaymentSuccess
+    isPaymentSuccess: state.isPaymentSuccess,
+    emailSent: state.emailSent
   }
 }
 
