@@ -49,6 +49,14 @@ export default class ShoppingCart extends Component {
           ]
         })
       )
+      Alert.alert(
+        'SUCCESS!',
+        'Your payment has succeed, you can buy more tickets if you want',
+          [
+            { text: 'OK', onPress: () => this.props.setPaymentSuccess(false) },
+          ],
+        { cancelable: false }
+      )
     }
   }
 
