@@ -86,8 +86,10 @@ export default class ShoppingCart extends Component {
       shoppingCart = this.props.shoppingCart.map((item, index) => {
         let returnInfo = null
         let totalItem = 0
-        total = total + item.outward.links[item.outward.selectedFare].totalPrice/1000
-        totalItem = item.outward.links[item.outward.selectedFare].totalPrice/1000
+        if(!item.hasReturn){
+          total = total + item.outward.links[item.outward.selectedFare].totalPrice / 1000
+          totalItem = item.outward.links[item.outward.selectedFare].totalPrice / 1000
+        }
         if(item.hasReturn){
           total = total + item.return.links[item.return.selectedFare].totalPrice/1000
           totalItem = item.return.links[item.return.selectedFare].totalPrice/1000
