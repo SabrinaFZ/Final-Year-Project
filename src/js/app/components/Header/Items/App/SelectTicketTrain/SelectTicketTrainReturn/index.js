@@ -174,8 +174,10 @@ export default class SelectTicketTrainReturn extends Component {
   }
 
   handleOnPressSelectReturn(outwardItem, returnItem){
+    let newItem = returnItem
+    newItem.selectedFare = newItem.cheapest
     this.props.selectedOutward(outwardItem)
-    this.props.selectedReturn(returnItem)
+    this.props.selectedReturn(newItem)
     this.goNext()
   }
 
@@ -192,9 +194,10 @@ export default class SelectTicketTrainReturn extends Component {
   }
 
   handleOnPressSelectFare(item, outwardItem, fare){
-    item.selectedFare = fare
+    let newItem = item
+    newItem.selectedFare = fare
     this.props.selectedOutward(outwardItem)
-    this.props.selectedReturn(item)
+    this.props.selectedReturn(newItem)
     this.goNext()
   }
 

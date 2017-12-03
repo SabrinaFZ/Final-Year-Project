@@ -2,14 +2,16 @@ import { connect } from 'react-redux'
 
 import SelectPaymentMethod from './../../components/Header/Items/App/SelectPaymentMethod'
 
-import { setOpenModalPayment, isPayment, isEmailSent } from './../../actions/actions'
+import { setOpenModalPayment, isPayment, isEmailSent, isPaymentSuccess } from './../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     openModalPayment: state.openModalPayment,
     isPayment: state.isPayment,
     total: ownProps.total,
-    shoppingCart: state.shoppingCart
+    shoppingCart: state.shoppingCart,
+    emailSent: state.emailSent,
+    isPaymentSuccess: state.isPaymentSuccess
   }
 }
 
@@ -23,6 +25,9 @@ const mapDispatchToProps = dispatch => {
     },
     isEmailSent: (bool) => {
       dispatch(isEmailSent(bool))
+    },
+    setPaymentSuccess: (bool) => {
+      dispatch(isPaymentSuccess(bool))
     }
   }
 }

@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => {
             dispatch(isPayment(true))
             dispatch(update(shoppingCart))
             dispatch(resetOrder())
-            dispatch(isPaymentSuccess(true))
             dispatch(isEmailSent(true))
           } else {
             dispatch(isEmailSent(false))

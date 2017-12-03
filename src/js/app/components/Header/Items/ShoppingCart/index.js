@@ -38,32 +38,6 @@ export default class ShoppingCart extends Component {
     setPaymentSuccess: PropTypes.func.isRequired
   }
 
-  componentWillReceiveProps(newProps){
-    if (newProps.isPayment !== this.props.isPayment){
-      if (newProps.isPaymentSuccess && !newProps.isPayment && newProps.emailSent) {
-        this.props.navigation.dispatch(
-          NavigationActions.reset({
-            key: 'ShoppingCart',
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'ShoppingCart' })
-            ]
-          })
-        )
-        // if (newProps.isPayment !== this.props.isPayment) {
-        Alert.alert(
-          'SUCCESS!',
-          'An email with your booking information was sent, if you have any problems, please contact us',
-          [
-            { text: 'OK', onPress: () => this.props.setPaymentSuccess(false) },
-          ],
-          { cancelable: false }
-        )
-        // } 
-      }
-    }
-    
-  }
 
   handleOnPressDelete(index){
     this.props.shoppingCart.splice(index,1)
@@ -101,7 +75,7 @@ export default class ShoppingCart extends Component {
     let modalInfo = null
     let total = 0
     let totalInfo = null
-    let payment = <SelectPaymentMethodContainer total={total.toFixed(2)} />
+    let payment = <SelectPaymentMethodContainer navigation={this.props.navigation} total={total.toFixed(2)} />
     if(this.props.shoppingCart.length != 0){
       if(this.props.openModalInfoOutward){
         modalInfo = <InfoModalContainer links={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.links} routeTrains={this.props.shoppingCart[this.props.openModalInfoOutwardId].outward.legs}/>
@@ -164,7 +138,7 @@ export default class ShoppingCart extends Component {
           </View>
         )
       })
-    } else if(this.props.shoppingCart.length == 0 && !this.props.isPayment) {
+    } else if(this.props.shoppingCart.length == 0 && !this.props.isPayment && !this.props.isPaymentSuccess) {
       shoppingCart =
       <View>
         <Text style={[common.textCenter, common.textPink]}>No tickets!</Text>

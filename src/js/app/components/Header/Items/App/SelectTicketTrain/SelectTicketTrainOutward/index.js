@@ -122,7 +122,9 @@ export default class SelectTicketTrainOutward extends Component {
   }
 
   handleOnPressSelectOutward(item){
-    this.props.selectedOutward(item)
+    let newItem = item
+    newItem.selectedFare = newItem.cheapest
+    this.props.selectedOutward(newItem)
     this.goNext()
   }
 
@@ -133,8 +135,9 @@ export default class SelectTicketTrainOutward extends Component {
   }
 
   handleOnPressSelectFare(item, fare){
-    item.selectedFare = fare
-    this.props.selectedOutward(item)
+    let newItem = item
+    newItem.selectedFare = fare
+    this.props.selectedOutward(newItem)
     this.goNext()
   }
 
@@ -151,6 +154,7 @@ export default class SelectTicketTrainOutward extends Component {
       //Return an object for outward and journey
     var modalInfo = null
     var trains = this.getTrains()
+    console.log(trains)
     var header =
       <View>
         <View style={common.center}>

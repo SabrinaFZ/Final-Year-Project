@@ -707,7 +707,6 @@ const reducer = (state = initialState, action) => {
         arrivingLeaving: "Leaving",
         outwardReturn: "Outward",
         addCart: false,
-        selectedOutward: {},
         selectedReturn: {} 
       });
     }
