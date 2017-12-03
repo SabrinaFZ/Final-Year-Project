@@ -157,11 +157,6 @@ const reducer = (state = initialState, action) => {
           rangeStart: action.date.dateStart,
           rangeEnd: action.date.dateEnd,
           arriveDepart: "Depart"
-        },
-        returnBack: {
-          rangeStart: action.date.dateStart,
-          rangeEnd: action.date.dateEnd,
-          arriveDepart: ""
         }
       });
     }
