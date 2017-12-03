@@ -10,6 +10,7 @@ const mapStateToProps =  (state, ownProps) => {
     type: ownProps.type,
     rangeStart: ownProps.rangeStart,
     rangeEnd: ownProps.rangeEnd,
+    minDate: ownProps.minDate
   }
 }
 

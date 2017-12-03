@@ -57,6 +57,7 @@ export default class ModalScheduleTiming extends Component {
       var textDateTimeFrom = this.props.outward.rangeStart
       var textDateTimeTo = this.props.outward.rangeEnd
       var addCancelReturn = null
+      var minDate = new Date()
 
     } else {
       var textDateTimeFrom = this.props.returnBack.rangeStart
@@ -66,6 +67,7 @@ export default class ModalScheduleTiming extends Component {
           <Icon name='cancel' type='materialIcons' color='#e9418b' iconStyle={common.padding10} onPress={this.handleCancelReturn.bind(this)}/>
           <Text style={common.textMedium} onPress={this.handleCancelReturn.bind(this)}> CANCEL RETURN </Text>
         </View>
+      var minDate = this.props.outward.rangeStart
     }
 
     if(this.props.arrivingLeaving == 'Leaving'){
@@ -88,7 +90,7 @@ export default class ModalScheduleTiming extends Component {
           <Text style={[common.title, common.center, common.row, common.textCenter]}>{this.props.title}</Text>
 
           {/* DEPARTURE */}
-          <ModalDepartureScheduleContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo}/>
+          <ModalDepartureScheduleContainer type={this.props.title} rangeStart={textDateTimeFrom} rangeEnd={textDateTimeTo} minDate={minDate}/>
 
           <Picker
             style={common.marginTop20}
