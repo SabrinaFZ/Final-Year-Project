@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { ScrollView, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import moment from 'moment';
+import moment from 'moment'
 import Spinner from 'react-native-spinkit'
 import { NavigationActions } from 'react-navigation'
 
@@ -162,7 +162,7 @@ export default class SelectTicketTrainOutward extends Component {
         </View>
         <View style={[common.marginTop20, common.padding10, common.backgroundColorPink, common.box]}>
           <Text style={common.textWhiteSmall}>{this.props.originSelected} - {this.props.destinationSelected}</Text>
-          <Text style={common.textWhiteSmall}>Date: {this.props.outward.rangeStart.toJSON().slice(0, 10)}</Text>
+          <Text style={common.textWhiteSmall}>Date: {moment(this.props.outward.rangeStart).format('DD/MM/YYYY')}</Text>
         </View>
       </View>
     var info_station = trains.map((outwardItem, index) => {
