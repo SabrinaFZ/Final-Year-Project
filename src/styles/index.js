@@ -269,8 +269,8 @@ const common = StyleSheet.create({
     paddingTop: 80
   },
 
-  paddingLeft20: {
-    paddingLeft: 20,
+  paddingLeftAdjust: {
+    paddingLeft: '8%',
   },
 
   paddingRight20: {
@@ -328,6 +328,10 @@ const common = StyleSheet.create({
     backgroundColor:'#e9418b',
     width: '100%',
   },
+
+  widthBox:{
+    width: '80%'
+  }
 
 })
 

@@ -262,21 +262,15 @@
                       <Text style={[common.textSmall]}> INFO </Text>
                     </View>
                   </TouchableOpacity>
-                    <View style={common.paddingTopBottom20}>
+                    <View style={[common.paddingTopBottom20, common.paddingLeftAdjust]}>
                       <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> OUTWARD </Text>
-                    <View style={common.row}>
                       <View style={common.center}>
                         <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
                         <Text style={common.textMedium}> {outwardItem.origin_time.slice(-8, -3)} </Text>
                         <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
                         <Text style={common.textMedium}> {outwardItem.destination_time.slice(-8, -3)} </Text>
-                      </View>
-                      <View style={[common.paddingLeft20, common.center]}>
-                        <Text style={common.textNormal}> Changes</Text>
-                        <Text style={common.textMedium}> {outwardItem.changes} </Text>
-                      </View>
-                    </View>
-                    
+                        <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
+                        </View>
                   </View>
                 </View>
                 
@@ -286,20 +280,15 @@
                       <Text style={common.textSmall}> INFO </Text>
                     </View>
                   </TouchableOpacity>
-                  <View style={common.paddingTopBottom20}>
+                    <View style={[common.paddingTopBottom20, common.paddingLeftAdjust]}>
                     <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> RETURN </Text>
-                    <View style={common.row}>
                         <View style={common.center}>
                           <Text style={common.textNormal}> {returnItem.origin_station_id} </Text>
                           <Text style={common.textMedium}> {returnItem.origin_time.slice(-8, -3)} </Text>
                           <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
                           <Text style={common.textMedium}> {returnItem.destination_time.slice(-8, -3)} </Text>
-                        </View>
-                        <View style={[common.paddingLeft20, common.center]}>
-                          <Text style={common.textNormal}> Changes</Text>
-                          <Text style={common.textMedium}> {returnItem.changes} </Text>
-                        </View>
-                    </View>
+                          <Text style={common.textNormal}> Changes: {returnItem.changes}</Text>
+                          </View>
                   </View>
                 </View>
               </View>

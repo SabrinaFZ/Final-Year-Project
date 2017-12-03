@@ -33,8 +33,8 @@ export default class DetailsTicketsReturn extends Component{
 
   render(){
     return(
-      <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
-        <View style={[common.alignItems]}>
+      <View style={[common.marginTop20, common.box, common.backgroundColorWhite]}>
+        <View style={[common.paddingTopBottom20, common.alignItems]}>
           <Text style={common.textPink}> RETURN </Text>
           <Text style={common.textBold}> {moment(this.props.selectedReturn.origin_time).format('DD/MM/YYYY')} </Text>
           <Text style={common.textNormal}> {this.props.selectedReturn.origin_station_id} </Text>
@@ -43,11 +43,13 @@ export default class DetailsTicketsReturn extends Component{
           <Text style={common.textBold}> {this.props.selectedReturn.destination_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> Changes: {this.props.selectedReturn.changes} </Text>
         </View>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoReturn()}>
-          <View style={[common.marginTop20, common.separator]}>
-            <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
-          </View>
-        </TouchableOpacity>
+        <View style={[common.paddingTopBottom20, common.separator, common.backgroundColor]}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoReturn()}>
+            <View >
+              <Text style={[common.textCenter, common.textMedium]}> INFO </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <InfoModalContainer links={this.props.selectedReturn.links} routeTrains={this.props.selectedReturn.legs}/>
       </View>
     )
