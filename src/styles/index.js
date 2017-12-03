@@ -29,6 +29,10 @@ const common = StyleSheet.create({
     justifyContent:'space-between'
   },
 
+  spaceAround: {
+    justifyContent: 'space-around'
+  },
+
   justifyContent: {
     justifyContent:'center',
   },
@@ -155,6 +159,12 @@ const common = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  textPinkSmall: {
+    color: '#e9418b',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+
   input: {
     fontSize: 16,
   },
@@ -259,6 +269,15 @@ const common = StyleSheet.create({
     paddingTop: 80
   },
 
+  paddingLeft20: {
+    paddingLeft: 20,
+  },
+
+  paddingRight20: {
+    paddingRight: 20,
+  },
+
+
   textCenter:{
     textAlign: 'center'
   },
@@ -308,7 +327,7 @@ const common = StyleSheet.create({
     alignItems: 'center',
     backgroundColor:'#e9418b',
     width: '100%',
-  }
+  },
 
 })
 

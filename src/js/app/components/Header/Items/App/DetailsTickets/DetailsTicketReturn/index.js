@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { NavigationActions } from 'react-navigation'
+import moment from 'moment'
 import {
   View,
   Text,
@@ -35,7 +36,7 @@ export default class DetailsTicketsReturn extends Component{
       <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
         <View style={[common.alignItems]}>
           <Text style={common.textPink}> RETURN </Text>
-          <Text style={common.textBold}> {this.props.selectedReturn.origin_time.slice(0, 10)} </Text>
+          <Text style={common.textBold}> {moment(this.props.selectedReturn.origin_time).format('DD/MM/YYYY')} </Text>
           <Text style={common.textNormal}> {this.props.selectedReturn.origin_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedReturn.origin_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> {this.props.selectedReturn.destination_station_id} </Text>

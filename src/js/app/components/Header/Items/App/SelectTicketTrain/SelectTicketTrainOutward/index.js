@@ -154,7 +154,6 @@ export default class SelectTicketTrainOutward extends Component {
       //Return an object for outward and journey
     var modalInfo = null
     var trains = this.getTrains()
-    console.log(trains)
     var header =
       <View>
         <View style={common.center}>
@@ -170,10 +169,10 @@ export default class SelectTicketTrainOutward extends Component {
       if(this.props.openMoreTicketsOutwardId == index && this.props.openMoreTicketsOutward){
         faresOutward = outwardItem.fares.map((fare,i) => {
           return (
-            <View key={i} style={common.paddingTopBottom20}>
+            <View key={i} style={common.paddingTopBottom10}>
               <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.center, common.paddingLeftRight20]} onPress={()=>  this.handleOnPressSelectFare(outwardItem, fare)}>
-                <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
-                <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
+                <Text style={common.textNormal}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
+                <Text style={common.textMedium}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
               </TouchableOpacity>
             </View>
           )
@@ -183,26 +182,34 @@ export default class SelectTicketTrainOutward extends Component {
       modalInfo = <InfoModalContainer links={trains[this.props.openModalInfoOutwardId].links} routeTrains={trains[this.props.openModalInfoOutwardId].legs}/>
     }
       return(
-        <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem) }>
-            <View style={[common.alignItems]}>
-              <Text style={common.title}>OUTWARD</Text>
-              <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
-              <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
-              <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
-              <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
-              <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
-              <Text style={[common.marginTop20, common.textPink, common.textCenter]}> {((this.props.journeyPlan.links[outwardItem.selectedFare].totalPrice)/1000).toFixed(2)} £ </Text>
+        <View key={index} style={[common.marginTop20, common.box, common.backgroundColorWhite]}>
+          <View style={[common.row, common.spaceBetween]}>
+            <TouchableOpacity style={[common.separatorRight, common.backgroundColor, common.center, common.padding20]} activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
+              <View>
+                <Text style={[common.textSmall]}> INFO </Text>
+              </View>
+            </TouchableOpacity>
+            <View style={common.paddingTopBottom20}>
+              <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> OUTWARD </Text>
+                <View style={common.center}>
+                  <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
+                  <Text style={common.textMedium}> {outwardItem.origin_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
+                  <Text style={common.textMedium}> {outwardItem.destination_time.slice(-8, -3)} </Text>
+                  <Text style={common.textNormal}> Changes : {outwardItem.changes}</Text>
+                  </View>
+                </View>
+            <TouchableOpacity style={[common.backgroundColorPink, common.center, common.padding5]} activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem)}>
+              <View style={common.center}>
+                <Text style={common.textButton}> SELECT </Text>
+                <Text style={common.textWhiteSmall}> {((this.props.journeyPlan.links[outwardItem.selectedFare].totalPrice) / 1000).toFixed(2)} £ </Text>
+                <Text style={common.textWhiteSmall}> (cheapest) </Text>
+                </View>
+            </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
-            <View style={[common.marginTop20, common.separator]}>
-              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO OUTWARD </Text>
-            </View>
-          </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressOutward(index)}>
-            <View style={[common.marginTop20, common.separator]}>
-              <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> MORE TICKETS </Text>
+            <View style={[common.padding20, common.separator]}>
+              <Text style={[common.textCenter, common.textMedium]}> CHANGE TICKET TYPE </Text>
             </View>
           </TouchableOpacity>
           {faresOutward}

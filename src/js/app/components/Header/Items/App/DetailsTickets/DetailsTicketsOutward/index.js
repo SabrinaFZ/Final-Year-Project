@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { NavigationActions } from 'react-navigation'
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import moment from 'moment'
 
 import InfoModalContainer from './../../../../../../containers/InfoModal'
 
@@ -27,21 +28,23 @@ export default class DetailsTicketsOutward extends Component{
 
   render(){
     return(
-      <View style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
-        <View style={[common.alignItems]}>
+      <View style={[common.marginTop20, common.box, common.backgroundColorWhite]}>
+        <View style={[common.paddingTopBottom20, common.alignItems]}>
           <Text style={common.textPink}> OUTWARD </Text>
-          <Text style={common.textBold}> {this.props.selectedOutward.origin_time.slice(0, 10)} </Text>
+          <Text style={common.textBold}> {moment(this.props.selectedOutward.origin_time).format('DD/MM/YYYY')} </Text>
           <Text style={common.textNormal}> {this.props.selectedOutward.origin_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedOutward.origin_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> {this.props.selectedOutward.destination_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedOutward.destination_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> Changes: {this.props.selectedOutward.changes} </Text>
         </View>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward()}>
-          <View style={[common.marginTop20, common.separator]}>
-            <Text style={[common.paddingTop20, common.textCenter, common.textBold]}> INFO </Text>
-          </View>
-        </TouchableOpacity>
+        <View style={[common.paddingTopBottom20, common.separator, common.backgroundColor]}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward()}>
+            <View>
+              <Text style={[common.textCenter, common.textMedium]}> INFO </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <InfoModalContainer links={this.props.selectedOutward.links} routeTrains={this.props.selectedOutward.legs}/>
       </View>
     )

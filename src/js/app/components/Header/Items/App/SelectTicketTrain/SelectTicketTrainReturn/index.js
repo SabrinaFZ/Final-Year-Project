@@ -1,15 +1,15 @@
-import React, { PropTypes, Component } from 'react'
-import { ScrollView, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
-import moment from 'moment';
-import Spinner from 'react-native-spinkit'
-import { NavigationActions } from 'react-navigation'
+  import React, { PropTypes, Component } from 'react'
+  import { ScrollView, Platform, Modal, TextInput, Button, Picker, View, Text, TouchableOpacity } from 'react-native'
+  import { Icon } from 'react-native-elements'
+  import moment from 'moment';
+  import Spinner from 'react-native-spinkit'
+  import { NavigationActions } from 'react-navigation'
 
-import InfoModalContainer from './../../../../../../containers/InfoModal'
+  import InfoModalContainer from './../../../../../../containers/InfoModal'
 
-import common from './../../../../../../../../styles'
+  import common from './../../../../../../../../styles'
 
-export default class SelectTicketTrainReturn extends Component {
+  export default class SelectTicketTrainReturn extends Component {
   constructor(props){
     super(props)
 
@@ -243,58 +243,82 @@ export default class SelectTicketTrainReturn extends Component {
             if(this.props.openMoreTicketsReturnId == index && this.props.openMoreTicketsOutwardId == index1 &&  this.props.openMoreTicketsReturn){
               faresReturn = returnItem.fares.map((fare,i) => {
                 return (
-                  <View key={i} style={common.paddingTopBottom20}>
+                  <View key={i} style={common.paddingTopBottom10}>
                     <TouchableOpacity activeOpacity={0.8} style={[common.backgroundColor, common.paddingLeftRight20, common.alignItems]} onPress={()=> this.handleOnPressSelectFare(returnItem, outwardItem, fare)}>
-                      <Text style={common.textBold}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
-                      <Text style={common.textNormal}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
+                      <Text style={common.textNormal}>{this.getTicketType(this.props.journeyPlan.links[fare].ticketType)}</Text>
+                      <Text style={common.textMedium}>{((this.props.journeyPlan.links[fare].totalPrice)/1000).toFixed(2)} £ </Text>
                     </TouchableOpacity>
                   </View>
                 )
               })
             }
-            return <View key={index} style={[common.marginTop20, common.box, common.paddingTopBottom20, common.backgroundColorWhite]}>
-              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressSelectReturn(outwardItem, returnItem) }>
-              <View style={[common.row, common.spaceBetween, common.paddingLeftRight20]}>
-                <View style={common.alignItems}>
-                  <Text style={common.textPink}> OUTWARD </Text>
-                  <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
-                  <Text style={common.textBold}> {outwardItem.origin_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
-                  <Text style={common.textBold}> {outwardItem.destination_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> Changes: {outwardItem.changes} </Text>
+            return <View key={index} style={[common.marginTop20, common.box, common.backgroundColorWhite]}>
+              
+            <View style={[common.row, common.spaceBetween]}>
+              <View>
+                <View style={[common.row, common.spaceBetween]}>
+                    <TouchableOpacity style={[common.separatorRight, common.backgroundColor, common.center, common.padding20, common.width]} activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)}>
+                    <View>
+                      <Text style={[common.textSmall]}> INFO </Text>
+                    </View>
+                  </TouchableOpacity>
+                    <View style={common.paddingTopBottom20}>
+                      <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> OUTWARD </Text>
+                    <View style={common.row}>
+                      <View style={common.center}>
+                        <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
+                        <Text style={common.textMedium}> {outwardItem.origin_time.slice(-8, -3)} </Text>
+                        <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
+                        <Text style={common.textMedium}> {outwardItem.destination_time.slice(-8, -3)} </Text>
+                      </View>
+                      <View style={[common.paddingLeft20, common.center]}>
+                        <Text style={common.textNormal}> Changes</Text>
+                        <Text style={common.textMedium}> {outwardItem.changes} </Text>
+                      </View>
+                    </View>
+                    
+                  </View>
                 </View>
-                <View style={common.alignItems}>
-                  <Text style={common.textPink}> RETURN </Text>
-                  <Text style={common.textNormal}> {returnItem.origin_station_id} </Text>
-                  <Text style={common.textBold}> {returnItem.origin_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
-                  <Text style={common.textBold}> {returnItem.destination_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> Changes: {returnItem.changes} </Text>
+                
+                <View style={[common.row, common.spaceBetween]}>
+                    <TouchableOpacity style={[common.separator, common.separatorRight, common.backgroundColor, common.center, common.padding20, common.width]} activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
+                    <View>
+                      <Text style={common.textSmall}> INFO </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={common.paddingTopBottom20}>
+                    <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> RETURN </Text>
+                    <View style={common.row}>
+                        <View style={common.center}>
+                          <Text style={common.textNormal}> {returnItem.origin_station_id} </Text>
+                          <Text style={common.textMedium}> {returnItem.origin_time.slice(-8, -3)} </Text>
+                          <Text style={common.textNormal}> {returnItem.destination_station_id} </Text>
+                          <Text style={common.textMedium}> {returnItem.destination_time.slice(-8, -3)} </Text>
+                        </View>
+                        <View style={[common.paddingLeft20, common.center]}>
+                          <Text style={common.textNormal}> Changes</Text>
+                          <Text style={common.textMedium}> {returnItem.changes} </Text>
+                        </View>
+                    </View>
+                  </View>
                 </View>
-                </View>
-                <View style={common.center}>
-                  <Text style={common.title}> {((this.props.journeyPlan.links[returnItem.selectedFare].totalPrice)/1000).toFixed(2)} £ </Text>
+              </View>
+                  <TouchableOpacity style={[common.backgroundColorPink, common.center, common.padding5]} activeOpacity={0.8} onPress={() => this.handleOnPressSelectReturn(outwardItem, returnItem)}>
+                  <View style={common.center}>
+                    <Text style={common.textButton}> SELECT </Text>
+                      <Text style={common.textWhiteSmall}> {((this.props.journeyPlan.links[returnItem.selectedFare].totalPrice) / 1000).toFixed(2)} £ </Text>
+                    <Text style={common.textWhiteSmall}> (cheapest) </Text>
+                  </View>
+                </TouchableOpacity>
+            </View>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index, index1)}>
+                <View style={[common.padding20, common.separator]}>
+                  <Text style={[common.textCenter, common.textMedium]}> CHANGE TICKET TYPE </Text>
                 </View>
               </TouchableOpacity>
-              <View style={[common.marginTop20, common.row, common.spaceBetween, common.separator, common.paddingLeftRight20]}>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)} style={[common.paddingTopBottom20,, common.alignItems]}>
-                  <Text style={common.textBold}> INFO </Text>
-                  <Text style={common.textBold}> OUTWARD </Text>
-                </TouchableOpacity>
-                <View style={common.separatorRight}>
-                </View>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)} style={[common.paddingTopBottom20, common.alignItems]}>
-                  <Text style={common.textBold}> INFO </Text>
-                  <Text style={common.textBold}> RETURN </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={common.separator}>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressReturn(index, index1)} style={[common.paddingTop20, common.alignItems]}>
-                  <Text style={common.textBold}> MORE TICKETS </Text>
-                </TouchableOpacity>
-                {faresReturn}
-              </View>
-            </View>
+              {faresReturn}
+
+          </View>
           })
         }
       </View>
@@ -309,4 +333,4 @@ export default class SelectTicketTrainReturn extends Component {
       </ScrollView>
     )
   }
-}
+  }
