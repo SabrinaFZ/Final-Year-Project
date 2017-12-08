@@ -184,9 +184,10 @@ export default class SelectTicketTrainOutward extends Component {
       return(
         <View key={index} style={[common.marginTop20, common.box, common.backgroundColorWhite]}>
           <View style={[common.row, common.spaceBetween]}>
-            <TouchableOpacity style={[common.separatorRight, common.backgroundColor, common.center, common.padding20]} activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
-              <View>
-                <Text style={[common.textSmall]}> INFO </Text>
+            <TouchableOpacity style={[common.backgroundColor, common.center, common.padding20]} activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
+              <View style={common.alignItems}>
+                <Text style={[common.textSmall]}> SHOW </Text>
+                <Text style={[common.textSmall]}> MAP </Text>
               </View>
             </TouchableOpacity>
             <View style={common.padding10}>

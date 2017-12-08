@@ -105,7 +105,7 @@ export default class ShoppingCart extends Component {
               <Text style={common.textBold}> {item.return.changes} </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoReturn(index)}>
-                <Text style={[common.textCenter, common.textButton]}> INFO </Text>
+                <Text style={[common.textCenter, common.textButton]}> SHOW MAP </Text>
             </TouchableOpacity>
           </View>
         }
@@ -121,7 +121,7 @@ export default class ShoppingCart extends Component {
               <Text style={common.textBold}> {item.outward.changes} </Text>
             </View>
             <TouchableOpacity activeOpacity={0.8} style={[common.buttonActiveLarge, common.center, common.marginTop20]} onPress={() => this.handleOnPressInfoOutward(index)}>
-                <Text style={[common.textCenter, common.textButton]}> INFO </Text>
+                <Text style={[common.textCenter, common.textButton]}> SHOW MAP </Text>
             </TouchableOpacity>
             {returnInfo}
             <View style={[common.row, common.spaceBetween]}>

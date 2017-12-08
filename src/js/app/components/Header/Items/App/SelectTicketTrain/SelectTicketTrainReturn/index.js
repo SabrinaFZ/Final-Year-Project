@@ -256,8 +256,9 @@
               
             <View style={[common.row, common.spaceBetween]}>
                 <TouchableOpacity style={[common.backgroundColor, common.center, common.padding10, common.width]} activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward(index1)}>
-                  <View>
-                    <Text style={[common.textSmall]}> INFO </Text>
+                  <View style={common.alignItems}>
+                    <Text style={[common.textSmall]}> SHOW </Text>
+                    <Text style={[common.textSmall]}> MAP </Text>
                   </View>
                 </TouchableOpacity>
                 <View style={[common.row]}>
@@ -285,8 +286,9 @@
                   </View>
                 </View>
                   <TouchableOpacity style={[common.backgroundColor, common.center, common.padding10]} activeOpacity={0.8} onPress={() => this.handleOnPressInfo(index)}>
-                    <View>
-                      <Text style={common.textSmall}> INFO </Text>
+                    <View style={common.alignItems}>
+                      <Text style={[common.textSmall]}> SHOW </Text>
+                      <Text style={[common.textSmall]}> MAP </Text>
                     </View>
                   </TouchableOpacity>
             </View>
