@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const window = Dimensions.get('window');
 
 const common = StyleSheet.create({
   container: {
@@ -269,10 +271,6 @@ const common = StyleSheet.create({
     paddingTop: 80
   },
 
-  paddingLeftAdjust: {
-    paddingLeft: '8%',
-  },
-
   paddingRight20: {
     paddingRight: 20,
   },
@@ -330,7 +328,7 @@ const common = StyleSheet.create({
   },
 
   widthBox:{
-    width: '80%'
+    width: window.width - 80
   }
 
 })

@@ -189,19 +189,20 @@ export default class SelectTicketTrainOutward extends Component {
                 <Text style={[common.textSmall]}> INFO </Text>
               </View>
             </TouchableOpacity>
-            <View style={common.paddingTopBottom20}>
-              <Text style={[common.paddingTopBottom10, common.textCenter, common.textPinkSmall]}> OUTWARD </Text>
+            <View style={common.padding10}>
+              <Text style={[common.textCenter, common.textPinkSmall]}> OUTWARD </Text>
                 <View style={common.center}>
                   <Text style={common.textNormal}> {outwardItem.origin_station_id} </Text>
                   <Text style={common.textMedium}> {outwardItem.origin_time.slice(-8, -3)} </Text>
                   <Text style={common.textNormal}> {outwardItem.destination_station_id} </Text>
                   <Text style={common.textMedium}> {outwardItem.destination_time.slice(-8, -3)} </Text>
-                  <Text style={common.textNormal}> Changes : {outwardItem.changes}</Text>
+                  <Text style={common.textNormal}> Changes</Text>
+                  <Text style={common.textMedium}> {outwardItem.changes}</Text>
                   </View>
                 </View>
             <TouchableOpacity style={[common.backgroundColorPink, common.center, common.padding5]} activeOpacity={0.8} onPress={() => this.handleOnPressSelectOutward(outwardItem)}>
               <View style={common.center}>
-                <Text style={common.textButton}> SELECT </Text>
+                <Text style={common.textWhiteSmall}> SELECT </Text>
                 <Text style={common.textWhiteSmall}> {((this.props.journeyPlan.links[outwardItem.selectedFare].totalPrice) / 1000).toFixed(2)} £ </Text>
                 <Text style={common.textWhiteSmall}> (cheapest) </Text>
                 </View>

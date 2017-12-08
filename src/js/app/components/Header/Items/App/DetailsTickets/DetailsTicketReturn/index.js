@@ -41,7 +41,8 @@ export default class DetailsTicketsReturn extends Component{
           <Text style={common.textBold}> {this.props.selectedReturn.origin_time.slice(-8, -3)} </Text>
           <Text style={common.textNormal}> {this.props.selectedReturn.destination_station_id} </Text>
           <Text style={common.textBold}> {this.props.selectedReturn.destination_time.slice(-8, -3)} </Text>
-          <Text style={common.textNormal}> Changes: {this.props.selectedReturn.changes} </Text>
+          <Text style={common.textNormal}> Changes</Text>
+          <Text style={common.textBold}> {this.props.selectedReturn.changes} </Text>
         </View>
         <View style={[common.paddingTopBottom20, common.separator, common.backgroundColor]}>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoReturn()}>
