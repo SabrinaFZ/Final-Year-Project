@@ -42,7 +42,7 @@ export default class DetailsTicketsOutward extends Component{
         <View style={[common.paddingTopBottom20, common.separator, common.backgroundColor]}>
           <TouchableOpacity activeOpacity={0.8} onPress={() => this.handleOnPressInfoOutward()}>
             <View style={common.alignItems}>
-              <Text style={[common.textSmall]}> SHOW MAP </Text>
+              <Text style={[common.textMedium]}> SHOW MAP </Text>
             </View>
           </TouchableOpacity>
         </View>
