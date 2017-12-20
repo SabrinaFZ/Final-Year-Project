@@ -6,10 +6,16 @@ import StackApp from './../../App/stackApp'
 
 const routeConfiguration = {
   App: {
-    screen: StackApp
+    screen: StackApp,
+    navigationOptions: () => ({
+      headerTitle: 'App',
+    })
   },
   Settings: {
     screen: Settings,
+    navigationOptions: () => ({
+      headerTitle: 'Settings',
+    })
   },
 }
 

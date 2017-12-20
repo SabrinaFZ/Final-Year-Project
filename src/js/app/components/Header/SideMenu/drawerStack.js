@@ -14,7 +14,6 @@ const routeConfiguration = {
   DrawerScreen: {
     screen: DrawerScreen,
     navigationOptions: ({navigation}) => ({
-      headerTitle: 'App',
       headerTitleStyle: {
         color: 'white',
         alignSelf: 'center'
