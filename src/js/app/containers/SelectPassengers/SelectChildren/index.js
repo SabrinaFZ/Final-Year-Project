@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectChildren from './../../../components/Header/Items/App/SelectPassengers/SelectChildren'
+import SelectChildren from './../../../components/App/SelectPassengers/SelectChildren'
 
 import { changeChildrenNumber } from './../../../actions/actions'
 

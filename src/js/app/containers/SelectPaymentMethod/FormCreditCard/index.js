@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import FormCreditCard from './../../../components/Header/Items/App/SelectPaymentMethod/FormCreditCard'
+import FormCreditCard from './../../../components/App/SelectPaymentMethod/FormCreditCard'
 
 import { setChangeCVV, setChangeCity, setChangeEmail, setChangeNumber, setChangeCountry, setChangePostcode, setChangeExpiredYear, setChangeAddressLine1, setChangeAddressLine2, setChangeAddressLine3, setChangeExpiredMonth, setChangeCardHolderName } from './../../../actions/actions'
 

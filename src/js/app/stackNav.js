@@ -6,23 +6,15 @@ import { StackNavigator} from 'react-navigation'
 //import StackApp from './components/App/stackApp'
 import CustomHeader from './components/Header/'
 
-import WelcomeContainer from './containers/Welcome'
+import LoadingContainer from './containers/Loading'
 
 const routeConfiguration = {
-  Welcome: {
-    screen: WelcomeContainer,
+  Loading: {
+    screen: LoadingContainer,
     navigationOptions: {
       header: null
     }
   },
-  // App: {
-  //   screen: StackApp,
-  //   navigationOptions: ({ navigation }) => ({
-  //     headerTitle: 'App',
-  //     header: <CustomHeader />,
-  //     headerStyle: {backgroundColor: '#e9418b'}
-  //   })
-  // },
   CustomHeader:{
     screen: CustomHeader
   }
@@ -30,7 +22,7 @@ const routeConfiguration = {
 
 const stackNavigatorConfiguration = {
   headerMode: 'none',
-  initialRouteName: 'Welcome'
+  initialRouteName: 'Loading'
 }
 
 const StackNav = StackNavigator(routeConfiguration,stackNavigatorConfiguration)

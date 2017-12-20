@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import PayButton from './../../components/Header/Items/App/PayButton'
+import PayButton from './../../components/App/PayButton'
 
 import { isEmailSent, setOpenModalPayment, error, createTokenSuccess, update, resetOrder, isPayment, isPaymentSuccess } from './../../actions/actions'
 

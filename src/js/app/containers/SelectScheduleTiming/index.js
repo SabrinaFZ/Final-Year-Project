@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectScheduleTiming from './../../components/Header/Items/App/SelectScheduleTiming/'
+import SelectScheduleTiming from './../../components/App/SelectScheduleTiming/'
 import { openOutwardModal, openReturnModal, cancelReturn } from './../../actions/actions'
 
 const mapStateToProps = state => {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectTicketTrainOutward from './../../../components/Header/Items/App/SelectTicketTrain/SelectTicketTrainOutward'
+import SelectTicketTrainOutward from './../../../components/App/SelectTicketTrain/SelectTicketTrainOutward'
 
 import { setOutwardReturn, setOpenMoreTicketsOutwardId, setOpenMoreTicketsOutward, selectedOutward, openModalInfoOutward, setOpenModalInfoOutwardId } from './../../../actions/actions'
 

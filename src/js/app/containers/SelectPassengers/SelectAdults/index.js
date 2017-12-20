@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectAdults from './../../../components/Header/Items/App/SelectPassengers/SelectAdults'
+import SelectAdults from './../../../components/App/SelectPassengers/SelectAdults'
 
 import { changeAdultNumber } from './../../../actions/actions'
 

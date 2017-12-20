@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import InfoModal from './../../components/Header/Items/App/InfoModal'
+import InfoModal from './../../components/App/InfoModal'
 
 import { openModalInfoOutward, openModalInfoReturn } from './../../actions/actions'
 

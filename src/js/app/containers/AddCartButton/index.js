@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import AddCartButton from './../../components/Header/Items/App/AddCartButton'
+import AddCartButton from './../../components/App/AddCartButton'
 
 import { addShoppingCart, addedCart, update, setOrders, error, deletedJourney, isAnotherTrip, isDeletedTrip } from './../../actions/actions'
 

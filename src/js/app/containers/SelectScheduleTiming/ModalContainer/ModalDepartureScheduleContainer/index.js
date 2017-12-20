@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ModalDepartureSchedule from './../../../../components/Header/Items/App/SelectScheduleTiming/Modal/ModalDepartureSchedule'
+import ModalDepartureSchedule from './../../../../components/App/SelectScheduleTiming/Modal/ModalDepartureSchedule'
 
 import { onChangeDepartureDateTime, setDateTimePickerVisible } from './../../../../actions/actions'
 

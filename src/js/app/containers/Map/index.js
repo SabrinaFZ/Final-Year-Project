@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import Map from './../../components/Header/Items/App/Map'
+import Map from './../../components/App/Map'
 import { setOrigin, setDestination, openModalMap, getOriginSuccess, getDestinationSuccess } from './../../actions/actions'
 
 const mapStateToProps = (state, ownProps) => {

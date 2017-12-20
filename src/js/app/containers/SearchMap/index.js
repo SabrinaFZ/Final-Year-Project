@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SearchMap from './../../components/Header/Items/App/SearchMap'
+import SearchMap from './../../components/App/SearchMap'
 import {
   getOriginSuccess,
   getOriginError,

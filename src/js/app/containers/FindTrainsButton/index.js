@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import FindTrainsButton from './../../components/Header/Items/App/FindTrainsButton'
+import FindTrainsButton from './../../components/App/FindTrainsButton'
 
 import { isLoadingTrains } from './../../actions/actions'
 

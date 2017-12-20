@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ShoppingCart from './../../components/Header/Items/ShoppingCart'
+import ShoppingCart from './../../components/ShoppingCart'
 
 import { update, openModalInfoOutward, openModalInfoReturn, setOpenModalInfoOutwardId, setOpenModalInfoReturnId, setOpenModalPayment, setOrders, error, deletedJourneyShoppingCart, isPaymentSuccess } from './../../actions/actions'
 

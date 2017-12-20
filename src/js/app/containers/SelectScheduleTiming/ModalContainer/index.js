@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ModalScheduleTiming from './../../../components/Header/Items/App/SelectScheduleTiming/Modal/'
+import ModalScheduleTiming from './../../../components/App/SelectScheduleTiming/Modal/'
 
 import { cancelReturn, showHideModal, openOutwardModal, openReturnModal, setArrivingLeaving } from './../../../actions/actions'
 

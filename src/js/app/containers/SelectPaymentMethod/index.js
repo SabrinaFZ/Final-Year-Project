@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectPaymentMethod from './../../components/Header/Items/App/SelectPaymentMethod'
+import SelectPaymentMethod from './../../components/App/SelectPaymentMethod'
 
 import { setOpenModalPayment, isPayment, isEmailSent, isPaymentSuccess } from './../../actions/actions'
 

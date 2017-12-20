@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import DetailsTickets from './../../components/Header/Items/App/DetailsTickets'
+import DetailsTickets from './../../components/App/DetailsTickets'
 
 import { addShoppingCart, addedCart, openModalInfoOutward, openModalInfoReturn} from './../../actions/actions'
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import SelectPassengers from './../../components/Header/Items/App/SelectPassengers/'
+import SelectPassengers from './../../components/App/SelectPassengers/'
 
 import { showHidePassengers } from './../../actions/actions'
 

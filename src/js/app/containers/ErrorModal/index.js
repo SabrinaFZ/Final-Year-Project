@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ErrorModal from './../../components/Header/Items/App/ErrorModal'
+import ErrorModal from './../../components/App/ErrorModal'
 
 import { error } from './../../actions/actions'
 

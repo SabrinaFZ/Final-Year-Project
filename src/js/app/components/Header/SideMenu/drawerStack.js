@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import { StackNavigator } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 
-import ButtonSideMenu from './../Buttons/ButtonSideMenu'
-import ShoppingCartButton from './../Buttons/ShoppingCartButton'
+//Buttons
+import SideMenu from './../Buttons/SideMenu'
+import ShoppingCart from './../Buttons/ShoppingCart'
 
 import DrawerScreen from './DrawerScreen'
 import ShoppingCartContainer from './../../../containers/ShoppingCart'
-import GoHomeContainer from './../../../containers/GoHome'
+import HomeContainer from './../../../containers/Home'
 
 const routeConfiguration = {
   DrawerScreen: {
@@ -18,8 +19,8 @@ const routeConfiguration = {
         color: 'white',
         alignSelf: 'center'
       },
-      headerLeft: <ButtonSideMenu navigation={navigation}/>,
-      headerRight:  <ShoppingCartButton navigation={navigation}/>,
+      headerLeft: <SideMenu navigation={navigation}/>,
+      headerRight:  <ShoppingCart navigation={navigation}/>,
       headerStyle: {
         paddingLeft: 10,
         paddingRight: 10,
@@ -50,7 +51,7 @@ const routeConfiguration = {
       headerLeft: <Icon name='arrow-left' type='entypo' size={30} color='#fff' underlayColor= '#e9418b'
           onPress={() => navigation.goBack() }
         />,
-      headerRight: <GoHomeContainer navigation={navigation}/>
+      headerRight: <HomeContainer navigation={navigation}/>
     })
   }
 }
