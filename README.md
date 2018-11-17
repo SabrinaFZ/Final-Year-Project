@@ -2,6 +2,8 @@
 
 ![](tfg-gif.gif)
 
+(this is just a skeak peek of the app)
+
 ## About the project
 
 An app to search and sell train tickets
