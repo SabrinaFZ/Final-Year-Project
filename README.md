@@ -1,5 +1,7 @@
 # Final-Year Project 2017/2018
 
+![](tfg-gif.gif)
+
 ## About the project
 
 An app to search and sell train tickets
